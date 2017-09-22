@@ -1,0 +1,34 @@
+<h2>
+  Login Form</h2>
+<form [formGroup]="loginForm" novalidate>
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+      <div *ngIf="email.errors.required">
+        Email is required.
+      </div>
+      <div *ngIf="email.errors.email && !email.errors.required">
+        Enter correct email pattern.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd" formControlName="password" placeholder="Enter password">
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+      <div *ngIf="password.errors.required">
+        Password is required.
+      </div>
+      <div *ngIf="password.errors.minlength">
+        Password should not be less than 8 characters.
+      </div>
+    </div>
+  </div>
+  <div class="checkbox">
+    <label><input type="checkbox" formControlName="remCheckBox"> Remember me</label>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
+</form>
+<p>Form value: {{ loginForm.value | json }}</p>
+<p>Form status: {{ loginForm.status | json }}</p>
