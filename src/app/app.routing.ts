@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -15,8 +16,13 @@ const routes: Routes = [
     component: RegisterComponent
   },
   {
+    path: 'home',
+    component: RegisterComponent
+  },
+  {
     path: '',
-    redirectTo: '/login', pathMatch: 'full'
+    redirectTo: '/home',
+    pathMatch: 'full'
   },
   {
     path: '**',

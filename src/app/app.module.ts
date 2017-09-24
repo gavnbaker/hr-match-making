@@ -9,6 +9,9 @@ import { AppRoutingModule } from './app.routing';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NavBarComponent,
+    HomeComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

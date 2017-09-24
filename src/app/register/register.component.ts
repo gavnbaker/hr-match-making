@@ -8,7 +8,6 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
-
   username: AbstractControl;
   email: AbstractControl;
   passwords: AbstractControl;
