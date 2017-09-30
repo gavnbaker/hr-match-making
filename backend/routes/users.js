@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
+const config = require('../config/database');
 const User = require('../models/user');
 
 // Register
@@ -33,17 +34,68 @@ router.post('/register', (request, response, next) => {
 
 // Authenticate
 router.post('/authenticate', (request, response, next) => {
-    response.send('Authenticate');
+    const username = request.body.username;
+    const password = request.body.password;
+
+    User.getUserByUsername(username, (err, user) => {
+        if(err) {
+            return response.json(
+                {
+                    success: false,
+                    msg: 'Error trying to find username',
+                    error: JSON.stringify(err)
+                }
+            );
+        }
+        if(!user) {
+            return response.json(
+                {
+                    success: false,
+                    msg: 'User not found',
+                    error: JSON.stringify(err)
+                }
+            );
+        }
+
+        User.comparePassword(password, user.password, (err, isMatch) => {
+            if(err) throw err;
+            if(isMatch) {
+                const token = jwt.sign({data: user}, config.secret, {
+                    expiresIn: 604800 // 1 week
+                });
+
+                return response.json(
+                    {
+                        success: true,
+                        token: 'JWT ' + token,
+                        user: {
+                            id: user._id,
+                            name: user.name,
+                            username: user.username,
+                            email: user.email
+                        }
+                    }
+                );
+            } else {
+                return response.json(
+                    {
+                        success: false,
+                        msg: 'Wrong password'                        
+                    }
+                );
+            }
+        });
+
+    })
 });
 
 // Profile
-router.get('/profile', (request, response, next) => {
-    response.send('Profile');
+router.get('/profile', passport.authenticate('jwt', {session:false}), (request, response, next) => {
+    response.json(
+        {
+            user: request.user
+        });
 });
 
-// Validate input on server
-router.get('/validate', (request, response, next) => {
-    response.send('Validate');
-});
 
 module.exports = router;
