@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
+import { TitleService } from '../services/title.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +22,7 @@ export class LoginComponent implements OnInit {
   password: AbstractControl;
   remCheckBox: AbstractControl;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private titleService: TitleService) {
     this.createForm();
 
     this.email = this.loginForm.get('email');
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Login');
   }
 
 }

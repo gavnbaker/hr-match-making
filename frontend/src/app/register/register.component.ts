@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
+import { TitleService } from '../services/title.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,7 +14,7 @@ export class RegisterComponent implements OnInit {
   email: AbstractControl;
   passwords: AbstractControl;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private titleService: TitleService) {
     this.createForm();
 
     this.username = this.registerForm.get('username');
@@ -36,6 +38,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Register');
   }
 
 }
