@@ -25,7 +25,16 @@ export class ProfileComponent implements OnInit {
   private createForm(): void {
     this.profileForm = this.fb.group({
       firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
+      lastName: ['', Validators.required],
+      addrees: this.fb.group(
+        {
+          street: [null, Validators.required],
+          zipcode: [null, Validators.required],
+          city: [null, Validators.required],
+          state: [null, Validators.required],
+          country: [null, Validators.required]
+        }
+      )
     });
   }
 

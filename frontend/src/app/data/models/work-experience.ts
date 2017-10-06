@@ -1,9 +1,10 @@
 export class WorkExperience {
-  constructor(private jobTitle: string,
-    private companyName: string,
-    private startDate: string,
-    private endDate: string,
-    private jobDescription: string) { }
+  constructor(
+    public jobTitle: string,
+    public companyName: string,
+    public startDate: string,
+    public endDate: string,
+    public jobDescription: string) { }
 
   public getJobTitle(): string {
     return this.jobTitle;

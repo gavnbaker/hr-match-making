@@ -1,17 +1,5 @@
 export class Skills {
-  private years: string;
 
-  constructor(private name: string) {}
+  constructor(public name: string, public experience: string) {}
 
-  public getName(): string {
-    return this.name;
-  }
-
-  public setYearsExperience(years: string): void {
-    this.years = years;
-  }
-
-  public getYearsExperience(): string {
-    return this.years;
-  }
 }
