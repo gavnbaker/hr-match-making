@@ -26,15 +26,20 @@ export class ProfileComponent implements OnInit {
     this.profileForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      addrees: this.fb.group(
+      address: this.fb.group(
         {
           street: [null, Validators.required],
+          apt: [null, Validators.required],
           zipcode: [null, Validators.required],
           city: [null, Validators.required],
-          state: [null, Validators.required],
-          country: [null, Validators.required]
+          state: [null, Validators.required]
         }
-      )
+      ),
+      jobTitle: [null, Validators.required],
+      companyName: [null, Validators.required],
+      startDate: [null, Validators.required],
+      endDate: [null, Validators.required],
+      skill: [null, Validators.required]
     });
   }
 
@@ -45,6 +50,10 @@ export class ProfileComponent implements OnInit {
     const newUser: Employee = new Employee(firstName, lastName);
 
     console.log(newUser);
+  }
+
+  public addSkill(skill: string): void {
+    console.log(skill);
   }
 
 }
