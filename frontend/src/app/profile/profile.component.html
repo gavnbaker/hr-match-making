@@ -61,6 +61,12 @@
       <label for="endDate" class="col-form-label">End Date</label>
       <input type="text" class="form-control" id="endDate" placeholder="MM/YYYY" formControlName="endDate">
   </div>
+
+  <div class="form-group col-md-12">
+    <label for="jobDesc">Description</label>
+    <textarea class="form-control" rows="5" id="jobDesc" formControlName="jobDesc"></textarea>
+  </div>
+
   </div>
 
   <h2>Skills</h2>
@@ -68,11 +74,18 @@
     <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill">
     <div class="input-group-btn">
       <button class="btn btn-default" (click)="addSkill(profileForm.get('skill').value);
-          profileForm.get('skill').value=''">
+          profileForm.get('skill').reset(null)" type="button">
         <i class="glyphicon glyphicon-plus"></i>
       </button>
     </div>
   </div>
+
+  <div>
+      <ul class="list-group">
+        <li *ngFor="let skill of skills" class="list-group-item">{{skill}}</li>
+      </ul>
+    </div>
+
   <br>
   <button class="btn btn-primary" type="submit" [disabled]="profileForm.invalid">Save Profile</button>
 

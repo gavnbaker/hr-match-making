@@ -10,6 +10,9 @@ import { Employee } from '../data/models/employee';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  // Storage
+  public skills: string[] = new Array();
+
   public profileForm: FormGroup;
   // public firstName: AbstractControl;
   // public lastName: AbstractControl;
@@ -39,6 +42,7 @@ export class ProfileComponent implements OnInit {
       companyName: [null, Validators.required],
       startDate: [null, Validators.required],
       endDate: [null, Validators.required],
+      jobDesc: [null, Validators.required],
       skill: [null, Validators.required]
     });
   }
@@ -53,7 +57,15 @@ export class ProfileComponent implements OnInit {
   }
 
   public addSkill(skill: string): void {
+    try {
+      skill = skill.trim();
+    } catch (error) {
+      console.error(error.msg);
+      return;
+    }
+
     console.log(skill);
+    this.skills.unshift(skill);
   }
 
 }
