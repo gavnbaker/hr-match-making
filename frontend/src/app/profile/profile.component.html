@@ -38,43 +38,53 @@
   </div>
 
 
-  <h2>Work Experience</h2>
-  <div class="row">
-    <div class="form-group col-md-6">
-      <label for="jobTitle" class="col-form-label">Job Title</label>
-      <input type="text" class="form-control" id="jobTitle" placeholder="Software Developer" formControlName="jobTitle">
+  <div formArrayName="experiences" class="">
+    <h2>Work Experience</h2>
+    <div *ngFor="let experience of experiences.controls; let i=index" [formGroupName]="i">
+        <!-- <h2> #{{i + 1}} </h2> -->
+        <div class="row">
+          <button (click)="removeExperience(i)" class="btn btn-danger">Delete</button>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="jobTitle" class="col-form-label">Job Title</label>
+            <input type="text" class="form-control" id="jobTitle" placeholder="Software Developer" formControlName="jobTitle">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="companyName" class="col-form-label">Company Name</label>
+            <input type="text" class="form-control" id="companyName" placeholder="Facebook" formControlName="companyName">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="startDate" class="col-form-label">Start Date</label>
+            <input type="text" class="form-control" id="startDate" placeholder="MM/YYYY" formControlName="startDate">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="endDate" class="col-form-label">End Date</label>
+            <input type="text" class="form-control" id="endDate" placeholder="MM/YYYY" formControlName="endDate">
+          </div>
+
+          <div class="form-group col-md-12">
+            <label for="jobDescription">Description</label>
+            <textarea class="form-control" rows="5" id="jobDesc" formControlName="jobDescription"></textarea>
+          </div>
+
+        </div>
+    </div>
+    <button (click)="addExperience()" type="button" class="btn btn-default">Add Work Experience</button>
   </div>
 
-  <div class="form-group col-md-6">
-      <label for="companyName" class="col-form-label">Company Name</label>
-      <input type="text" class="form-control" id="companyName" placeholder="Facebook" formControlName="companyName">
-  </div>
-  </div>
-
-  <div class="row">
-    <div class="form-group col-md-6">
-      <label for="startDate" class="col-form-label">Start Date</label>
-      <input type="text" class="form-control" id="startDate" placeholder="MM/YYYY" formControlName="startDate">
-  </div>
-
-  <div class="form-group col-md-6">
-      <label for="endDate" class="col-form-label">End Date</label>
-      <input type="text" class="form-control" id="endDate" placeholder="MM/YYYY" formControlName="endDate">
-  </div>
-
-  <div class="form-group col-md-12">
-    <label for="jobDesc">Description</label>
-    <textarea class="form-control" rows="5" id="jobDesc" formControlName="jobDesc"></textarea>
-  </div>
-
-  </div>
 
   <h2>Skills</h2>
   <div class="input-group">
     <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill">
     <div class="input-group-btn">
       <button class="btn btn-default" (click)="addSkill(profileForm.get('skill').value);
-          profileForm.get('skill').reset(null)" type="button">
+          profileForm.get('skill').reset(null)" type="button" [disabled]="profileForm.get('skill').invalid">
         <i class="glyphicon glyphicon-plus"></i>
       </button>
     </div>

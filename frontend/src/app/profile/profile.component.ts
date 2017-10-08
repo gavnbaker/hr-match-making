@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from '../services/title.service';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
 
 import { Employee } from '../data/models/employee';
+import { Address } from '../data/models/address';
+import { Skills } from '../data/models/skills';
+import { WorkExperience } from '../data/models/work-experience';
+
 
 @Component({
   selector: 'app-profile',
@@ -38,11 +42,7 @@ export class ProfileComponent implements OnInit {
           state: [null, Validators.required]
         }
       ),
-      jobTitle: [null, Validators.required],
-      companyName: [null, Validators.required],
-      startDate: [null, Validators.required],
-      endDate: [null, Validators.required],
-      jobDesc: [null, Validators.required],
+      experiences: this.fb.array([]),
       skill: [null, Validators.required]
     });
   }
@@ -57,15 +57,22 @@ export class ProfileComponent implements OnInit {
   }
 
   public addSkill(skill: string): void {
-    try {
-      skill = skill.trim();
-    } catch (error) {
-      console.error(error.msg);
-      return;
-    }
+    skill = skill.trim();
 
     console.log(skill);
-    this.skills.unshift(skill);
+    this.skills.push(skill);
+  }
+
+  public get experiences(): FormArray {
+    return this.profileForm.get('experiences') as FormArray;
+  }
+
+  public addExperience(): void {
+    this.experiences.push(this.fb.group(new WorkExperience()));
+  }
+
+  public removeExperience(index: number): void {
+    this.experiences.removeAt(index);
   }
 
 }
