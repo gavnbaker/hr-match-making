@@ -31,19 +31,19 @@ export class ProfileComponent implements OnInit {
 
   private createForm(): void {
     this.profileForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      lastName: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
       address: this.fb.group(
         {
-          street: [null, Validators.required],
-          apt: [null, Validators.required],
-          zipcode: [null, Validators.required],
-          city: [null, Validators.required],
+          street: [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
+          apt: [null,  Validators.compose([Validators.maxLength(10)])],
+          zipcode: [null, Validators.compose([Validators.required, Validators.maxLength(10), Validators.pattern(/(^\d{5}$)|(^\d{5}-\d{4}$)/)])],
+          city: [null, Validators.compose([Validators.required, Validators.maxLength(25)])],
           state: [null, Validators.required]
         }
       ),
       experiences: this.fb.array([]),
-      skill: [null, Validators.required]
+      skill: [null]
     });
   }
 
@@ -68,11 +68,23 @@ export class ProfileComponent implements OnInit {
   }
 
   public addExperience(): void {
-    this.experiences.push(this.fb.group(new WorkExperience()));
+    this.experiences.push(this.fb.group({
+      jobTitle: ['', Validators.compose([Validators.required, Validators.maxLength(25)])],
+      companyName: ['', Validators.compose([Validators.required, Validators.maxLength(30)])],
+      startDate: ['', Validators.compose([Validators.required, Validators.maxLength(7), Validators.pattern(/^\d{2}\/\d{4}$/)])],
+      endDate: ['', Validators.compose([Validators.required, Validators.maxLength(7), Validators.pattern(/^\d{2}\/\d{4}$/)])],
+      jobDescription: ['', Validators.compose([Validators.required, Validators.maxLength(255)])]
+    }));
   }
 
   public removeExperience(index: number): void {
     this.experiences.removeAt(index);
   }
+
+  public removeSkill(index: number): void {
+    this.skills.splice(index,1);
+  }
+
+
 
 }

@@ -42,9 +42,9 @@
     <h2>Work Experience</h2>
     <div *ngFor="let experience of experiences.controls; let i=index" [formGroupName]="i">
         <!-- <h2> #{{i + 1}} </h2> -->
-        <div class="row">
-          <button (click)="removeExperience(i)" class="btn btn-danger">Delete</button>
-        </div>
+
+        <button (click)="removeExperience(i)" class="btn btn-danger">Delete</button>
+
         <div class="row">
           <div class="form-group col-md-6">
             <label for="jobTitle" class="col-form-label">Job Title</label>
@@ -91,8 +91,13 @@
   </div>
 
   <div>
-      <ul class="list-group">
-        <li *ngFor="let skill of skills" class="list-group-item">{{skill}}</li>
+      <ul class="list-group skills">
+        <li *ngFor="let skill of skills; let i=index" class="list-group-item">
+          <!-- <span class="badge pull-left"> {{i + 1}} </span> -->
+          <span class="text-center">{{skill}}</span>
+          <button class="btn btn-danger pull-right" type="button" (click)=removeSkill(i);>Delete</button>
+          <!-- <span class="pull-right glyphicon glyphicon-minus"></span> -->
+        </li>
       </ul>
     </div>
 
