@@ -1,12 +1,15 @@
 import { Address } from './address';
-import { Skills } from './skills';
+import { Skill } from './skill';
 import { WorkExperience } from './work-experience';
 
 export class Employee {
+  public firstName: string;
+  public lastName: string;
   public address: Address;
-  public skills: Skills[];
+  public skills: Skill[];
   public experience: WorkExperience[];
-  constructor(public firstName: string, public lastName: string) {}
+
+  constructor() {}
 }
 
 

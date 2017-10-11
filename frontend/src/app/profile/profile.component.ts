@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from '../services/title.service';
-import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Employee } from '../data/models/employee';
 import { Address } from '../data/models/address';
-import { Skills } from '../data/models/skills';
+import { Skill } from '../data/models/skill';
 import { WorkExperience } from '../data/models/work-experience';
 
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,15 +16,17 @@ import { WorkExperience } from '../data/models/work-experience';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  // Storage
-  public skills: string[] = new Array();
 
+  public skills: Skill[] = new Array();
   public profileForm: FormGroup;
-  // public firstName: AbstractControl;
-  // public lastName: AbstractControl;
 
-  constructor(private titleService: TitleService, private fb: FormBuilder) {
-    this.createForm();
+  constructor(
+    private titleService: TitleService,
+    private fb: FormBuilder,
+    private profileService: ProfileService,
+    private router: Router
+  ) {
+      this.createForm();
   }
 
   public ngOnInit() {
@@ -48,23 +52,62 @@ export class ProfileComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    const firstName: string = this.profileForm.get('firstName').value;
-    const lastName: string = this.profileForm.get('lastName').value;
-
-    const newUser: Employee = new Employee(firstName, lastName);
-
-    console.log(newUser);
+    const employeeProfile: Employee = this.createUser();
+    this.profileService.save(employeeProfile);
+    this.router.navigate(['/dashboard']);
   }
 
-  public addSkill(skill: string): void {
-    skill = skill.trim();
+  private createUser(): Employee {
+    const firstName: string = this.firstName.value;
+    const lastName: string = this.lastName.value;
+    const address: Address = this.address.value as Address;
+    const skills: Skill[] = this.skills;
 
-    console.log(skill);
-    this.skills.push(skill);
+    const formModel = this.profileForm.value;
+    const workHistory: WorkExperience[] = formModel.experiences.map(
+      (experience: WorkExperience) => Object.assign({}, experience)
+    );
+
+    const savedUser: Employee = {
+      firstName: firstName,
+      lastName: lastName,
+      address: address,
+      skills: skills,
+      experience: workHistory
+    };
+
+    return savedUser;
+  }
+
+  /* Form Getters */
+  public get firstName(): FormControl {
+    return this.profileForm.get('firstName') as FormControl;
+  }
+
+  public get lastName(): FormControl {
+    return this.profileForm.get('lastName') as FormControl;
+  }
+
+  public get address(): FormGroup {
+    return this.profileForm.get('address') as FormGroup;
   }
 
   public get experiences(): FormArray {
     return this.profileForm.get('experiences') as FormArray;
+  }
+
+  public get skill(): FormControl {
+    return this.profileForm.get('skill') as FormControl;
+  }
+
+  /* Form Methods */
+  public addSkill(skill: string): void {
+    const _skill: Skill = {
+      name: skill
+    };
+
+    console.log(_skill);
+    this.skills.push(_skill);
   }
 
   public addExperience(): void {
@@ -84,7 +127,5 @@ export class ProfileComponent implements OnInit {
   public removeSkill(index: number): void {
     this.skills.splice(index,1);
   }
-
-
 
 }

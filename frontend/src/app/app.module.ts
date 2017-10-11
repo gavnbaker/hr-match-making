@@ -15,6 +15,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { TitleService } from './services/title.service';
+import { ProfileService } from './services/profile.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { TitleService } from './services/title.service';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [TitleService],
+  providers: [TitleService, ProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -83,8 +83,8 @@
   <div class="input-group">
     <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill">
     <div class="input-group-btn">
-      <button class="btn btn-default" (click)="addSkill(profileForm.get('skill').value);
-          profileForm.get('skill').reset(null)" type="button" [disabled]="profileForm.get('skill').invalid">
+      <button class="btn btn-default" (click)="addSkill(skill.value);
+          skill.reset(null)" type="button" [disabled]="skill.invalid">
         <i class="glyphicon glyphicon-plus"></i>
       </button>
     </div>
@@ -94,7 +94,7 @@
       <ul class="list-group skills">
         <li *ngFor="let skill of skills; let i=index" class="list-group-item">
           <!-- <span class="badge pull-left"> {{i + 1}} </span> -->
-          <span class="text-center">{{skill}}</span>
+          <span class="text-center">{{skill.name}}</span>
           <button class="btn btn-danger pull-right" type="button" (click)=removeSkill(i);>Delete</button>
           <!-- <span class="pull-right glyphicon glyphicon-minus"></span> -->
         </li>
