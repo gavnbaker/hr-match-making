@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
         }
       ),
       experiences: this.fb.array([]),
-      skill: [null]
+      skill: ['']
     });
   }
 
@@ -101,13 +101,19 @@ export class ProfileComponent implements OnInit {
   }
 
   /* Form Methods */
-  public addSkill(skill: string): void {
-    const _skill: Skill = {
-      name: skill
-    };
+  public addSkill($event): void {
+    const skill: string = this.skill.value;
 
-    console.log(_skill);
-    this.skills.push(_skill);
+    if (($event.which === 1 || $event.which === 13) && skill.trim() != '') {
+
+      const _skill: Skill = {
+        name: skill
+      };
+
+      console.log(_skill);
+      this.skills.push(_skill);
+      this.skill.reset(null);
+    }
   }
 
   public addExperience(): void {
