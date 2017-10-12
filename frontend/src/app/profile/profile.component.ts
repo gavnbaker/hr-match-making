@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit {
 
       console.log(_skill);
       this.skills.push(_skill);
-      this.skill.reset(null);
+      this.skill.reset('');
     }
   }
 
