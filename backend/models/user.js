@@ -1,9 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import crypto from 'crypto';
+import { config } from '../config/database';
+
+
+/* const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const config = require('../config/database')
+const config = require('../config/database') */
 
 // User Schema
-const UserSchema = mongoose.Schema({
+/* const UserSchema = mongoose.Schema({
     name: {
         type: String
     },
@@ -19,7 +24,52 @@ const UserSchema = mongoose.Schema({
         type: String,
         required: true
     }
+}); */
+
+// User Schema
+const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    hash: String,
+    salt: String
 });
+
+userSchema.methods.setPassword = function(password, callback) {
+    crypto.randomBytes(16, (err, buf) => {
+        if(err) {
+            return callback(err);
+        }
+        this.salt = buf.toString('hex');
+        console.log(`${buf.length} bytes of random data: ${buf.toString('hex')}`);
+    });    
+
+    crypto.pbkdf2(password, this.salt, 1000, 64, 'sha1', (err, derivedKey) => {
+        if(err) {
+            return callback(err);
+        }
+        this.hash = derivedKey.toString('hex');
+        console.log(derivedKey.toString('hex'));
+    });
+}
+
+userSchema.methods.validPassword = function(password, callback) {
+    let pwdhash;
+    crypto.pbkdf2(password, this.salt, 1000, 64, 'sha1', (err, derivedKey) => {
+        if(err) {
+            return callback(err);
+        }
+        pwdhash = derivedKey.toString('hex');
+        console.log(derivedKey.toString('hex'));
+    });
+    return callback(null, this.hash === pwdhash);
+}
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
