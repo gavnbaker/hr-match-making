@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { TitleService } from '../services/title.service';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-register',
@@ -9,36 +10,66 @@ import { TitleService } from '../services/title.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
-  username: AbstractControl;
-  email: AbstractControl;
-  passwords: AbstractControl;
+  public registerForm: FormGroup;
+  public passwordMatch: boolean = true;
 
-  constructor(private fb: FormBuilder, private titleService: TitleService) {
+  public constructor(private fb: FormBuilder,
+    private titleService: TitleService, private profileService: ProfileService) {
     this.createForm();
-
-    this.username = this.registerForm.get('username');
-    this.email = this.registerForm.get('email');
-    this.passwords = this.registerForm.get('passwords');
   }
 
-  createForm(): void {
+  public ngOnInit() {
+    this.titleService.setTitle('Register');
+  }
+
+  public createForm(): void {
     this.registerForm = this.fb.group(
       {
-        username: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+        username: ['', Validators.required],
         email: ['', Validators.compose([Validators.required, Validators.email])],
         passwords: this.fb.group(
           {
-            password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-            repeatpwd: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+            password: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
+            repeatpwd: ['', Validators.compose([Validators.required, Validators.minLength(1)])]
           }
         )
       }
     );
   }
 
-  ngOnInit() {
-    this.titleService.setTitle('Register');
+  public onSubmit(): void {
+    const password = this.passwords.get('password').value;
+    const repeatpwd = this.passwords.get('repeatpwd').value;
+
+    if(password !== repeatpwd) {
+      this.passwordMatch = false;
+      return;
+    }
+
+    this.passwordMatch = true;
+    const username = this.registerForm.get('username').value;
+    const email =  this.registerForm.get('email').value;
+
+    const registerObj = {
+      username,
+      email,
+      password
+    };
+
+    console.log(registerObj);
+    this.profileService.register(registerObj);
+  }
+
+  public get username(): FormControl {
+    return this.registerForm.get('username')  as FormControl;
+  }
+
+  public get email(): FormControl {
+    return this.registerForm.get('email') as FormControl;
+  }
+
+  public get passwords(): FormGroup {
+    return this.registerForm.get('passwords') as FormGroup;
   }
 
 }

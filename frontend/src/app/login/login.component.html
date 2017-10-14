@@ -1,6 +1,6 @@
 <h2>
   Login Form</h2>
-<form [formGroup]="loginForm" novalidate>
+<form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
   <div class="form-group">
     <label for="email">Email:</label>
     <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
@@ -29,6 +29,7 @@
     <label><input type="checkbox" formControlName="remCheckBox"> Remember me</label>
   </div>
   <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
+  <div *ngIf="!success" class="alert alert-danger">{{error}}</div>
 </form>
 <p>Form value: {{ loginForm.value | json }}</p>
 <p>Form status: {{ loginForm.status | json }}</p>

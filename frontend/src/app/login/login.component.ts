@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 import { TitleService } from '../services/title.service';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-login',
@@ -9,25 +10,14 @@ import { TitleService } from '../services/title.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  /* loginForm: FormGroup = new FormGroup (
-    {
-      email: new FormControl(),
-      password: new FormControl(),
-      remCheckBox: new FormControl()
-    }
-  ); */
+  public loginForm: FormGroup;
+  public success: boolean = true;
+  public error: string = '';
 
-  loginForm: FormGroup;
-  email: AbstractControl;
-  password: AbstractControl;
-  remCheckBox: AbstractControl;
 
-  constructor(private fb: FormBuilder, private titleService: TitleService) {
+  constructor(private fb: FormBuilder, private titleService: TitleService,
+    private ProfileService: ProfileService) {
     this.createForm();
-
-    this.email = this.loginForm.get('email');
-    this.password = this.loginForm.get('password');
-    this.remCheckBox = this.loginForm.get('remCheckBox');
   }
 
   createForm(): void {
@@ -40,8 +30,37 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  public login() {
+    const email: string = this.email.value;
+    const password: string = this.password.value;
+
+    const loginObj = {
+      email,
+      password
+    };
+    const value = this.ProfileService.login(loginObj);
+    this.success = value.success;
+    console.log(value);
+
+    if(!this.success) {
+      this.error = value.message;
+      return;
+    }
+
+    // True so redirect to dashboard
+    console.log(value);
+  }
+
   ngOnInit(): void {
     this.titleService.setTitle('Login');
+  }
+
+  public get email(): FormControl {
+    return this.loginForm.get('email') as FormControl;
+  }
+
+  public get password(): FormControl {
+    return this.loginForm.get('password') as FormControl;
   }
 
 }

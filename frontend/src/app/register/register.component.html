@@ -1,5 +1,5 @@
 <h2>Register Form</h2>
-<form [formGroup]="registerForm" novalidate>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="form-group">
     <label for="username">Username:</label>
     <input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter username">
@@ -24,10 +24,11 @@
     <div class="form-group">
       <label for="repeatpwd">Repeat Password:</label>
       <input type="password" class="form-control" id="pwd" formControlName="repeatpwd" placeholder="Repeat password">
+      <div class="alert alert-danger" *ngIf="!passwordMatch">Passwords do not match.</div>
     </div>
   </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Submit</button>
+  <button type="submit" class="btn btn-success" [disabled]="registerForm.invalid">Register</button>
 </form>
 <p>Form value: {{ registerForm.value | json }}</p>
 <p>Form status: {{ registerForm.status | json }}</p>
