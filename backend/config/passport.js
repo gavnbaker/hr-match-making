@@ -1,10 +1,38 @@
-const JwtStrategy = require('passport-jwt').Strategy;
+import passport from 'passport';
+import LocalStrategy from ('passport-local').Strategy;
+import mongoose from 'mongoose';
+import { User } from '../models/user';
+
+passport.use(new LocalStrategy({
+    usernameField: 'email'
+},
+function(username, password, done) {
+    User.findOne({email: username}, (err, user) => {
+        if(err) {           
+            return done(err);
+        }
+        if(!user) {
+            // Return if user not found in database            
+            return done(null, false, {message: 'User not found'});
+        }
+        // Return if password is wrong
+        if(!user.validPassword(password)) {
+            return done(null, false, {message: 'Password is wrong'});
+        }
+        // If credentials are correct, return the user object
+        return done(null, user);
+    });
+}));
+
+
+
+/* const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const User = require('../models/user');
-const config = require('../config/database');
+const config = require('../config/database'); */
 
-module.exports = function(passport) {
+/* module.exports = function(passport) {
     let opts = {};
     opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
     opts.secretOrKey = config.secret;
@@ -22,4 +50,4 @@ module.exports = function(passport) {
             }
         });
     }));
-}
+} */

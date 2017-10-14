@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import crypto from 'crypto';
-import { config } from '../config/database';
-
+import config from '../config/database';
+import jwt from 'jsonwebtoken';
 
 /* const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -57,7 +57,7 @@ userSchema.methods.setPassword = function(password, callback) {
         this.hash = derivedKey.toString('hex');
         console.log(derivedKey.toString('hex'));
     });
-}
+};
 
 userSchema.methods.validPassword = function(password, callback) {
     let pwdhash;
@@ -69,9 +69,28 @@ userSchema.methods.validPassword = function(password, callback) {
         console.log(derivedKey.toString('hex'));
     });
     return callback(null, this.hash === pwdhash);
+};
+
+userSchema.methods.generateJwt = function() {
+    const expiry = new Date();
+    expiry.setDate(expiry.getDate() + 7);
+
+    return jwt.sign({
+        _id: this._id,
+        email: this.email,
+        name: this.name,
+        exp: parseInt(expiry.getTime() / 1000)
+    }, config.secret);
+};
+
+userSchema.methods.getUserByUsername = function(username, callback) {
+    const query = { username: username };
+    User.findOne(query, callback);
 }
 
-const User = module.exports = mongoose.model('User', UserSchema);
+export const User = mongoose.model('User', userSchema);
+
+/* const User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.getUserById = function(id, callback) {
     User.findById(id, callback);
@@ -98,4 +117,4 @@ module.exports.comparePassword = function(candidatePassword, hash, callback) {
         if(err) throw err;
         callback(null, isMatch);
     });
-}
+} */
