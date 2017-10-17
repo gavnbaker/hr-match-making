@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { TitleService } from '../services/title.service';
 import { ProfileService } from '../services/profile.service';
@@ -12,9 +13,13 @@ import { ProfileService } from '../services/profile.service';
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public passwordMatch: boolean = true;
+  public userExists: boolean = false;
+  public userExistsError: string = '';
 
   public constructor(private fb: FormBuilder,
-    private titleService: TitleService, private profileService: ProfileService) {
+    private titleService: TitleService,
+    private profileService: ProfileService,
+    private router: Router) {
     this.createForm();
   }
 
@@ -57,7 +62,13 @@ export class RegisterComponent implements OnInit {
     };
 
     console.log(registerObj);
-    this.profileService.register(registerObj);
+    const status = this.profileService.register(registerObj);
+    if(!status.success) {
+      this.userExists = true;
+      this.userExistsError = status.message;
+    } else {
+      this.router.navigate(['/profile']);
+    }
   }
 
   public get username(): FormControl {

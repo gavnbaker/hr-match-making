@@ -25,6 +25,7 @@
       <label for="repeatpwd">Repeat Password:</label>
       <input type="password" class="form-control" id="pwd" formControlName="repeatpwd" placeholder="Repeat password">
       <div class="alert alert-danger" *ngIf="!passwordMatch">Passwords do not match.</div>
+      <div class="alert alert-danger" *ngIf="userExists">{{userExistsError}}</div>
     </div>
   </div>
 

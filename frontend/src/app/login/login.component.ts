@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { TitleService } from '../services/title.service';
 import { ProfileService } from '../services/profile.service';
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private titleService: TitleService,
-    private ProfileService: ProfileService) {
+    private ProfileService: ProfileService, private router: Router) {
     this.createForm();
   }
 
@@ -38,6 +39,8 @@ export class LoginComponent implements OnInit {
       email,
       password
     };
+    console.log('Login Obj', loginObj);
+
     const value = this.ProfileService.login(loginObj);
     this.success = value.success;
     console.log(value);
@@ -49,6 +52,7 @@ export class LoginComponent implements OnInit {
 
     // True so redirect to dashboard
     console.log(value);
+    this.router.navigate(['/dashboard']);
   }
 
   ngOnInit(): void {
