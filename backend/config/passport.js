@@ -1,7 +1,7 @@
-import passport from 'passport';
-import LocalStrategy from ('passport-local').Strategy;
-import mongoose from 'mongoose';
-import { User } from '../models/user';
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const mongoose = require('mongoose');
+const User = require('../models/user');
 
 passport.use(new LocalStrategy({
     usernameField: 'email'
@@ -16,7 +16,7 @@ function(username, password, done) {
             return done(null, false, {message: 'User not found'});
         }
         // Return if password is wrong
-        if(!user.validPassword(password)) {
+        if(!user.validatePassword(password)) {
             return done(null, false, {message: 'Password is wrong'});
         }
         // If credentials are correct, return the user object

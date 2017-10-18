@@ -1,30 +1,7 @@
-import mongoose from 'mongoose';
-import crypto from 'crypto';
-import config from '../config/database';
-import jwt from 'jsonwebtoken';
-
-/* const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const config = require('../config/database') */
-
-// User Schema
-/* const UserSchema = mongoose.Schema({
-    name: {
-        type: String
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    username: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    }
-}); */
+const mongoose = require('mongoose');
+const crypto = require('crypto');
+const config = require('../config/database');
+const jwt = require('jsonwebtoken');
 
 // User Schema
 const userSchema = new mongoose.Schema({
@@ -59,7 +36,7 @@ userSchema.methods.setPassword = function(password, callback) {
     });
 };
 
-userSchema.methods.validPassword = function(password, callback) {
+userSchema.methods.validatePassword = function(password, callback) {
     let pwdhash;
     crypto.pbkdf2(password, this.salt, 1000, 64, 'sha1', (err, derivedKey) => {
         if(err) {
@@ -88,7 +65,32 @@ userSchema.methods.getUserByUsername = function(username, callback) {
     User.findOne(query, callback);
 }
 
-export const User = mongoose.model('User', userSchema);
+const User = module.exports = mongoose.model('User', userSchema);
+
+/* const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const config = require('../config/database') */
+
+// User Schema
+/* const UserSchema = mongoose.Schema({
+    name: {
+        type: String
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+}); */
+
+
 
 /* const User = module.exports = mongoose.model('User', UserSchema);
 

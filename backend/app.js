@@ -4,8 +4,8 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 const cors = require('cors');
-const passport = require("passport");
 const mongoose = require('mongoose');
 const config = require('./config/database');
 
@@ -13,14 +13,12 @@ const config = require('./config/database');
 mongoose.connect(config.database);
 
 // On connection
-mongoose.connection.on('connected', () => {
+mongoose.connection(config.database, {useMongoClient: true}, () => {
     console.log('Connected to database '+ config.database);
 });
 
 // On error
-mongoose.connection.on('error', (error) => {
-    console.log('Database error: ' + error);
-});
+mongoose.connection.o('error', console.error.bind(console, 'MongoDB connection error:'));
 
 const app = express();
 
@@ -32,24 +30,45 @@ const port = 3000;
 // CORS Middleware
 app.use(cors());
 
-// Set Static folder
-app.use(express.static(path.join(__dirname, '../public')));
+// Logging Middleware
+app.use(logger('dev'));
 
 // Body Parser Middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+// Set Static folder
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./config/passport') (passport);
+// require('./config/passport') (passport);
 
-// What does this function do
+// handles all of the user routes/controllers
 app.use('/users', users);
 
 // Index Router
 app.get('/', (request, response) => {
     response.send('Invalid endpoint');
+});
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// Error handler
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.err = req.app.get('env') === 'development' ? err : {};
+
+    // pass the error message to the client    
+    res.status(err.status || 500).json({err: err});
 });
 
 // Start Server

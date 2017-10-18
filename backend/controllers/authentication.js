@@ -1,6 +1,6 @@
-import passport from 'passport';
-import mongoose from 'mongoose';
-import { User } from '../models/user';
+const passport = require('passport');
+const mongoose = require('mongoose');
+const User = require('../models/user');
 
 export function register(req, res) {
     const user = new User();

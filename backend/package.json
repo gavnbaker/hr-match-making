@@ -10,14 +10,17 @@
   "dependencies": {
     "bcryptjs": "*",
     "body-parser": "*",
+    "cookie-parser": "^1.4.3",
     "cors": "*",
     "eslint": "^4.7.2",
     "express": "*",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "*",
+    "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-jwt": "*",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "serve-favicon": "^2.4.5"
   },
   "author": "Gavin Baker",
   "license": "ISC"
