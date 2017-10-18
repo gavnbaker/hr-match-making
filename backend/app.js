@@ -10,15 +10,16 @@ const mongoose = require('mongoose');
 const config = require('./config/database');
 
 // Connect to Database
-mongoose.connect(config.database);
-
-// On connection
-mongoose.connection(config.database, {useMongoClient: true}, () => {
-    console.log('Connected to database '+ config.database);
-});
+mongoose.connect(config.database, {useMongoClient: true});
+const db = mongoose.connection;
 
 // On error
-mongoose.connection.o('error', console.error.bind(console, 'MongoDB connection error:'));
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// On connection
+db.once('open', () => {
+    console.log('Connected to database '+ config.database);
+});
 
 const app = express();
 
