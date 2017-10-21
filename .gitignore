@@ -4,6 +4,7 @@
 */dist
 */tmp
 */out-tsc
+*/database.js
 
 # dependencies
 */node_modules
@@ -42,5 +43,6 @@
 *.DS_Store
 *Thumbs.db
 backend/config/passport.js
+backend/config/database.js
 backend/config/database.js
 backend/config/database.js

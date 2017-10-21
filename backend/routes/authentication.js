@@ -2,7 +2,10 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const User = require('../models/user');
 
-export function register(req, res) {
+const router = express.Router();
+const express = require('express');
+
+router.post('/register', (req, res, next) => {
     const user = new User();
 
     user.name = req.body.name;
@@ -17,9 +20,9 @@ export function register(req, res) {
         res.status(200);
         res.json({token: token});
     });
-}
+});
 
-export function login(req, response) {
+router.post('/login', (req, response) => {
     passport.authenticate('local', (err, user, info) => {
         let token;
 
@@ -38,5 +41,5 @@ export function login(req, response) {
             // If user is not found
             res.status(401).json(info);
         }
-    })(req, res);
-}
+    });
+});

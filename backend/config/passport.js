@@ -1,53 +1,33 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const mongoose = require('mongoose');
-const User = require('../models/user');
+const passportJwt = require('passport-jwt');
 
-passport.use(new LocalStrategy({
-    usernameField: 'email'
-},
-function(username, password, done) {
-    User.findOne({email: username}, (err, user) => {
-        if(err) {           
-            return done(err);
-        }
-        if(!user) {
-            // Return if user not found in database            
-            return done(null, false, {message: 'User not found'});
-        }
-        // Return if password is wrong
-        if(!user.validatePassword(password)) {
-            return done(null, false, {message: 'Password is wrong'});
-        }
-        // If credentials are correct, return the user object
-        return done(null, user);
-    });
-}));
-
-
-
-/* const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
+const JwtStrategy = passportJwt.Strategy;
+const ExtractJwt = passportJwt.ExtractJwt;
 
 const User = require('../models/user');
-const config = require('../config/database'); */
+const config = require('../config/database');
 
-/* module.exports = function(passport) {
-    let opts = {};
-    opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-    opts.secretOrKey = config.secret;
-    passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
-        console.log(jwt_payload);
-        User.getUserById({id: jwt_payload.sub}, (err, user) => {
+module.exports = function(passport) {
+    let jwtOptions = {};
+    jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
+    jwtOptions.secretOrKey = config.secret;    
+
+    passport.use(new JwtStrategy(jwtOptions, function(jwt_payload, next) {        
+        console.log('payload received: ',jwt_payload);        
+        User.getUserByUsername(jwt_payload.username, function(err, user) {
             if(err) {
-                return done(err, false);
+                console.error(err);
+                return next(err, false);
             }
 
             if(user) {
-                return done(null, user);
+                // Return if user not found in database  
+                console.log('User found');          
+                return next(null, user);
             } else {
-                return done(null, false);
-            }
+                // If credentials are correct, return the user object
+                console.log('No User found');          
+                return next(null, false, {message: 'Invalid User'});
+            }           
         });
     }));
-} */
+}

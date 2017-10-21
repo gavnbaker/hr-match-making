@@ -24,6 +24,8 @@ db.once('open', () => {
 const app = express();
 
 const users = require('./routes/users');
+const register = require('./routes/register');
+const login = require('./routes/login');
 
 // Port Number
 const port = 3000;
@@ -45,10 +47,12 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// require('./config/passport') (passport);
+require('./config/passport') (passport);
 
 // handles all of the user routes/controllers
 app.use('/users', users);
+app.use('/register', register);
+app.use('/login', login);
 
 // Index Router
 app.get('/', (request, response) => {
