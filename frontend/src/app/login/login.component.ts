@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl } from
 import { Router } from '@angular/router';
 
 import { TitleService } from '../services/title.service';
-import { ProfileService } from '../services/profile.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,50 +17,49 @@ export class LoginComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder, private titleService: TitleService,
-    private ProfileService: ProfileService, private router: Router) {
+    private authService: AuthService, private router: Router) {
     this.createForm();
   }
 
   createForm(): void {
     this.loginForm = this.fb.group(
       {
-        email: ['', Validators.compose([Validators.required, Validators.email])],
-        password: ['', Validators.compose([Validators.required, Validators.minLength(8)])],
-        remCheckBox: ''
+        username: ['', Validators.compose([Validators.required])],
+        password: ['', Validators.compose([Validators.required])],
       }
     );
   }
 
   public login() {
-    const email: string = this.email.value;
+    const username: string = this.username.value;
     const password: string = this.password.value;
 
     const loginObj = {
-      email,
+      username,
       password
     };
-    console.log('Login Obj', loginObj);
 
-    const value = this.ProfileService.login(loginObj);
-    this.success = value.success;
-    console.log(value);
+    this.authService.login(loginObj)
+      .then(data => {
+        this.success = data.success;
+        console.log(data);
 
-    if(!this.success) {
-      this.error = value.message;
-      return;
-    }
+        if(!this.success) {
+          this.error = data.msg;
+          return;
+        }
 
-    // True so redirect to dashboard
-    console.log(value);
-    this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard']);
+      });
+
   }
 
   ngOnInit(): void {
     this.titleService.setTitle('Login');
   }
 
-  public get email(): FormControl {
-    return this.loginForm.get('email') as FormControl;
+  public get username(): FormControl {
+    return this.loginForm.get('username') as FormControl;
   }
 
   public get password(): FormControl {

@@ -1,50 +1,34 @@
 import { Injectable } from '@angular/core';
+import { Headers, Http } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
+
 import { Employee } from '../data/models/employee';
+import { BackendUrlService } from './backend-url.service';
 
 @Injectable()
 export class ProfileService {
+  private headers = new Headers({'Content-Type': 'application/json'});
+  private loginUrl: string = '/login';
+  private registerUrl: string = '/register';
 
-  constructor() { }
+  constructor(private backendUrl: BackendUrlService, private http: Http) { }
 
-  public save(user: Employee): void {
+  public save(user: any): any {
     console.log(user);
-    // get user from localstorage
-    // update object with new info
   }
 
-  public register(registerObj): any {
-    // Store info in local storage
-    // Create an array of objects, that houses who has registered for our site
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
 
-    // 1st check if our regiestered object exists
-    let data = localStorage.getItem('registered-users');
-    let registeredUsers;
-    if(!data) {
-      // Does not exist
-      let registeredArr = [];
-      registeredArr.push(registerObj);
-
-      registeredUsers = {
-        users: registeredArr
-      };
-    } else {
-      registeredUsers = JSON.parse(data);
-      // Check to see if user was alreday registered
-      const user = registeredUsers.users.filter(user => user.email === registerObj.email);
-      if(user.length === 0){
-        registeredUsers.users.push(registerObj);
-      } else {
-        return {
-          success: false,
-          message: 'Registration failed: User already exists.'
-        };
-      }
-    }
-    localStorage.setItem('registered-users', JSON.stringify(registeredUsers));
-    return {
-      success: true,
-      message: 'Registration successfull'
-    };
+  public register(user: any): Promise<any> {
+    const url = this.backendUrl.url + this.registerUrl;
+    return this.http
+      .post(url, JSON.stringify(user), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json())
+      .catch(this.handleError);
   }
 
   public login(loginObj) {

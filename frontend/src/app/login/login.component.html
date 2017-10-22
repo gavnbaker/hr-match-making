@@ -2,21 +2,18 @@
   Login Form</h2>
 <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
   <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
-    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-      <div *ngIf="email.errors.required">
-        Email is required.
-      </div>
-      <div *ngIf="email.errors.email && !email.errors.required">
-        Enter correct email pattern.
-      </div>
+    <label for="username">Username:</label>
+    <input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter username">
+    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger fade in">
+        <div *ngIf="username.errors.required">
+            Username is required.
+          </div>
     </div>
   </div>
   <div class="form-group">
     <label for="pwd">Password:</label>
     <input type="password" class="form-control" id="pwd" formControlName="password" placeholder="Enter password">
-    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger fade in">
       <div *ngIf="password.errors.required">
         Password is required.
       </div>
@@ -24,9 +21,6 @@
         Password should not be less than 8 characters.
       </div>
     </div>
-  </div>
-  <div class="checkbox">
-    <label><input type="checkbox" formControlName="remCheckBox"> Remember me</label>
   </div>
   <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
   <div *ngIf="!success" class="alert alert-danger">{{error}}</div>

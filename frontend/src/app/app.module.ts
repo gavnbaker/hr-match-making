@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -16,6 +17,8 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { TitleService } from './services/title.service';
 import { ProfileService } from './services/profile.service';
+import { BackendUrlService } from './services/backend-url.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -31,9 +34,10 @@ import { ProfileService } from './services/profile.service';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule
   ],
-  providers: [TitleService, ProfileService],
+  providers: [TitleService, ProfileService, BackendUrlService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

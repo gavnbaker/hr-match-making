@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from
 import { Router } from '@angular/router';
 
 import { TitleService } from '../services/title.service';
-import { ProfileService } from '../services/profile.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
 
   public constructor(private fb: FormBuilder,
     private titleService: TitleService,
-    private profileService: ProfileService,
+    private authService: AuthService,
     private router: Router) {
     this.createForm();
   }
@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
   public createForm(): void {
     this.registerForm = this.fb.group(
       {
+        name: ['', Validators.required],
         username: ['', Validators.required],
         email: ['', Validators.compose([Validators.required, Validators.email])],
         passwords: this.fb.group(
@@ -52,23 +53,32 @@ export class RegisterComponent implements OnInit {
     }
 
     this.passwordMatch = true;
-    const username = this.registerForm.get('username').value;
-    const email =  this.registerForm.get('email').value;
+    const name = this.name.value;
+    const username = this.username.value;
+    const email =  this.email.value;
 
-    const registerObj = {
+    const user = {
+      name,
       username,
       email,
       password
     };
+    console.log(user);
 
-    console.log(registerObj);
-    const status = this.profileService.register(registerObj);
-    if(!status.success) {
-      this.userExists = true;
-      this.userExistsError = status.message;
-    } else {
-      this.router.navigate(['/profile']);
-    }
+    this.authService.register(user)
+        .then((data) => {
+          console.log(data);
+          if(data.success) {
+            this.router.navigate(['/login']);
+          } else {
+            this.userExists = true;
+            this.userExistsError = data.msg;
+          }
+        });
+  }
+
+  public get name(): FormControl {
+    return this.registerForm.get('name') as FormControl;
   }
 
   public get username(): FormControl {

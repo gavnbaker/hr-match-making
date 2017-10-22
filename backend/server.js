@@ -55,8 +55,8 @@ app.use('/register', register);
 app.use('/login', login);
 
 // Index Router
-app.get('/', (request, response) => {
-    response.send('Invalid endpoint');
+app.get('/', (req, res) => {
+    res.send('Invalid endpoint');
 });
 
 // catch 404 and forward to error handler
