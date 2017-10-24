@@ -50,9 +50,9 @@ app.use(passport.session());
 require('./config/passport') (passport);
 
 // handles all of the user routes/controllers
-app.use('/users', users);
-app.use('/register', register);
-app.use('/login', login);
+app.use('/api/users', users);
+app.use('/api/register', register);
+app.use('/api/login', login);
 
 // Index Router
 app.get('/', (req, res) => {

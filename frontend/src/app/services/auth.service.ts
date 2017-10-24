@@ -8,8 +8,8 @@ import { BackendUrlService } from './backend-url.service';
 export class AuthService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private loginUrl: string = '/login';
-  private registerUrl: string = '/register';
+  private loginUrl: string = '/api/login';
+  private registerUrl: string = '/api/register';
 
   constructor(private backendUrl: BackendUrlService, private http: Http) { }
 
@@ -19,7 +19,7 @@ export class AuthService {
   }
 
   public register(user: any): Promise<any> {
-    const url = this.backendUrl.url + this.registerUrl;
+    const url = this.backendUrl.url +  this.registerUrl;
     return this.http
       .post(url, user, {headers: this.headers})
       .toPromise()
@@ -51,5 +51,34 @@ export class AuthService {
 
   public logout(): any {
     localStorage.removeItem('hr-token');
+  }
+
+  public isLoggedIn(): boolean {
+    const token = this.getToken();
+    let payload;
+
+    if(token) {
+      payload = token.split('.')[1];
+      payload = atob(payload);
+      payload = JSON.parse(payload);
+
+      return payload.exp > (Date.now() / 1000);
+    } else {
+      return false;
+    }
+  }
+
+  public loggedInUser(): any {
+    if(this.isLoggedIn()) {
+      const token = this.getToken();
+
+      let payload = token.split('.')[1];
+      payload = atob(payload);
+      payload = JSON.parse(payload);
+
+      return {
+        username: payload.username
+      };
+    }
   }
 }
