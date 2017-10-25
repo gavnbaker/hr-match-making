@@ -120,8 +120,8 @@ export class ProfileComponent implements OnInit {
     this.experiences.push(this.fb.group({
       jobTitle: ['', Validators.compose([Validators.required, Validators.maxLength(25)])],
       companyName: ['', Validators.compose([Validators.required, Validators.maxLength(30)])],
-      startDate: ['', Validators.compose([Validators.required, Validators.maxLength(7), Validators.pattern(/^\d{2}\/\d{4}$/)])],
-      endDate: ['', Validators.compose([Validators.required, Validators.maxLength(7), Validators.pattern(/^\d{2}\/\d{4}$/)])],
+      startDate: ['', Validators.compose([Validators.required])],
+      endDate: ['', Validators.compose([Validators.required])],
       jobDescription: ['', Validators.compose([Validators.required, Validators.maxLength(255)])]
     }));
   }

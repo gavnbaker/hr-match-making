@@ -70,16 +70,16 @@
         <div class="row">
           <div class="form-group col-md-6" [ngClass]="{'has-error': experiences.at(i).get('startDate').invalid && experiences.at(i).get('startDate').touched }">
             <label for="startDate" class="col-form-label">Start Date</label>
-            <input type="text" class="form-control" id="startDate" placeholder="MM/YYYY" formControlName="startDate">
+            <input type="date" class="form-control" id="startDate" placeholder="MM/YYYY" formControlName="startDate">
           </div>
 
           <div class="form-group col-md-6" [ngClass]="{'has-error': experiences.at(i).get('endDate').invalid && experiences.at(i).get('endDate').touched }">
             <label for="endDate" class="col-form-label">End Date</label>
-            <input type="text" class="form-control" id="endDate" placeholder="MM/YYYY" formControlName="endDate">
+            <input type="date" class="form-control" id="endDate" placeholder="MM/YYYY" formControlName="endDate">
           </div>
 
           <div class="form-group col-md-12" [ngClass]="{'has-error': experiences.at(i).get('jobDescription').invalid && experiences.at(i).get('jobDescription').touched }">
-            <label for="jobDescription">Description</label>
+            <label for="jobDescription" class="col-form-label">Description</label>
             <textarea class="form-control" rows="5" id="jobDesc" formControlName="jobDescription"></textarea>
           </div>
 
@@ -88,26 +88,70 @@
     <button (click)="addExperience()" type="button" class="btn btn-default">Add Work Experience</button>
   </div>
 
-
-  <h2>Skills</h2>
-  <div class="input-group">
-    <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill" (keyup)="addSkill($event)">
-    <div class="input-group-btn">
-      <button class="btn btn-default" (click)="addSkill($event)" type="button">
-        <i class="glyphicon glyphicon-plus"></i>
-      </button>
+<div class="container">
+  <div class="row">
+    <h2>Education</h2>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-4">
+      <label for="schoolName" class="col-form-label">School Name</label>
+      <input type="text" name="schoolName" id="schoolName" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="schoolLoc" class="col-form-label">Location</label>
+      <input type="text" name="schoolLoc" id="schoolLoc" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="degreeType" class="col-form-label">Degree Type</label>
+      <input type="text" name="degreeType" id="degreeType" class="form-control">
     </div>
   </div>
 
-  <div>
-      <ul class="list-group skills">
-        <li *ngFor="let skill of skills; let i=index" class="list-group-item">
-          <!-- <span class="badge pull-left"> {{i + 1}} </span> -->
-          <span class="text-center">{{skill.name}}</span>
-          <button class="btn btn-danger pull-right" type="button" (click)=removeSkill(i);>Delete</button>
-          <!-- <span class="pull-right glyphicon glyphicon-minus"></span> -->
-        </li>
-      </ul>
+  <div class="row">
+    <div class="form-group col-md-4">
+      <label for="degreeName" class="col-form-label">Degree Name</label>
+      <input type="text" name="degreeName" id="degreeName" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="startDate" class="col-form-label">Start Date</label>
+      <input type="date" name="startDate" id="startDate" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="endDate" class="col-form-label">End Date</label>
+      <input type="date" name="endDate" id="endDate" class="form-control">
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <h2>Skills</h2>
+    </div>
+    <div class="row">
+      <div class="input-group col-md-6">
+        <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill" (keyup)="addSkill($event)">
+        <div class="input-group-btn">
+          <button class="btn btn-default" (click)="addSkill($event)" type="button">
+            <i class="glyphicon glyphicon-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+        <ul class="list-group skills col-md-6">
+            <li *ngFor="let skill of skills; let i=index" class="list-group-item">
+              <span class="badge pull-left"> {{i + 1}} </span>
+              <span class="col-md-offset-6">{{skill.name}}</span>
+              <span class="glyphicon glyphicon-trash pull-right" (click)=removeSkill(i);></span>
+              <!-- <span class="pull-right glyphicon glyphicon-minus"></span> -->
+            </li>
+          </ul>
+    </div>
+
     </div>
 
   <br>
