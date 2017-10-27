@@ -1,3 +1,46 @@
-<p>
-  dashboard works!
-</p>
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-3 well">
+      <div class="panel panel-primary">
+        <div class="panel-body">
+          <p>
+            <a routerLink="/profile">My Profile</a>
+          </p>
+          <img src="http://via.placeholder.com/65x65" class="img-circle" height="65" width="65" alt="Avatar">
+        </div>
+      </div>
+      <!-- <div class="panel panel-primary">
+        <div class="panel-body">
+          <p>New Job Postings
+            <span class="badge">10</span>
+          </p>
+        </div>
+      </div> -->
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-action text-left">
+          Recommended Jobs
+          <span class="badge badge-primary badge-pill">14</span>
+        </li>
+        <li class="list-group-item list-group-item-action text-left">
+          Bookmarked Jobs
+          <span class="badge badge-primary badge-pill">5</span>
+        </li>
+        <li class="list-group-item list-group-item-action text-left">
+          Job Applications
+          <span class="badge badge-primary badge-pill">3</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <router-outlet></router-outlet>
+                  </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
