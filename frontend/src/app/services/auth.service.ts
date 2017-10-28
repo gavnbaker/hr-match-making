@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
+import { RegisterUser } from '../models/register-user';
+import { LoginUser } from '../models/login-user';
 import { BackendUrlService } from './backend-url.service';
 
 @Injectable()
@@ -18,16 +20,20 @@ export class AuthService {
     return Promise.reject(error.message || error);
   }
 
-  public register(user: any): Promise<any> {
+  public register(user: RegisterUser): Promise<any> {
     const url = this.backendUrl.url +  this.registerUrl;
     return this.http
       .post(url, user, {headers: this.headers})
       .toPromise()
-      .then(res => res.json())
+      .then(res => {
+        const token = res.json().token;
+        this.saveToken(token);
+        return res.json();
+      })
       .catch(this.handleError);
   }
 
-  public login(user: any): Promise<any> {
+  public login(user: LoginUser): Promise<any> {
     const url = this.backendUrl.url + this.loginUrl;
     return this.http
     .post(url, user, {headers: this.headers})

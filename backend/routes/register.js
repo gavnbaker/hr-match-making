@@ -14,11 +14,13 @@ router.post('/', function(req, res, next) {
         if(err) {            
             res.json({err: err, msg: 'Unable to register user.'});
         }
+        const token = user.generateJwt();
         
         res.status(200);
         res.json({
             success: true,
-            msg: 'User Created'                    
+            msg: 'User Created',
+            token: 'JWT ' + token                    
         });
     });
 });

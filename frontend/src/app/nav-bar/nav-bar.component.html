@@ -22,10 +22,10 @@
         <a routerLink="/login">
           <span class="glyphicon glyphicon-log-in"></span> Login</a>
       </li>
-      <!-- <li *ngIf="authService.isLoggedIn()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <li *ngIf="authService.isLoggedIn()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <a routerLink="/profile">
           <span class="glyphicon glyphicon-user"></span> Profile</a>
-      </li> -->
+      </li>
       <li *ngIf="authService.isLoggedIn()">
         <a routerLink="/login" (click)="logout()">
           <span class="glyphicon glyphicon-log-out"></span> Logout</a>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { RegisterUser } from '../models/register-user';
 import { TitleService } from '../services/title.service';
 import { AuthService } from '../services/auth.service';
 
@@ -53,23 +54,24 @@ export class RegisterComponent implements OnInit {
     }
 
     this.passwordMatch = true;
-    const name = this.name.value;
-    const username = this.username.value;
-    const email =  this.email.value;
+    const name = this.name.value.trim();
+    const username = this.username.value.trim();
+    const email =  this.email.value.trim();
 
-    const user = {
+    const user: RegisterUser = {
       name,
       username,
       email,
       password
     };
+
     console.log(user);
 
     this.authService.register(user)
         .then((data) => {
           console.log(data);
           if(data.success) {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/profile']);
           } else {
             this.userExists = true;
             this.userExistsError = data.msg;

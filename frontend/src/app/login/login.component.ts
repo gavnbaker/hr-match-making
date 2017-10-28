@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { LoginUser } from '../models/login-user';
+
 import { TitleService } from '../services/title.service';
 import { AuthService } from '../services/auth.service';
 
@@ -30,11 +32,11 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  public login() {
+  public login(): void {
     const username: string = this.username.value;
     const password: string = this.password.value;
 
-    const loginObj = {
+    const loginObj: LoginUser = {
       username,
       password
     };

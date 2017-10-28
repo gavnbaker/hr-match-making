@@ -3,10 +3,7 @@ import { TitleService } from '../services/title.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Employee } from '../data/models/employee';
-import { Address } from '../data/models/address';
-import { Skill } from '../data/models/skill';
-import { WorkExperience } from '../data/models/work-experience';
+import {Address, Skill, WorkExperience, Education, User} from '../models/user';
 
 import { ProfileService } from '../services/profile.service';
 
@@ -47,17 +44,18 @@ export class ProfileComponent implements OnInit {
         }
       ),
       experiences: this.fb.array([]),
-      skill: ['']
+      skill: [''],
+      education: this.fb.array([])
     });
   }
 
   public onSubmit(): void {
-    const employeeProfile: Employee = this.createUser();
-    this.profileService.save(employeeProfile);
+    const userProfile: User = this.createUser();
+    this.profileService.save(userProfile);
     this.router.navigate(['/dashboard']);
   }
 
-  private createUser(): Employee {
+  private createUser(): User {
     const firstName: string = this.firstName.value;
     const lastName: string = this.lastName.value;
     const address: Address = this.address.value as Address;
@@ -68,15 +66,20 @@ export class ProfileComponent implements OnInit {
       (experience: WorkExperience) => Object.assign({}, experience)
     );
 
-    const savedUser: Employee = {
+    const education: Education[] = formModel.education.map(
+      (education: Education) => Object.assign({}, education)
+    );
+
+    const userProfile: User = {
       firstName: firstName,
       lastName: lastName,
       address: address,
       skills: skills,
-      experience: workHistory
+      experience: workHistory,
+      education: education
     };
 
-    return savedUser;
+    return userProfile;
   }
 
   /* Form Getters */
@@ -98,6 +101,10 @@ export class ProfileComponent implements OnInit {
 
   public get skill(): FormControl {
     return this.profileForm.get('skill') as FormControl;
+  }
+
+  public get education(): FormArray {
+    return this.profileForm.get('education') as FormArray;
   }
 
   /* Form Methods */
@@ -125,6 +132,16 @@ export class ProfileComponent implements OnInit {
       jobDescription: ['', Validators.compose([Validators.required, Validators.maxLength(255)])]
     }));
   }
+  public addEducation(): void {
+    this.education.push(this.fb.group({
+      name: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      location: ['', Validators.compose([Validators.required, Validators.maxLength(75)])],
+      startDate: ['', Validators.compose([Validators.required])],
+      endDate: ['', Validators.compose([Validators.required])],
+      degreeType: ['', Validators.required],
+      degreeName: ['', Validators.required]
+    }));
+  }
 
   public removeExperience(index: number): void {
     this.experiences.removeAt(index);
@@ -133,5 +150,7 @@ export class ProfileComponent implements OnInit {
   public removeSkill(index: number): void {
     this.skills.splice(index,1);
   }
+
+
 
 }
