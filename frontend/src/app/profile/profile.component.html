@@ -1,165 +1,165 @@
-<h1>Create your new profile</h1>
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
-  <h2>Name and Location</h2>
-  <div class="row">
-    <div class="form-group col-md-6" [ngClass]="{'has-error': firstName.invalid && firstName.touched}">
-      <label for="firstName" class="col-form-label">First Name</label>
-      <input type="text" class="form-control" id="firstName" placeholder="First Name" formControlName="firstName">
-      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
-        <div *ngIf="firstName.errors.required">
-          First Name is required.
-        </div>
-      </div>
-    </div>
-    <div class="form-group col-md-6" [ngClass]="{'has-error': lastName.invalid && lastName.touched }">
-      <label for="lastName" class="col-form-label">Last Name</label>
-      <input type="text" class="form-control" id="lastName" placeholder="Last Name" formControlName="lastName">
-      <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
-        <div *ngIf="lastName.errors.required">
-          Last Name is required.
-        </div>
-      </div>
-    </div>
-  </div>
-  <hr>
-
-  <div formGroupName="address">
-    <div class="form-group" [ngClass]="{'has-error': address.get('street').invalid && address.get('street').touched }">
-      <label for="street" class="col-form-label">Address</label>
-      <input type="text" class="form-control" id="street" placeholder="1234 Main St" formControlName="street">
-    </div>
-    <div class="form-group" [ngClass]="{'has-error': address.get('apt').invalid && address.get('apt').touched }">
-      <label for="apt" class="col-form-label">Address 2</label>
-      <input type="text" class="form-control" id="apt" placeholder="Apartment, studio, or floor" formControlName="apt">
-    </div>
-    <div class="row">
-      <div class="form-group col-md-6" [ngClass]="{'has-error': address.get('city').invalid && address.get('city').touched }">
-        <label for="city" class="col-form-label">City</label>
-        <input type="text" class="form-control" id="city" formControlName="city" placeholder="Manhatten">
-      </div>
-      <div class="form-group col-md-4" [ngClass]="{'has-error': address.get('state').invalid && address.get('state').touched }">
-        <label for="state" class="col-form-label">State</label>
-        <input id="state" class="form-control" formControlName="state" placeholder="NY">
-      </div>
-      <div class="form-group col-md-2" [ngClass]="{'has-error': address.get('zipcode').invalid && address.get('zipcode').touched }">
-        <label for="zipcode" class="col-form-label">Zip</label>
-        <input type="text" class="form-control" id="zipcode" formControlName="zipcode" placeholder="10003">
-      </div>
-    </div>
-  </div>
-  <hr>
-
-
-  <div formArrayName="experiences" class="">
-    <h2>Work Experience</h2>
-    <div *ngFor="let experience of experiences.controls; let i=index" [formGroupName]="i">
-      <!-- <h2> #{{i + 1}} </h2> -->
-
-      <button (click)="removeExperience(i)" class="btn btn-danger">Delete</button>
-
+<div class="container-fluid">
+  <div class="card my-2 border-info">
+    <h1 class="card-header mx-auto bg-info  text-white my-1">Create your new profile</h1>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate class="card-body">
+      <h2>Name and Location</h2>
       <div class="row">
-        <div class="form-group col-md-6" [ngClass]="{'has-error': experiences.at(i).get('jobTitle').invalid && experiences.at(i).get('jobTitle').touched }">
-          <label for="jobTitle" class="col-form-label">Job Title</label>
-          <input type="text" class="form-control" id="jobTitle" placeholder="Software Developer" formControlName="jobTitle">
+        <div class="form-group col-md-6" [ngClass]="{'has-error': firstName.invalid && firstName.touched}">
+          <label for="firstName" class="col-form-label">First Name</label>
+          <input type="text" class="form-control" id="firstName" placeholder="First Name" formControlName="firstName">
+          <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+            <div *ngIf="firstName.errors.required">
+              First Name is required.
+            </div>
+          </div>
         </div>
-
-        <div class="form-group col-md-6" [ngClass]="{'has-error': experiences.at(i).get('companyName').invalid && experiences.at(i).get('companyName').touched }">
-          <label for="companyName" class="col-form-label">Company Name</label>
-          <input type="text" class="form-control" id="companyName" placeholder="Facebook" formControlName="companyName">
+        <div class="form-group col-md-6" [ngClass]="{'has-error': lastName.invalid && lastName.touched }">
+          <label for="lastName" class="col-form-label">Last Name</label>
+          <input type="text" class="form-control" id="lastName" placeholder="Last Name" formControlName="lastName">
+          <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+            <div *ngIf="lastName.errors.required">
+              Last Name is required.
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="form-group col-md-6" [ngClass]="{'has-error': experiences.at(i).get('startDate').invalid && experiences.at(i).get('startDate').touched }">
-          <label for="startDate" class="col-form-label">Start Date</label>
-          <input type="date" class="form-control" id="startDate" placeholder="MM/YYYY" formControlName="startDate">
+      <div formGroupName="address">
+        <div class="form-group" [ngClass]="{'has-error': address.get('street').invalid && address.get('street').touched }">
+          <label for="street" class="col-form-label">Address</label>
+          <input type="text" class="form-control" id="street" placeholder="1234 Main St" formControlName="street">
         </div>
-
-        <div class="form-group col-md-6" [ngClass]="{'has-error': experiences.at(i).get('endDate').invalid && experiences.at(i).get('endDate').touched }">
-          <label for="endDate" class="col-form-label">End Date</label>
-          <input type="date" class="form-control" id="endDate" placeholder="MM/YYYY" formControlName="endDate">
+        <div class="form-group" [ngClass]="{'has-error': address.get('apt').invalid && address.get('apt').touched }">
+          <label for="apt" class="col-form-label">Address 2</label>
+          <input type="text" class="form-control" id="apt" placeholder="Apartment, studio, or floor" formControlName="apt">
         </div>
-
-        <div class="form-group col-md-12" [ngClass]="{'has-error': experiences.at(i).get('jobDescription').invalid && experiences.at(i).get('jobDescription').touched }">
-          <label for="jobDescription" class="col-form-label">Description</label>
-          <textarea class="form-control" rows="5" id="jobDesc" formControlName="jobDescription"></textarea>
+        <div class="row">
+          <div class="form-group col-md-6" [ngClass]="{'has-error': address.get('city').invalid && address.get('city').touched }">
+            <label for="city" class="col-form-label">City</label>
+            <input type="text" class="form-control" id="city" formControlName="city" placeholder="Manhatten">
+          </div>
+          <div class="form-group col-md-4" [ngClass]="{'has-error': address.get('state').invalid && address.get('state').touched }">
+            <label for="state" class="col-form-label">State</label>
+            <input id="state" class="form-control" formControlName="state" placeholder="NY">
+          </div>
+          <div class="form-group col-md-2" [ngClass]="{'has-error': address.get('zipcode').invalid && address.get('zipcode').touched }">
+            <label for="zipcode" class="col-form-label">Zip</label>
+            <input type="text" class="form-control" id="zipcode" formControlName="zipcode" placeholder="10003">
+          </div>
         </div>
       </div>
       <hr>
-    </div>
-    <button (click)="addExperience()" type="button" class="btn btn-default">Add Work Experience</button>
-  </div>
+      <div formArrayName="experiences" class="">
+        <h2>Work Experience</h2>
+        <div *ngFor="let experience of experiences.controls; let i=index" [formGroupName]="i">
+          <!-- <h2> #{{i + 1}} </h2> -->
 
-  <div class="container">
-    <div class="row">
-      <h2>Education</h2>
-    </div>
-    <div class="row">
-      <div class="form-group col-md-4">
-        <label for="schoolName" class="col-form-label">School Name</label>
-        <input type="text" name="schoolName" id="schoolName" class="form-control">
-      </div>
-      <div class="form-group col-md-4">
-        <label for="schoolLoc" class="col-form-label">Location</label>
-        <input type="text" name="schoolLoc" id="schoolLoc" class="form-control">
-      </div>
-      <div class="form-group col-md-4">
-        <label for="degreeType" class="col-form-label">Degree Type</label>
-        <input type="text" name="degreeType" id="degreeType" class="form-control">
-      </div>
-    </div>
+          <button (click)="removeExperience(i)" class="btn btn-danger">Delete</button>
 
-    <div class="row">
-      <div class="form-group col-md-4">
-        <label for="degreeName" class="col-form-label">Degree Name</label>
-        <input type="text" name="degreeName" id="degreeName" class="form-control">
+          <div class="row">
+            <div class="form-group col-md-6" [ngClass]="{'has-error': experiences.at(i).get('jobTitle').invalid && experiences.at(i).get('jobTitle').touched }">
+              <label for="jobTitle" class="col-form-label">Title</label>
+              <input type="text" class="form-control" id="jobTitle" placeholder="Software Developer" formControlName="jobTitle">
+            </div>
+
+            <div class="form-group col-md-6" [ngClass]="{'has-error': experiences.at(i).get('companyName').invalid && experiences.at(i).get('companyName').touched }">
+              <label for="companyName" class="col-form-label">Company</label>
+              <input type="text" class="form-control" id="companyName" placeholder="Facebook" formControlName="companyName">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6" [ngClass]="{'has-error': experiences.at(i).get('startDate').invalid && experiences.at(i).get('startDate').touched }">
+              <label for="startDate" class="col-form-label">Start Date</label>
+              <input type="date" class="form-control" id="startDate" placeholder="MM/YYYY" formControlName="startDate">
+            </div>
+
+            <div class="form-group col-md-6" [ngClass]="{'has-error': experiences.at(i).get('endDate').invalid && experiences.at(i).get('endDate').touched }">
+              <label for="endDate" class="col-form-label">End Date</label>
+              <input type="date" class="form-control" id="endDate" placeholder="MM/YYYY" formControlName="endDate">
+            </div>
+
+            <div class="form-group col-md-12" [ngClass]="{'has-error': experiences.at(i).get('jobDescription').invalid && experiences.at(i).get('jobDescription').touched }">
+              <label for="jobDescription" class="col-form-label">Description</label>
+              <textarea class="form-control" rows="5" id="jobDesc" formControlName="jobDescription"></textarea>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <button (click)="addExperience()" type="button" class="btn btn-info">Add Work Experience</button>
       </div>
-      <div class="form-group col-md-4">
-        <label for="startDate" class="col-form-label">Start Date</label>
-        <input type="date" name="startDate" id="startDate" class="form-control">
+
+      <div class="" formArrayName="education">
+        <h2>Education</h2>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="schoolName" class="col-form-label">School</label>
+            <input type="text" name="schoolName" id="schoolName" class="form-control" formControlName="schoolName">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="schoolLoc" class="col-form-label">Location</label>
+            <input type="text" name="schoolLoc" id="schoolLoc" class="form-control" formControlName="schoolLoc">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="degreeType" class="col-form-label">Degree Type</label>
+            <input type="text" name="degreeType" id="degreeType" class="form-control" formControlName="degreeType">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="degreeName" class="col-form-label">Degree Name</label>
+            <input type="text" name="degreeName" id="degreeName" class="form-control">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="startDate" class="col-form-label">Start Date</label>
+            <input type="date" name="startDate" id="startDate" class="form-control">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="endDate" class="col-form-label">End Date</label>
+            <input type="date" name="endDate" id="endDate" class="form-control">
+          </div>
+        </div>
+        <hr>
       </div>
-      <div class="form-group col-md-4">
-        <label for="endDate" class="col-form-label">End Date</label>
-        <input type="date" name="endDate" id="endDate" class="form-control">
-      </div>
-    </div>
-    <hr>
-  </div>
 
 
-  <div class="container">
-    <div class="row">
-      <h2>Skills</h2>
-    </div>
-    <div class="row">
-      <div class="input-group col-md-6">
-        <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill" (keyup)="addSkill($event)">
-        <div class="input-group-btn">
-          <button class="btn btn-default" (click)="addSkill($event)" type="button">
-            <i class="glyphicon glyphicon-plus"></i>
-          </button>
+      <div class="">
+        <h2>Skills</h2>
+        <div class="row">
+          <div class="input-group col-md-6">
+            <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill" (keyup)="addSkill($event)">
+            <div class="input-group-btn">
+              <button class="btn btn-info" (click)="addSkill($event)" type="button">
+                  <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      <div class="">
+        <div class="">
+          <ul class="list-group skills col-md-6">
+            <li *ngFor="let skill of skills; let i=index" class="list-group-item d-flex justify-content-between align-items-center">
+              <span class="badge badge-info badge-pill"> {{i + 1}} </span>
+              <span class="">{{skill.name}}</span>
+              <button class="btn btn-info" (click)="removeSkill(i);" type="button">
+                  <i class="fa fa-trash fa-fw" aria-hidden="true"></i>
+              </button>
+
+              <!-- <span class="glyphicon glyphicon-trash pull-right" (click)=removeSkill(i);></span> -->
+              <!-- <span class="pull-right glyphicon glyphicon-minus"></span> -->
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <br>
+      <button class="btn btn-success" type="submit" [disabled]="profileForm.invalid">Save Profile</button>
+
+    </form>
+
+    <p>Form value: {{ profileForm.value | json }}</p>
+    <p>Form status: {{ profileForm.status | json }}</p>
   </div>
-
-  <div class="container">
-    <div class="row">
-      <ul class="list-group skills col-md-6">
-        <li *ngFor="let skill of skills; let i=index" class="list-group-item">
-          <span class="badge pull-left"> {{i + 1}} </span>
-          <span class="col-md-offset-6">{{skill.name}}</span>
-          <span class="glyphicon glyphicon-trash pull-right" (click)=removeSkill(i);></span>
-          <!-- <span class="pull-right glyphicon glyphicon-minus"></span> -->
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <br>
-  <button class="btn btn-primary" type="submit" [disabled]="profileForm.invalid">Save Profile</button>
-
-</form>
-
-<p>Form value: {{ profileForm.value | json }}</p>
-<p>Form status: {{ profileForm.status | json }}</p>
+</div>

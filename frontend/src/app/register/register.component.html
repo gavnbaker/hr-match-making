@@ -1,40 +1,47 @@
-<h2>Register Form</h2>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter name">
-  </div>
-  <div class="form-group">
-    <label for="username">Username:</label>
-    <input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter username">
-  </div>
-  <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
-    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-      <div *ngIf="email.errors.required">
-        Email is required.
+<div class="container card col-md-4 my-2 border border-info">
+    <div class="card-header my-1 bg-info text-white">
+        <h2 class="text-center">Register</h2>
       </div>
-      <div *ngIf="email.errors.email && !email.errors.required">
-        Enter correct email pattern.
-      </div>
-    </div>
-  </div>
-  <div formGroupName="passwords">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate class="card-body">
     <div class="form-group">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" formControlName="password" placeholder="Enter password">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter name">
     </div>
     <div class="form-group">
-      <label for="repeatpwd">Repeat Password:</label>
-      <input type="password" class="form-control" id="pwd" formControlName="repeatpwd" placeholder="Repeat password">
-      <div class="alert alert-danger" *ngIf="!passwordMatch">Passwords do not match.</div>
-      <div class="alert alert-danger" *ngIf="userExists">{{userExistsError}}</div>
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter username">
+      <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">Username is required</div>
     </div>
-  </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+        <div *ngIf="email.errors.required">
+          Email is required.
+        </div>
+        <div *ngIf="email.errors.email && !email.errors.required">
+          Enter correct email pattern.
+        </div>
+      </div>
+    </div>
+    <div formGroupName="passwords">
+      <div class="form-group">
+        <label for="pwd">Password</label>
+        <input type="password" class="form-control" id="pwd" formControlName="password" placeholder="Enter password">
+        <div *ngIf="passwords.get('password').invalid && (passwords.get('password').dirty || passwords.get('password').touched)"
+          class="alert alert-danger">Password is required</div>
+      </div>
+      <div class="form-group">
+        <label for="repeatpwd">Repeat Password</label>
+        <input type="password" class="form-control" id="pwd" formControlName="repeatpwd" placeholder="Repeat password">
+        <div class="alert alert-danger" *ngIf="!passwordMatch">Passwords do not match.</div>
+        <div class="alert alert-danger" *ngIf="userExists">{{userExistsError}}</div>
+      </div>
+    </div>
 
-  <button type="submit" class="btn btn-success" [disabled]="registerForm.invalid">Register</button>
-</form>
-<p>Form value: {{ registerForm.value | json }}</p>
-<p>Form status: {{ registerForm.status | json }}</p>
-<p>Password status: {{ registerForm.get('passwords.password').value | json }}</p>
+    <button type="submit" class="btn btn-success btn-block" [disabled]="registerForm.invalid">Register</button>
+  </form>
+  <!-- <p>Form value: {{ registerForm.value | json }}</p>
+  <p>Form status: {{ registerForm.status | json }}</p>
+  <p>Password status: {{ registerForm.get('passwords.password').value | json }}</p> -->
+</div>

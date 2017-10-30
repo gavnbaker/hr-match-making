@@ -1,36 +1,36 @@
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/">{{title}}</a>
-    </div>
+<nav class="navbar navbar-expand-md navbar-dark bg-info text-white">
+  <a class="nav-link" class="navbar-brand" routerLink="/">{{title}}</a>
 
-    <ul class="nav navbar-nav">
-      <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a routerLink="/home">Home</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a class="nav-link" routerLink="/home">Home</a>
       </li>
-      <li *ngIf="authService.isLoggedIn()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a routerLink="/dashboard">Dashboard</a>
+      <li class="nav-item" *ngIf="authService.isLoggedIn()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a class="nav-link" routerLink="/dashboard">Dashboard</a>
       </li>
     </ul>
-
-    <ul class="nav navbar-nav navbar-right">
-      <li *ngIf="!authService.isLoggedIn()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a routerLink="/register">
-          <span class="glyphicon glyphicon-user"></span> Sign Up</a>
-      </li>
-      <li *ngIf="!authService.isLoggedIn()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a routerLink="/login">
-          <span class="glyphicon glyphicon-log-in"></span> Login</a>
-      </li>
-      <li *ngIf="authService.isLoggedIn()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-        <a routerLink="/profile">
-          <span class="glyphicon glyphicon-user"></span> Profile</a>
-      </li>
-      <li *ngIf="authService.isLoggedIn()">
-        <a routerLink="/login" (click)="logout()">
-          <span class="glyphicon glyphicon-log-out"></span> Logout</a>
-      </li>
-    </ul>
-
   </div>
+
+  <ul class="navbar-nav mr-auto float-right">
+    <li class="nav-item" *ngIf="!authService.isLoggedIn()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a class="nav-link" routerLink="/register">
+        <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>
+        Sign Up</a>
+    </li>
+    <li class="nav-item" *ngIf="!authService.isLoggedIn()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a class="nav-link" routerLink="/login">
+        <i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> Login</a>
+    </li>
+    <li class="nav-item" *ngIf="authService.isLoggedIn()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a class="nav-link" routerLink="/profile">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        Profile</a>
+    </li>
+    <li class="nav-item" *ngIf="authService.isLoggedIn()">
+      <a class="nav-link" routerLink="/login" (click)="logout()">
+        <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>
+        Logout</a>
+    </li>
+  </ul>
 </nav>
