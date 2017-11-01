@@ -87,13 +87,14 @@
         </div>
         <button (click)="addExperience()" type="button" class="btn btn-info">Add Work Experience</button>
       </div>
+      <hr>
 
-      <div class="" formArrayName="education">
+      <!-- <div class="" formArrayName="education">
         <h2>Education</h2>
         <div class="row">
           <div class="form-group col-md-4">
-            <label for="schoolName" class="col-form-label">School</label>
-            <input type="text" name="schoolName" id="schoolName" class="form-control" formControlName="schoolName">
+            <label for="name" class="col-form-label">School</label>
+            <input type="text" name="name" id="schoolName" class="form-control" formControlName="name">
           </div>
           <div class="form-group col-md-4">
             <label for="schoolLoc" class="col-form-label">Location</label>
@@ -120,16 +121,16 @@
           </div>
         </div>
         <hr>
-      </div>
+      </div> -->
 
 
       <div class="">
         <h2>Skills</h2>
         <div class="row">
           <div class="input-group col-md-6">
-            <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill" (keyup)="addSkill($event)">
+            <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill" (keyup.enter)="addSkill(skill.value)">
             <div class="input-group-btn">
-              <button class="btn btn-info" (click)="addSkill($event)" type="button">
+              <button class="btn btn-info" (click)="addSkill(skill.value)" type="button">
                   <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
               </button>
             </div>
@@ -157,9 +158,11 @@
       <br>
       <button class="btn btn-success" type="submit" [disabled]="profileForm.invalid">Save Profile</button>
 
+      <p>Form value: {{ profileForm.value | json }}</p>
+      <p>Form status: {{ profileForm.status | json }}</p>
+
     </form>
 
-    <p>Form value: {{ profileForm.value | json }}</p>
-    <p>Form status: {{ profileForm.status | json }}</p>
+
   </div>
 </div>

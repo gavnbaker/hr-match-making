@@ -38,7 +38,8 @@ export class ProfileComponent implements OnInit {
         {
           street: [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
           apt: [null,  Validators.compose([Validators.maxLength(10)])],
-          zipcode: [null, Validators.compose([Validators.required, Validators.maxLength(10), Validators.pattern(/(^\d{5}$)|(^\d{5}-\d{4}$)/)])],
+          zipcode: [null,
+            Validators.compose([Validators.required, Validators.maxLength(10), Validators.pattern(/(^\d{5}$)|(^\d{5}-\d{4}$)/)])],
           city: [null, Validators.compose([Validators.required, Validators.maxLength(25)])],
           state: [null, Validators.required]
         }
@@ -108,19 +109,16 @@ export class ProfileComponent implements OnInit {
   }
 
   /* Form Methods */
-  public addSkill($event): void {
-    const skill: string = this.skill.value;
+  public addSkill(value: string): void {
+    if (value.trim() === '') {return; }
 
-    if (($event.which === 1 || $event.which === 13) && skill.trim() != '') {
+    const skill: Skill = {
+      name: value
+    };
 
-      const _skill: Skill = {
-        name: skill
-      };
-
-      console.log(_skill);
-      this.skills.push(_skill);
-      this.skill.reset('');
-    }
+    console.log(skill);
+    this.skills.push(skill);
+    this.skill.reset('');
   }
 
   public addExperience(): void {
@@ -148,7 +146,7 @@ export class ProfileComponent implements OnInit {
   }
 
   public removeSkill(index: number): void {
-    this.skills.splice(index,1);
+    this.skills.splice(index, 1);
   }
 
 

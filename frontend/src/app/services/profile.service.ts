@@ -9,13 +9,22 @@ import { BackendUrlService } from './backend-url.service';
 @Injectable()
 export class ProfileService {
   private headers = new Headers({'Content-Type': 'application/json'});
-  private loginUrl: string = '/login';
-  private registerUrl: string = '/register';
+  private loginUrl = '/login';
+  private registerUrl = '/register';
 
   constructor(private backendUrl: BackendUrlService, private http: Http) { }
 
   public save(user: User): any {
     console.log(user);
+  }
+
+  // Get user profile with id# or user name
+  public getUserProfile(name: string): Promise<User> {
+    const url = 'url';
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json().user as User)
+      .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

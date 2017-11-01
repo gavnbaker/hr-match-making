@@ -9,11 +9,11 @@ export interface User {
 }
 
 export interface Address {
-  readonly street: string,
-  readonly zipCode: string,
-  readonly city: string,
-  readonly state: string,
-  readonly country: string
+  readonly street: string;
+  readonly zipCode: string;
+  readonly city: string;
+  readonly state: string;
+  readonly country: string;
 }
 
 export interface Skill {
