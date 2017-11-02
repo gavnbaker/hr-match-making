@@ -27,6 +27,33 @@ export class ProfileService {
       .catch(this.handleError);
   }
 
+  // Get job recommendations with id# or user name
+  public getUserJobRecommendations(name: string): Promise<any> {
+    const url = 'url';
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json().jobs)
+      .catch(this.handleError);
+  }
+
+  // Get user bookmarked job applications
+  public getUserBookmarks(name: string): Promise<any> {
+    const url = 'url';
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json().bookmarkedJobs)
+      .catch(this.handleError);
+  }
+
+  // Get jobs that user applied to
+  public getUserApplications(name: string): Promise<any> {
+    const url = 'url';
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json().applications)
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

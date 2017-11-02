@@ -4,10 +4,10 @@
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
+              <a class="nav-link " href="#">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Reports</a>
+              <a class="nav-link active" href="#">Reports</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Analytics</a>
@@ -47,6 +47,11 @@
 
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
           <h1>Dashboard</h1>
+          <h3>Recommended Job Opportunities</h3>
+
+          <ul class="list-group">
+            <li *ngFor="let job of jobRecommendations"></li>
+          </ul>
 
           <ul class="list-group">
             <li class="list-group-item list-group-item-action text-left">
