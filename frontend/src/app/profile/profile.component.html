@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <div class="card my-2 border-info">
-    <h1 class="card-header mx-auto bg-info  text-white my-1">Create your new profile</h1>
+  <div class="card my-2 border-0">
+    <h1 class="card-header mx-auto bg-info  text-white my-1">Create new profile</h1>
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate class="card-body">
       <h2>Name and Location</h2>
       <div class="row">
@@ -125,7 +125,7 @@
 
 
       <div class="">
-        <h2>Skills</h2>
+        <h2 class="">Skills</h2>
         <div class="row">
           <div class="input-group col-md-6">
             <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill" (keyup.enter)="addSkill(skill.value)">

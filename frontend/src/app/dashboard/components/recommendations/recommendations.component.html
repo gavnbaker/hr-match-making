@@ -1,15 +1,15 @@
 <div class="container-fluid">
   <h3 class="text-center">Recommended Job Opportunities</h3>
   <div class="row">
-    <div class="card col-3 mx-5 my-3 " *ngFor="let job of jobs">
+    <div class="w3-card-4 col-3 mx-5 my-3 pb-4" *ngFor="let job of jobs">
       <!-- <div class="card-header">
         Job Title
       </div> -->
       <div class="card-body">
         <h4 class="card-title">{{job}}</h4>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <button type="button" class="card-link btn btn-primary float-left">Bookmark</button>
-        <button type="button" class="card-link btn btn-primary float-right">Apply</button>
+        <button type="button" class="card-link btn float-left w3-teal rounded-0">Bookmark</button>
+        <button type="button" class="card-link btn float-right w3-teal rounded-0">Apply</button>
       </div>
     </div>
   </div>

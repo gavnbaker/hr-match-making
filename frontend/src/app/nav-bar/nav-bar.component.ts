@@ -9,7 +9,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  public title = 'Hr Match Making App';
+  public title = 'Hr Match Making';
   public isLoggedIn: boolean;
   public loggedInUser: string;
 
