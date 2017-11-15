@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from './dashboard.routing';
 import { DashboardComponent } from './dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RecommendationsComponent } from './components/recommendations/recommendations.component';
+import { ProfileService } from '../services/profile.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { RecommendationsComponent } from './components/recommendations/recommend
     DashboardComponent,
     ProfileComponent,
     RecommendationsComponent
-  ]
+  ],
+  providers: [ProfileService]
 })
 export class DashboardModule { }
