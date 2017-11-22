@@ -1,0 +1,75 @@
+<div class="container">
+  <h1>Company Information</h1>
+  <hr>
+  <form [formGroup]="companyForm" novalidate>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Name" formControlName="name">
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="industry">Industry</label>
+        <input type="text" class="form-control" id="industry" placeholder="Industry" formControlName="industry">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email">
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="phone">Phone</label>
+        <input type="tel" class="form-control" id="phone" placeholder="Phone" formControlName="phone">
+      </div>
+    </div>
+    <hr>
+
+    <div formGroupName="address">
+      <div class="form-group">
+        <label for="street">Street Address</label>
+        <input type="text" class="form-control" id="street" placeholder="1234 Main St" formControlName="street">
+      </div>
+
+      <div class="form-group">
+        <label for="apt">Apt/Floor/Suite</label>
+        <input type="text" class="form-control" id="apt" placeholder="Apartment, studio, or floor" formControlName="apt">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="city">City</label>
+          <input type="text" class="form-control" id="city" formControlName="city" placeholder="City">
+        </div>
+
+        <div class="form-group col-md-4">
+          <label for="state">State</label>
+          <select id="state" class="form-control" formControlName="state">
+            <!-- <option selected>Choose...</option> -->
+            <option *ngFor="let state of states" [value]="state">{{state}}</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-2">
+          <label for="zipcode">Zip</label>
+          <input type="text" class="form-control" id="zipcode" formControlName="zipcode" placeholder="ZipCode">
+        </div>
+      </div>
+    </div>
+    <hr>
+
+    <div class="form-row">
+        <label for="description" class="col-form-label">Description</label>
+        <textarea class="form-control" rows="5" id="description" formControlName="description"></textarea>
+    </div>
+    <br>
+
+    <button type="submit" class="btn btn-success" [disabled]="companyForm.invalid">Save Profile</button>
+
+  </form>
+  <div>{{diagnostic}}</div>
+</div>
+

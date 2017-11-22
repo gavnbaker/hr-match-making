@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { DashboardModule } from './dashboard/dashboard.module';
+import { CompanyModule } from './company/company.module';
 
 import { TitleService } from './services/title.service';
 import { ProfileService } from './services/profile.service';
@@ -36,6 +37,7 @@ import { AuthGuard } from './guards/auth.guard';
     BrowserModule,
     ReactiveFormsModule,
     DashboardModule,
+    CompanyModule,
     AppRoutingModule,
     HttpModule
   ],
