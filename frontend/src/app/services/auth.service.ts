@@ -10,8 +10,8 @@ import { BackendUrlService } from './backend-url.service';
 export class AuthService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
-  private loginUrl: string = '/api/login';
-  private registerUrl: string = '/api/register';
+  private loginUrl = '/api/login';
+  private registerUrl = '/api/register';
 
   constructor(private backendUrl: BackendUrlService, private http: Http) { }
 

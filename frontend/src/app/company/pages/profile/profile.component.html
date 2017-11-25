@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Company Information</h1>
   <hr>
-  <form [formGroup]="companyForm" novalidate>
+  <form [formGroup]="companyForm" (ngSubmit)="createCompany()" novalidate>
 
     <div class="form-row">
       <div class="form-group col-md-6">

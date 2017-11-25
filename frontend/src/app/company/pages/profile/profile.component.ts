@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CompanyService } from '../../../services/company.service';
+import { Company } from '../../../models/company';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -8,12 +11,13 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 })
 export class ProfileComponent implements OnInit {
   states: string[] = ['New Jersey', 'New York', 'California', 'Florida'];
-
+  isSubmitted = false;
 
   // Form stuff
   public companyForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private companySerivice: CompanyService, private router: Router) { }
 
   ngOnInit() {
     this.createForm();
@@ -37,6 +41,23 @@ export class ProfileComponent implements OnInit {
         }
       )
     });
+  }
+
+  /**
+   * createCompany
+   */
+  public createCompany(): void {
+    // 1st create company object
+    this.isSubmitted = true;
+
+    if (this.isSubmitted) {
+      const company: Company = this.companyForm.value;
+      this.companySerivice.createCompany(company)
+        .then(companyObj => {
+            console.log(companyObj);
+            this.router.navigate(['/dashboard']);
+          });
+    }
   }
 
    /* Form Getters */

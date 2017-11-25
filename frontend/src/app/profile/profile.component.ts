@@ -3,9 +3,12 @@ import { TitleService } from '../services/title.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import {Address, Skill, WorkExperience, Education, User} from '../models/user';
-
 import { ProfileService } from '../services/profile.service';
+import { Skill } from '../models/skill';
+import { User} from '../models/user';
+import { Address } from '../models/address';
+import { WorkExperience } from '../models/work-experience';
+import { Education } from '../models/education';
 
 @Component({
   selector: 'app-profile',
