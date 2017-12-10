@@ -101,5 +101,5 @@ export class ProfileComponent implements OnInit {
     return this.companyForm.get('zipcode') as FormControl;
   }
 
-  get diagnostic() { return JSON.stringify(this.companyForm.value); }
+  public get diagnostic() { return JSON.stringify(this.companyForm.value); }
 }

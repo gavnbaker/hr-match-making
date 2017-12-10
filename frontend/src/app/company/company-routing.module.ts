@@ -1,13 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { JobPostComponent } from './components/jobpost/jobpost.component';
 
 const routes: Routes = [
   {
     path: 'company',
-    component: ProfileComponent
+    children: [
+      {
+        path: 'jobpost',
+        component: JobPostComponent
+      },
+      {
+        path: '',
+        component: ProfileComponent
+      }
+    ]
   },
   {
     path: 'dashboard',

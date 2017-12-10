@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { JobPost } from '../models/jobpost';
 
 @Injectable()
 export class JobService {
   private jobUrl = '/api/JobPosts';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {}
 
   /**
    * createJob
    */
-  public createJob(jobPost: any): Promise<any> {
-    jobPost.CompanyID = 8;
-
+  public createJobPost(jobPost: JobPost): Promise<JobPost> {
     return this.http.post(this.jobUrl, jobPost)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response.json() as JobPost)
       .catch(this.handleError);
   }
 

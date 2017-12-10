@@ -1,7 +1,7 @@
 import { Address } from './address';
 
 export interface Company {
-  readonly CompnayID?: number;
+  readonly CompanyID?: number;
   readonly Name: string;
   readonly Description: string;
   readonly Industry: string;

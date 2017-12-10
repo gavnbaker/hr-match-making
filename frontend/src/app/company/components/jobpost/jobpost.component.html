@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>Create New Job Post</h1>
+  <hr>
+  <form [formGroup]="jobPostForm" (ngSubmit)="createJobPost()" novalidate>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="company">Company</label>
+        <select id="company" class="form-control" formControlName="companyId">
+          <option *ngFor="let company of companies" [value]="company.CompanyID">{{company.Name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div formGroupName="job">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" placeholder="title" formControlName="title">
+              </div>
+        </div>
+
+        <div class="form-row">
+          <label for="description" class="col-form-label">Description</label>
+          <textarea class="form-control" rows="5" id="description" formControlName="description"></textarea>
+        </div>
+    </div>
+
+    <hr>
+    <br>
+
+    <button type="submit" class="btn btn-success" [disabled]="jobPostForm.invalid">Save Job Post</button>
+
+  </form>
+  <div>{{diagnostic}}</div>
+</div>
