@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { DashboardModule } from './dashboard/dashboard.module';
 import { CompanyModule } from './company/company.module';
+import { EmployeeModule } from './employee/employee.module';
 
 import { TitleService } from './services/title.service';
 import { ProfileService } from './services/profile.service';
@@ -38,6 +39,7 @@ import { AuthGuard } from './guards/auth.guard';
     ReactiveFormsModule,
     DashboardModule,
     CompanyModule,
+    EmployeeModule,
     AppRoutingModule,
     HttpModule
   ],

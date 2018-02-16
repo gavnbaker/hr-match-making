@@ -44,6 +44,8 @@ export class JobPostComponent implements OnInit {
 
   /**
    * createJobPost
+   * @author gavin
+   * @description create new job post
    */
   public createJobPost() {
     const newJobPost: JobPost = this.jobPostForm.value;
