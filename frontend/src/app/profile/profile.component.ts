@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit {
     );
 
     const education: Education[] = formModel.education.map(
-      (education: Education) => Object.assign({}, education)
+      (ed: Education) => Object.assign({}, ed)
     );
 
     const userProfile: User = {
