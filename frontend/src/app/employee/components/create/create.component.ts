@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { TitleService } from '../../../services/title.service';
 import { ProfileService } from '../../../services/profile.service';
 import { Router } from '@angular/router';
@@ -17,25 +17,25 @@ import { Education } from '../../../models/education';
 export class CreateComponent implements OnInit {
   public employee_profile_form: FormGroup;
   public page_title = 'Create New Employee';
-  public skills: Skill[] = new Array();
+  public skills: Skill[] = [];
+
+  // Form Controls
+  public phoneCtrl: AbstractControl;
+  public emailCtrl: AbstractControl;
 
   constructor(
       private fb: FormBuilder,
       private titleService: TitleService,
       private profileService: ProfileService,
       private router: Router
-    ) {
-    this.createForm();
-  }
-
-  ngOnInit() {
-    this.titleService.setTitle(this.page_title);
-  }
+    ) {}
 
   private createForm(): void {
     this.employee_profile_form = this.fb.group({
       firstName: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
       lastName: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      phone: ['', Validators.compose([Validators.required, Validators.pattern(/(^\d{3}-\d{3}-\d{4}$)/)])],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       address: this.fb.group(
         {
           street: [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
@@ -52,17 +52,30 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+    this.titleService.setTitle(this.page_title);
+    this.createForm();
+    this.emailCtrl = this.employee_profile_form.controls['email'];
+    this.phoneCtrl = this.employee_profile_form.controls['phone'];
+  }
+
   public createEmployee(): void {
     const userProfile: User = this.createUser();
-    this.profileService.save(userProfile);
+    this.profileService.save(userProfile)
+      .then(user => {
+        console.log(user);
+      });
     // this.router.navigate(['/dashboard']);
   }
 
   private createUser(): User {
     const firstName: string = this.firstName.value;
     const lastName: string = this.lastName.value;
+
+    // Add apt address to street address
+    const streetApt: string = this.address.controls['street'].value + ' ' + this.address.controls['apt'].value;
+    this.address.controls['street'].setValue(streetApt);
     const address: Address = this.address.value as Address;
-    const skills: Skill[] = this.skills;
 
     const formModel = this.employee_profile_form.value;
     const workHistory: WorkExperience[] = formModel.experiences.map(
@@ -76,8 +89,10 @@ export class CreateComponent implements OnInit {
     const userProfile: User = {
       firstName: firstName,
       lastName: lastName,
+      email: this.emailCtrl.value,
+      phone: this.phoneCtrl.value,
       address: address,
-      skills: skills,
+      skills: this.skills,
       experience: workHistory,
       education: education
     };
@@ -118,7 +133,6 @@ export class CreateComponent implements OnInit {
       name: value
     };
 
-    console.log(skill);
     this.skills.push(skill);
     this.skill.reset('');
   }
@@ -158,6 +172,10 @@ export class CreateComponent implements OnInit {
    */
   public get getFormStatus(): string {
     return JSON.stringify(this.employee_profile_form.status);
+  }
+
+  public get skillsArray(): string {
+    return JSON.stringify(this.skills);
   }
 
 }

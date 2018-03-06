@@ -16,4 +16,4 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [CreateComponent],
   providers: [ProfileService, TitleService]
 })
-export class EmployeeModule { }
+export class EmployeeModule {}

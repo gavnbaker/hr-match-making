@@ -7,6 +7,7 @@ export interface User {
   readonly firstName: string;
   readonly lastName: string;
   readonly email?: string;
+  readonly phone?: string;
   readonly address: Address;
   readonly skills: Skill[];
   readonly experience: WorkExperience[];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { CompanyService } from '../../../services/company.service';
 import { Company } from '../../../models/company';
 import { JobService } from '../../../services/job.service';
@@ -16,12 +16,15 @@ export class JobPostComponent implements OnInit {
   public jobPostForm: FormGroup;
   public companies: Company[];
 
+  public jobCtrls: AbstractControl;
+
   constructor(private fb: FormBuilder,
     private companyService: CompanyService, private jobServive: JobService, private router: Router) {}
 
   ngOnInit() {
     this.createForm();
     this.getCompanies();
+    this.jobCtrls = this.jobPostForm.controls['job'];
   }
 
   /**

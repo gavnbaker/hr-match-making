@@ -11,11 +11,15 @@ export class ProfileService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private loginUrl = '/login';
   private registerUrl = '/register';
+  private userUrl = '/api/users';
 
   constructor(private backendUrl: BackendUrlService, private http: Http) { }
 
-  public save(user: User): any {
-    console.log(user);
+  public save(user: User): Promise<User> {
+    return this.http.post(this.userUrl, user)
+    .toPromise()
+    .then(response => response.json() as User)
+    .catch(this.handleError);
   }
 
   // Get user profile with id# or user name
