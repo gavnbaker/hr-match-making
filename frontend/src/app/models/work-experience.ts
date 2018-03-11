@@ -1,7 +1,11 @@
 export interface WorkExperience {
-  readonly jobTitle: string;
   readonly companyName: string;
-  readonly startDate: string;
-  readonly endDate: string;
-  readonly jobDescription: string;
+  readonly StartDate: Date;
+  readonly EndDate: Date;
+  readonly Job: Job;
+}
+
+export interface Job {
+  readonly Title: string;
+  readonly Description: string;
 }

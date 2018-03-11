@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormCon
 import { Router } from '@angular/router';
 
 import { ProfileService } from '../services/profile.service';
-import { Skill } from '../models/skill';
+import { Skill, UserSkills } from '../models/skill';
 import { User} from '../models/user';
 import { Address } from '../models/address';
 import { WorkExperience } from '../models/work-experience';
@@ -17,7 +17,7 @@ import { Education } from '../models/education';
 })
 export class ProfileComponent implements OnInit {
 
-  public skills: Skill[] = new Array();
+  public skills: UserSkills[] = new Array();
   public profileForm: FormGroup;
 
   constructor(
@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit {
     const firstName: string = this.firstName.value;
     const lastName: string = this.lastName.value;
     const address: Address = this.address.value as Address;
-    const skills: Skill[] = this.skills;
+    const skills: UserSkills[] = this.skills;
 
     const formModel = this.profileForm.value;
     const workHistory: WorkExperience[] = formModel.experiences.map(
@@ -75,12 +75,12 @@ export class ProfileComponent implements OnInit {
     );
 
     const userProfile: User = {
-      firstName: firstName,
-      lastName: lastName,
-      address: address,
-      skills: skills,
-      experience: workHistory,
-      education: education
+      FirstName: firstName,
+      LastName: lastName,
+      Address: address,
+      UserSkills: skills,
+      JobHistory: workHistory,
+      Education: education
     };
 
     return userProfile;
@@ -115,8 +115,8 @@ export class ProfileComponent implements OnInit {
   public addSkill(value: string): void {
     if (value.trim() === '') {return; }
 
-    const skill: Skill = {
-      name: value
+    const skill: UserSkills = {
+      Skill: {Name: value}
     };
 
     console.log(skill);

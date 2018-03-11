@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormBuilder, Validators, FormArray, AbstractCon
 import { TitleService } from '../../../services/title.service';
 import { ProfileService } from '../../../services/profile.service';
 import { Router } from '@angular/router';
-import { Skill } from '../../../models/skill';
+import { Skill, UserSkills } from '../../../models/skill';
 import { User } from '../../../models/user';
 import { Address } from '../../../models/address';
 import { WorkExperience } from '../../../models/work-experience';
@@ -17,7 +17,7 @@ import { Education } from '../../../models/education';
 export class CreateComponent implements OnInit {
   public employee_profile_form: FormGroup;
   public page_title = 'Create New Employee';
-  public skills: Skill[] = [];
+  public skills: UserSkills[] = [];
 
   // Form Controls
   public phoneCtrl: AbstractControl;
@@ -81,20 +81,21 @@ export class CreateComponent implements OnInit {
     const workHistory: WorkExperience[] = formModel.experiences.map(
       (experience: WorkExperience) => Object.assign({}, experience)
     );
+    console.log(workHistory);
 
     const education: Education[] = formModel.education.map(
       (ed: Education) => Object.assign({}, ed)
     );
 
     const userProfile: User = {
-      firstName: firstName,
-      lastName: lastName,
-      email: this.emailCtrl.value,
-      phone: this.phoneCtrl.value,
-      address: address,
-      skills: this.skills,
-      experience: workHistory,
-      education: education
+      FirstName: firstName,
+      LastName: lastName,
+      Email: this.emailCtrl.value,
+      Phone: this.phoneCtrl.value,
+      Address: address,
+      UserSkills: this.skills,
+      JobHistory: workHistory,
+      Education: education
     };
 
     return userProfile;
@@ -129,8 +130,11 @@ export class CreateComponent implements OnInit {
   public addSkill(value: string): void {
     if (value.trim() === '') {return; }
 
-    const skill: Skill = {
-      name: value
+    const skill: UserSkills = {
+      Skill: {
+        Name: value,
+        YearsExperience: 1,
+      },
     };
 
     this.skills.push(skill);
