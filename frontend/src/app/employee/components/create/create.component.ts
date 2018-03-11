@@ -77,10 +77,21 @@ export class CreateComponent implements OnInit {
     this.address.controls['street'].setValue(streetApt);
     const address: Address = this.address.value as Address;
 
+    // Refactor experience from using any to a type
     const formModel = this.employee_profile_form.value;
     const workHistory: WorkExperience[] = formModel.experiences.map(
-      (experience: WorkExperience) => Object.assign({}, experience)
-    );
+      (experience: any) => {
+        const tmp: WorkExperience = {
+          CompanyName: experience.companyName,
+          Job: {
+            Title: experience.jobTitle,
+            Description: experience.jobDescription
+          },
+          StartDate: experience.startDate,
+          EndDate: experience.endDate,
+        };
+        return Object.assign({}, tmp);
+      });
     console.log(workHistory);
 
     const education: Education[] = formModel.education.map(

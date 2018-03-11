@@ -11,6 +11,10 @@ const routes: Routes = [
         component: CreateComponent
       },
       {
+        path: 'dashboard',
+        loadChildren: './components/dashboard/dashboard.module#DashboardModule'
+      },
+      {
         path: '',
         component: CreateComponent
       }

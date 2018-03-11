@@ -58,8 +58,8 @@ export class ProfileComponent implements OnInit {
   constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
-    this.profileService.getUserProfile('')
-      .then(user => this.profile = user);
+    // this.profileService.getUserProfile('')
+    //   .then(user => this.profile = user);
   }
 
 }
