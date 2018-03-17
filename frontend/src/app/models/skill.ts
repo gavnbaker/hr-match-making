@@ -9,3 +9,10 @@ export interface UserSkills {
   readonly UserID?: number;
   readonly Skill: Skill;
 }
+
+export interface JobPostSkills {
+  readonly JobPostSkillsID?: number;
+  readonly JobPostID?: number;
+  readonly SkillID?: number;
+  readonly Skill: Skill;
+}

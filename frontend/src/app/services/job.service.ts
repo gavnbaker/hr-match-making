@@ -5,7 +5,7 @@ import { JobPost } from '../models/jobpost';
 
 @Injectable()
 export class JobService {
-  private jobUrl = '/api/JobPosts';
+private jobUrl = '/api/JobPosts';
 
   constructor(private http: Http) {}
 
@@ -16,6 +16,17 @@ export class JobService {
     return this.http.post(this.jobUrl, jobPost)
       .toPromise()
       .then(response => response.json() as JobPost)
+      .catch(this.handleError);
+  }
+
+  /**
+   * @returns promise with all the job posts in the database
+   * @name getAllJobPosts
+   */
+  public getAllJobPosts(): Promise<JobPost[]> {
+    return this.http.get(this.jobUrl)
+      .toPromise()
+      .then(response => response.json() as JobPost[])
       .catch(this.handleError);
   }
 

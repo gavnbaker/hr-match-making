@@ -24,7 +24,7 @@ export class ProfileService {
 
   // Get user profile with id# or user name
   public getUserProfile(id: number): Promise<User> {
-    const url: string = this.userUrl + `/{id}`;
+    const url: string = this.userUrl + `/${id}`;
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().user as User)

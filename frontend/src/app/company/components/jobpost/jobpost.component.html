@@ -25,12 +25,43 @@
           <textarea class="form-control" rows="5" id="description" formControlName="description"></textarea>
         </div>
     </div>
-
     <hr>
+
+    <div class="">
+      <h2 class="">Skills</h2>
+      <div class="row">
+        <div class="input-group col-md-6">
+          <input type="text" class="form-control" placeholder="Add Skills" formControlName="skill" (keyup.enter)="addSkill(skillsCtrl.value)">
+          <div class="input-group-btn">
+            <button class="btn btn-info" (click)="addSkill(skillsCtrl.value)" type="button">
+                <i class="fa fa-plus fa-fw" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="">
+      <div class="">
+        <ul class="list-group skills col-md-6">
+          <li *ngFor="let jobskill of skills; let i=index" class="list-group-item d-flex justify-content-between align-items-center">
+            <span class="badge badge-info badge-pill"> {{i + 1}} </span>
+            <span class="">{{jobskill.Skill.Name}}</span>
+            <button class="btn btn-info" (click)="removeSkill(i);" type="button">
+                <i class="fa fa-trash fa-fw" aria-hidden="true"></i>
+            </button>
+
+            <!-- <span class="glyphicon glyphicon-trash pull-right" (click)=removeSkill(i);></span> -->
+            <!-- <span class="pull-right glyphicon glyphicon-minus"></span> -->
+          </li>
+        </ul>
+      </div>
+    </div>
     <br>
 
     <button type="submit" class="btn btn-success" [disabled]="jobPostForm.invalid">Save Job Post</button>
 
   </form>
-  <div>{{diagnostic}}</div>
+  <pre>{{diagnostic}}</pre>
+  <pre>{{skillsArray}}</pre>
 </div>

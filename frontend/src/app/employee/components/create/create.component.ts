@@ -64,8 +64,8 @@ export class CreateComponent implements OnInit {
     this.profileService.save(userProfile)
       .then(user => {
         console.log(user);
+        this.router.navigate(['/employee/dashboard']);
       });
-    // this.router.navigate(['/dashboard']);
   }
 
   private createUser(): User {
@@ -144,7 +144,7 @@ export class CreateComponent implements OnInit {
     const skill: UserSkills = {
       Skill: {
         Name: value,
-        YearsExperience: 1,
+        YearsExperience: Math.floor((Math.random() * 10) + 1),
       },
     };
 

@@ -1,3 +1,16 @@
-<p>
-  job-search works!
-</p>
+<div class="container-fluid">
+  <h3 class="text-center">Recommended Job Opportunities</h3>
+  <div class="row">
+    <div class="w3-card-4 col-md-3 mx-5 my-3 pb-4" *ngFor="let jobPost of jobPosts">
+      <!-- <div class="card-header">
+        Job Title
+      </div> -->
+      <div class="card-body">
+        <h4 class="card-title">{{jobPost.Job.Title}}</h4>
+        <p class="card-text">{{jobPost.Job.Description}}</p>
+        <button type="button" class="card-link btn float-left w3-teal rounded-0">Bookmark</button>
+        <button type="button" class="card-link btn float-right w3-teal rounded-0">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
