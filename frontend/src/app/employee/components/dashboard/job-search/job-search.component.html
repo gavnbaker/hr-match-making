@@ -8,8 +8,8 @@
       <div class="card-body">
         <h4 class="card-title">{{jobPost.Job.Title}}</h4>
         <p class="card-text">{{jobPost.Job.Description}}</p>
-        <button type="button" class="card-link btn float-left w3-teal rounded-0">Bookmark</button>
-        <button type="button" class="card-link btn float-right w3-teal rounded-0">Apply</button>
+        <button type="button" class="card-link btn float-left w3-teal rounded-0" (click)="bookmarkJob(jobPost.JobPostID)">Bookmark</button>
+        <button type="button" class="card-link btn float-right w3-teal rounded-0" (click)="applyToJob(jobPost.JobPostID)">Apply</button>
       </div>
     </div>
   </div>

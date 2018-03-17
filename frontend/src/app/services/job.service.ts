@@ -30,6 +30,16 @@ private jobUrl = '/api/JobPosts';
       .catch(this.handleError);
   }
 
+  /**
+   * applyToJob
+   */
+  public applyToJob(jobPostId: number): boolean {
+
+    // Use default user id 1 to match user to bookmark
+    console.log(jobPostId);
+    return true;
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

@@ -60,7 +60,7 @@ export class JobPostComponent implements OnInit {
   public createJobPost() {
     const newJobPost: JobPost = {
       Job: this.jobCtrls.value,
-      CompanyId: this.companyCtrl.value,
+      CompanyID: this.companyCtrl.value,
       JobPostSkills: this.skills,
     };
 
