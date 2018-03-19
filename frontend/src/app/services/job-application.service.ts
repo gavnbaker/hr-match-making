@@ -3,19 +3,18 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class BookmarkService {
-  private bookmarkUrl = 'api/bookmarks';
+export class JobApplicationService {
+  private jobAppsUrl = 'api/jobapplications';
 
   public constructor(private httpSvc: Http) {}
 
-  public bookmarkJob(jobPostId: number): Promise<any> {
-    // Use default user id 1 to match user to bookmark
-    const bookmark: Object = {
-      JobPostID: jobPostId,
-      UserID: 3,
-    };
-
-    return this.httpSvc.post(this.bookmarkUrl, bookmark)
+  public createJobApplication(jobpostId: number) {
+    return this.httpSvc.post(this.jobAppsUrl,
+      {
+        UserID: 3,
+        JobPostID: jobpostId,
+        Status: 0,
+      })
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
@@ -25,5 +24,4 @@ export class BookmarkService {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
-
 }

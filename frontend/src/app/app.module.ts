@@ -23,6 +23,7 @@ import { ProfileService } from './services/profile.service';
 import { BackendUrlService } from './services/backend-url.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { JobApplicationService } from './services/job-application.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { AuthGuard } from './guards/auth.guard';
     AppRoutingModule,
     HttpModule
   ],
-  providers: [TitleService, ProfileService, BackendUrlService, AuthService, AuthGuard],
+  providers: [TitleService, ProfileService, BackendUrlService, AuthService, AuthGuard, JobApplicationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
