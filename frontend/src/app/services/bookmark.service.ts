@@ -21,6 +21,14 @@ export class BookmarkService {
       .catch(this.handleError);
   }
 
+  public unbookmarkJob(bookmarkId: number): any {
+    const deleteUrl: string = this.bookmarkUrl.concat(`/${bookmarkId}`);
+    return this.httpSvc.delete(deleteUrl)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
