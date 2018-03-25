@@ -15,6 +15,7 @@ interface JobDTO {
 })
 export class TableComponent implements OnInit {
   @Input() jobApplications: JobDTO[];
+  @Input() showStatus: boolean;
 
   constructor() { }
 

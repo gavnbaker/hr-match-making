@@ -1,4 +1,5 @@
 <div class="container-fluid">
+  <h1>Dashboard</h1>
   <h3 class="text-center">Recommended Job Opportunities</h3>
   <div class="row">
     <div class="w3-card-4 col-md-3 mx-5 my-3 pb-4" *ngFor="let jobPost of jobPosts">
@@ -8,8 +9,9 @@
       <div class="card-body">
         <h4 class="card-title">{{jobPost.Job.Title}}</h4>
         <p class="card-text">{{jobPost.Job.Description}}</p>
-        <button type="button" class="card-link btn float-left w3-teal rounded-0" (click)="bookmarkJob(jobPost.JobPostID)">Bookmark</button>
-        <button type="button" class="card-link btn float-right w3-teal rounded-0" (click)="applyToJob(jobPost.JobPostID)">Apply</button>
+        <!-- <button type="button" class="card-link btn float-left w3-teal rounded-0" (click)="bookmarkJob(jobPost.JobPostID)">Bookmark</button>
+        <button type="button" class="card-link btn float-right w3-teal rounded-0" (click)="applyToJob(jobPost.JobPostID)">Apply</button> -->
+        <button type="button" class="card-link btn btn-link btn-block w3-teal">View</button>
       </div>
     </div>
   </div>
