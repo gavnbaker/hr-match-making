@@ -29,6 +29,14 @@ export class BookmarkService {
       .catch(this.handleError);
   }
 
+  public getBookmarksByUser(userId: number): any {
+    const url = `api/users/${userId}/bookmarks`;
+    return this.httpSvc.get(url)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

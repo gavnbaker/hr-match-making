@@ -1,4 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { JobPost } from '../../../../models/jobpost';
+import { JobApplicationService } from '../../../../services/job-application.service';
+
+interface JobDTO {
+  UserID: number;
+  JobPost: JobPost;
+  Status: number;
+}
 
 @Component({
   selector: 'app-table',
@@ -6,7 +14,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  @Input() jobApplications: any[];
+  @Input() jobApplications: JobDTO[];
 
   constructor() { }
 

@@ -1,7 +1,7 @@
 <table class="w3-table-all">
   <thead>
     <tr>
-      <th>JobPostID</th>
+      <th>Job Title</th>
       <th>Job Description</th>
       <th>Company Name</th>
       <th>Status</th>
@@ -10,11 +10,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let job of jobApplications">
-      <td>{{job.JobPostID}}</td>
-      <td>{{job.JobPost.job.Description}}</td>
+      <td>{{job.JobPost.Job.Title}}</td>
+      <td>{{job.JobPost.Job.Description}}</td>
       <td>{{job.JobPost.Company.Name}}</td>
       <td>{{job.Status}}</td>
-      <td><button type="submit" (click)="viewJob(job.JobPostID)">View</button></td>
+      <td><button type="submit" (click)="viewJob(job.JobPost.JobPostID)">View</button></td>
     </tr>
   </tbody>
   <tfoot>
