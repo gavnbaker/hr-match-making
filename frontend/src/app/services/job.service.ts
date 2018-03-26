@@ -30,6 +30,14 @@ private jobUrl = '/api/JobPosts';
       .catch(this.handleError);
   }
 
+  public getJobPost(id: number): Promise<JobPost> {
+    const url = `${this.jobUrl}/${id}`;
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json() as JobPost)
+      .catch(this.handleError);
+  }
+
   /**
    * applyToJob
    */

@@ -7,6 +7,7 @@ import { TableComponent } from './table/table.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ApplicationsComponent } from './applications/applications.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
+import { JobDetailComponent } from './job-detail/job-detail.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'table',
         component: TableComponent
+      },
+      {
+        path: 'job-detail/:id',
+        component: JobDetailComponent
       },
       {
         path: '',

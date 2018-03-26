@@ -3,6 +3,7 @@ import { JobService } from '../../../../services/job.service';
 import { JobPost } from '../../../../models/jobpost';
 import { BookmarkService } from '../../../../services/bookmark.service';
 import { JobApplicationService } from '../../../../services/job-application.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-job-search',
