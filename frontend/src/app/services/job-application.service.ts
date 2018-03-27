@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { JobPost } from '../models/jobpost';
 
 @Injectable()
 export class JobApplicationService {
@@ -28,8 +29,12 @@ export class JobApplicationService {
       .catch(this.handleError);
   }
 
-  public userAppliedToJob(jopPostId: number): any {
-    console.log('..Fetched job application status');
+  public getJobApplicationStatus(jobPostId: number, userId: number): Promise<boolean> {
+    const url = `api/users/${userId}/jobsapplied/${jobPostId}`;
+    return this.httpSvc.get(url)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

@@ -37,8 +37,12 @@ export class BookmarkService {
       .catch(this.handleError);
   }
 
-  public isJobBookmarked(jopPostId: number): any {
-    console.log('..Fetched job bookmark status');
+  public isJobBookmarked(jobPostId: number, userId: number): Promise<boolean> {
+    const url = `api/users/${userId}/bookmark/${jobPostId}`;
+    return this.httpSvc.get(url)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

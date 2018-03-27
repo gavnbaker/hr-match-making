@@ -13,6 +13,8 @@ import { JobPost } from '../../../../models/jobpost';
 })
 export class JobDetailComponent implements OnInit {
   public jobPost: JobPost;
+  public isApplied: boolean;
+  public isBookmarked: boolean;
 
   constructor(private route: ActivatedRoute,
     private location: Location, private jobService: JobService,
