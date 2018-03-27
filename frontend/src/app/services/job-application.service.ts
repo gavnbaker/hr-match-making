@@ -28,6 +28,10 @@ export class JobApplicationService {
       .catch(this.handleError);
   }
 
+  public userAppliedToJob(jopPostId: number): any {
+    console.log('..Fetched job application status');
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

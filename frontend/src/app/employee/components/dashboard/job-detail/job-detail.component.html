@@ -1,3 +1,39 @@
-<p>
-  job-detail works!
-</p>
+<h1>Job Detail</h1>
+<div *ngIf="!jobPost">
+  Loading...
+</div>
+
+<div *ngIf="jobPost">
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="company">Company</label>
+      <input type="text" readonly="true" [value]="jobPost.Company.Name" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="industry">Industry</label>
+      <input type="text" readonly="true" [value]="jobPost.Company.Industry" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="email">Email</label>
+      <input type="text" readonly="true" [value]="jobPost.Company.Email" class="form-control">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="job-title">Job Title</label>
+      <input type="text" readonly="true" [value]="jobPost.Job.Title" class="form-control">
+    </div>
+  </div>
+  <div class="form-row center">
+    <div class="form-group col-md-6">
+      <label for="job-description">Job Description</label>
+      <textarea class="form-control" rows="3" id="description" readonly="true">{{jobPost.Job.Description}}</textarea>
+    </div>
+  </div>
+
+  <button type="button" class="card-link btn float-left w3-teal" (click)="bookmarkJob(jobPost.JobPostID)">Bookmark</button>
+  <button type="button" class="card-link btn float-left w3-teal" (click)="applyToJob(jobPost.JobPostID)">Apply</button>
+
+  <button class="card-link btn btn-primary w3-white float-left w3-gray" (click)="goBack()">Back</button>
+</div>
+<!-- <input type="text" readonly="true" [value]="jobPost.Job.Title" class="form-control col-3"> -->

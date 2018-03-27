@@ -30,11 +30,11 @@ private jobUrl = '/api/JobPosts';
       .catch(this.handleError);
   }
 
-  public getJobPost(id: number): Promise<JobPost> {
+  public getJobPost(id: number): Promise<any> {
     const url = `${this.jobUrl}/${id}`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json() as JobPost)
+      .then(response => response.json())
       .catch(this.handleError);
   }
 
