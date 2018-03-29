@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { JobPost } from '../models/jobpost';
 
 @Injectable()
 export class BookmarkService {
@@ -21,7 +22,7 @@ export class BookmarkService {
       .catch(this.handleError);
   }
 
-  public unbookmarkJob(bookmarkId: number): any {
+  public unbookmarkJob(bookmarkId: number): Promise<any> {
     const deleteUrl: string = this.bookmarkUrl.concat(`/${bookmarkId}`);
     return this.httpSvc.delete(deleteUrl)
       .toPromise()
@@ -37,11 +38,13 @@ export class BookmarkService {
       .catch(this.handleError);
   }
 
-  public getBookmarkedJob(jobPostId: number, userId: number): Promise<boolean> {
+  public getBookmarkedJob(jobPostId: number, userId: number): Promise<any> {
     const url = `api/users/${userId}/bookmark/${jobPostId}`;
     return this.httpSvc.get(url)
       .toPromise()
-      .then(response => Boolean(response.json()))
+      .then(response => {
+        return response.json();
+        })
       .catch(this.handleError);
   }
 

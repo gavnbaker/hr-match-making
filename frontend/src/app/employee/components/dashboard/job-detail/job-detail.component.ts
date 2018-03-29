@@ -12,7 +12,9 @@ import { JobPost } from '../../../../models/jobpost';
   styleUrls: ['./job-detail.component.css']
 })
 export class JobDetailComponent implements OnInit {
-  public jobPost: any;
+  public jobPost: JobPost;
+  public bookmarkId: number;
+  public jobApplicationId: number;
   public isApplied = false;
   public isBookmarked = false;
   public userId = 3;
@@ -39,7 +41,16 @@ export class JobDetailComponent implements OnInit {
 
   public checkIfJobIsBookmarked(jobPostId: number, userId: number): void {
     this.bookmarkService.getBookmarkedJob(jobPostId, userId)
-      .then(bookmarked => this.isBookmarked = bookmarked);
+      .then(bookmarked => {
+        this.isBookmarked = Boolean(bookmarked);
+        if (bookmarked === null) {
+          this.bookmarkId = 0;
+        } else if (bookmarked.BookmarkID) {
+          this.bookmarkId = bookmarked.BookmarkID;
+        }
+
+        console.log('Bookmark Id: ', this.bookmarkId);
+      });
   }
 
   public checkIfUserAppliedToJob(jobPostId: number, userId: number): void {
@@ -55,17 +66,25 @@ export class JobDetailComponent implements OnInit {
     this.location.back();
   }
 
+  public unBookmarkJob(bookmarkId: number): void {
+    this.bookmarkService.unbookmarkJob(bookmarkId)
+      .then(response => {
+        console.log(response);
+        this.checkIfJobIsBookmarked(this.jobPost.JobPostID, this.userId);
+      });
+  }
+
   public bookmarkJob(jobPostId: number) {
     this.bookmarkService.bookmarkJob(jobPostId)
       .then(response => {
-        console.log(response);
+        this.checkIfJobIsBookmarked(jobPostId, this.userId);
       });
   }
 
   public applyToJob(jobPostId: number) {
     this.jobAppsService.createJobApplication(jobPostId)
       .then(response => {
-        console.log(response);
+        this.checkIfUserAppliedToJob(jobPostId, this.userId);
       });
   }
 
