@@ -7,10 +7,10 @@ import { JobPost } from '../models/jobpost';
 export class JobApplicationService {
   private jobAppsUrl = 'api/jobapplications';
 
-  public constructor(private httpSvc: Http) {}
+  public constructor(private httpService: Http) {}
 
   public createJobApplication(jobpostId: number) {
-    return this.httpSvc.post(this.jobAppsUrl,
+    return this.httpService.post(this.jobAppsUrl,
       {
         UserID: 3,
         JobPostID: jobpostId,
@@ -23,17 +23,21 @@ export class JobApplicationService {
 
   public getJobApplicationsByUser(userId: number): any {
     const url = `api/users/${userId}/jobsapplied`;
-    return this.httpSvc.get(url)
+    return this.httpService.get(url)
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
   }
 
-  public getJobApplicationStatus(jobPostId: number, userId: number): Promise<boolean> {
+  public getJobAppliedByUser(jobPostId: number, userId: number): Promise<boolean> {
     const url = `api/users/${userId}/jobsapplied/${jobPostId}`;
-    return this.httpSvc.get(url)
+    return this.httpService.get(url)
       .toPromise()
-      .then(response => response.json())
+      .then(response => {
+        const applied: boolean = Boolean(response.json());
+        console.log(applied);
+        return applied;
+      })
       .catch(this.handleError);
   }
 

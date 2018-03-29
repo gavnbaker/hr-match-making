@@ -12,24 +12,39 @@ import { JobPost } from '../../../../models/jobpost';
   styleUrls: ['./job-detail.component.css']
 })
 export class JobDetailComponent implements OnInit {
-  public jobPost: JobPost;
-  public isApplied: boolean;
-  public isBookmarked: boolean;
+  public jobPost: any;
+  public isApplied = false;
+  public isBookmarked = false;
+  public userId = 3;
 
   constructor(private route: ActivatedRoute,
     private location: Location, private jobService: JobService,
     private jobAppsService: JobApplicationService, private bookmarkService: BookmarkService) { }
 
   ngOnInit() {
-    const id = this.getRouteId();
-    console.log(`id: ${id}`);
-    this.jobService.getJobPost(id)
-      .then(response => {
-        console.log(response);
-        this.jobPost = response;
-      })
-      .then(this.bookmarkService.isJobBookmarked(id))
-      .then(this.jobAppsService.userAppliedToJob(id));
+    const jobPostId: number = this.getRouteId();
+    this.getJobPost(jobPostId);
+    this.checkIfUserAppliedToJob(jobPostId, this.userId);
+    this.checkIfJobIsBookmarked(jobPostId, this.userId);
+    console.log('JobPostId: ', jobPostId);
+    console.log('Job Post: ', this.jobPost);
+    console.log('User applied to job: ', this.isApplied);
+    console.log('User Bookmarked job: ', this.isBookmarked);
+  }
+
+  public getJobPost(jobPostId: number): void {
+    this.jobService.getJobPost(jobPostId)
+      .then(response => this.jobPost = response);
+  }
+
+  public checkIfJobIsBookmarked(jobPostId: number, userId: number): void {
+    this.bookmarkService.getBookmarkedJob(jobPostId, userId)
+      .then(bookmarked => this.isBookmarked = bookmarked);
+  }
+
+  public checkIfUserAppliedToJob(jobPostId: number, userId: number): void {
+    this.jobAppsService.getJobAppliedByUser(jobPostId, userId)
+      .then(jobApplied => this.isApplied = jobApplied);
   }
 
   public getRouteId(): number {
