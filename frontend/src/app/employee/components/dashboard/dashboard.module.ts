@@ -18,7 +18,8 @@ import { JobDetailComponent } from './job-detail/job-detail.component';
     CommonModule,
     DashboardRoutingModule
   ],
-  declarations: [JobSearchComponent, DashboardComponent, TableComponent, ProfileComponent, ApplicationsComponent, BookmarksComponent, JobDetailComponent],
+  declarations: [JobSearchComponent, DashboardComponent, TableComponent, ProfileComponent, ApplicationsComponent,
+    BookmarksComponent, JobDetailComponent],
   providers: [JobService, BookmarkService],
 })
 export class DashboardModule { }

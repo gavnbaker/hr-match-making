@@ -29,10 +29,6 @@ export class JobDetailComponent implements OnInit {
     this.getJobPost(jobPostId);
     this.checkIfUserAppliedToJob(jobPostId, this.userId);
     this.checkIfJobIsBookmarked(jobPostId, this.userId);
-    console.log('JobPostId: ', jobPostId);
-    console.log('Job Post: ', this.jobPost);
-    console.log('User applied to job: ', this.isApplied);
-    console.log('User Bookmarked job: ', this.isBookmarked);
   }
 
   public getJobPost(jobPostId: number): void {

@@ -1,20 +1,21 @@
-<table class="w3-table-all">
-  <thead>
+<div *ngIf="!bookmarks && !applications">Loading...</div>
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
     <tr>
       <th>Job Title</th>
       <th>Job Description</th>
       <th>Company Name</th>
-      <th *ngIf="showStatus">Status</th>
+      <th *ngIf="applications">Status</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let job of jobApplications">
-      <td>{{job.JobPost.Job.Title}}</td>
-      <td>{{job.JobPost.Job.Description}}</td>
-      <td>{{job.JobPost.Company.Name}}</td>
-      <td *ngIf="showStatus">{{job.Status}}</td>
-      <td><button type="submit" (click)="viewJob(job.JobPost.JobPostID)">View</button></td>
+    <tr *ngFor="let value of data">
+      <td>{{value.JobPost.Job.Title}}</td>
+      <td>{{value.JobPost.Job.Description}}</td>
+      <td>{{value.JobPost.Company.Name}}</td>
+      <td *ngIf="applications">{{value.Status}}</td>
+      <td><button type="submit" class="btn w3-teal" (click)="viewJob(value.JobPost.JobPostID)">View</button></td>
     </tr>
   </tbody>
   <tfoot>
@@ -23,3 +24,4 @@
     </tr>
   </tfoot>
 </table>
+

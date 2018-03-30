@@ -21,7 +21,7 @@ export class JobApplicationService {
       .catch(this.handleError);
   }
 
-  public getJobApplicationsByUser(userId: number): any {
+  public getJobApplicationsByUser(userId: number): Promise<any> {
     const url = `api/users/${userId}/jobsapplied`;
     return this.httpService.get(url)
       .toPromise()

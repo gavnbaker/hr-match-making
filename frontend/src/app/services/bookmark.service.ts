@@ -30,7 +30,7 @@ export class BookmarkService {
       .catch(this.handleError);
   }
 
-  public getBookmarksByUser(userId: number): any {
+  public getBookmarksByUser(userId: number): Promise<any> {
     const url = `api/users/${userId}/bookmarks`;
     return this.httpSvc.get(url)
       .toPromise()
