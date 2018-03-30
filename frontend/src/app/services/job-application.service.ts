@@ -29,15 +29,21 @@ export class JobApplicationService {
       .catch(this.handleError);
   }
 
-  public getJobAppliedByUser(jobPostId: number, userId: number): Promise<boolean> {
+  public getJobAppliedByUser(jobPostId: number, userId: number): Promise<any> {
     const url = `api/users/${userId}/jobsapplied/${jobPostId}`;
     return this.httpService.get(url)
       .toPromise()
       .then(response => {
-        const applied: boolean = Boolean(response.json());
-        console.log(applied);
-        return applied;
+        return response.json();
       })
+      .catch(this.handleError);
+  }
+
+  public cancelJobApplication(applicationId: number): Promise<any> {
+    const url = `${this.jobAppsUrl}/${applicationId}`;
+    return this.httpService.delete(url)
+      .toPromise()
+      .then(response => response.json())
       .catch(this.handleError);
   }
 

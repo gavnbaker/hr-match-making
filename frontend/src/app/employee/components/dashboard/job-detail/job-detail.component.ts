@@ -14,6 +14,7 @@ import { JobPost } from '../../../../models/jobpost';
 export class JobDetailComponent implements OnInit {
   public jobPost: JobPost;
   public bookmarkId: number;
+  public applicationId: number;
   public jobApplicationId: number;
   public isApplied = false;
   public isBookmarked = false;
@@ -44,7 +45,7 @@ export class JobDetailComponent implements OnInit {
       .then(bookmarked => {
         this.isBookmarked = Boolean(bookmarked);
         if (bookmarked === null) {
-          this.bookmarkId = 0;
+          return;
         } else if (bookmarked.BookmarkID) {
           this.bookmarkId = bookmarked.BookmarkID;
         }
@@ -55,7 +56,15 @@ export class JobDetailComponent implements OnInit {
 
   public checkIfUserAppliedToJob(jobPostId: number, userId: number): void {
     this.jobAppsService.getJobAppliedByUser(jobPostId, userId)
-      .then(jobApplied => this.isApplied = jobApplied);
+      .then(jobApplied => {
+        this.isApplied = Boolean(jobApplied);
+        if (jobApplied === null) {
+          return;
+        } else if (jobApplied) {
+          this.applicationId = jobApplied.JobApplicationID;
+        }
+        console.log('Application Id: ', this.applicationId);
+      });
   }
 
   public getRouteId(): number {
@@ -85,6 +94,14 @@ export class JobDetailComponent implements OnInit {
     this.jobAppsService.createJobApplication(jobPostId)
       .then(response => {
         this.checkIfUserAppliedToJob(jobPostId, this.userId);
+      });
+  }
+
+  public cancelJobApplication(applicationId: number): void {
+    this.jobAppsService.cancelJobApplication(applicationId)
+      .then(response => {
+        this.checkIfUserAppliedToJob(applicationId, this.userId);
+        console.log(response);
       });
   }
 

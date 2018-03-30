@@ -34,8 +34,7 @@
   <button *ngIf="!isBookmarked" type="button" class="card-link btn float-left w3-teal" (click)="bookmarkJob(jobPost.JobPostID)">Bookmark</button>
   <button *ngIf="!isApplied" type="button" class="card-link btn float-left w3-teal" (click)="applyToJob(jobPost.JobPostID)">Apply</button>
   <button *ngIf="isBookmarked" type="button" class="card-link btn float-left w3-teal" (click)="unBookmarkJob(this.bookmarkId)">Remove Bookmark</button>
-  <button *ngIf="isApplied" type="button" class="card-link btn float-left w3-teal" (click)="cancelJobApplication(jobPost.JobPostID)">Cancel Application</button>
+  <button *ngIf="isApplied" type="button" class="card-link btn float-left w3-teal" (click)="cancelJobApplication(this.applicationId)">Cancel Application</button>
 
-  <button class="card-link btn btn-primary w3-white float-left w3-gray" (click)="goBack()">Back</button>
+  <button class="card-link btn btn-primary w3-white float-left w3-gray" type="button" (click)="goBack()">Back</button>
 </div>
-<!-- <input type="text" readonly="true" [value]="jobPost.Job.Title" class="form-control col-3"> -->
