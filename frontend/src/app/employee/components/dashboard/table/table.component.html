@@ -1,11 +1,11 @@
-<div *ngIf="!bookmarks && !applications">Loading...</div>
-<table class="table table-bordered table-hover">
+<div *ngIf="!data">Loading...</div>
+<table class="table table-bordered table-hover" *ngIf="data">
   <thead class="thead-dark">
     <tr>
       <th>Job Title</th>
       <th>Job Description</th>
       <th>Company Name</th>
-      <th *ngIf="applications">Status</th>
+      <th *ngIf="isApplicationTable">Status</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -14,13 +14,12 @@
       <td>{{value.JobPost.Job.Title}}</td>
       <td>{{value.JobPost.Job.Description}}</td>
       <td>{{value.JobPost.Company.Name}}</td>
-      <td *ngIf="applications">{{value.Status}}</td>
-      <td><button type="submit" class="btn w3-teal" (click)="viewJob(value.JobPost.JobPostID)">View</button></td>
+      <td *ngIf="isApplicationTable">{{value.Status}}</td>
+      <td><button type="submit" class="btn w3-teal" routerLink="/employee/dashboard/job-detail/{{value.JobPost.JobPostID}}">View</button></td>
     </tr>
   </tbody>
   <tfoot>
     <tr>
-      <td></td>
     </tr>
   </tfoot>
 </table>
