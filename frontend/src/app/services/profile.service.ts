@@ -27,7 +27,7 @@ export class ProfileService {
     const url: string = this.userUrl + `/${id}`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json().user as User)
+      .then(response => response.json() as User)
       .catch(this.handleError);
   }
 
