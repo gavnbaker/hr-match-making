@@ -10,7 +10,7 @@ import { Address } from '../../../../data/models/address';
 })
 export class ProfileComponent implements OnInit {
   public user: User;
-  public profileImg = '../../../../../favicon.ico';
+  public profileImg = '../../../../../assets/avatar_hat.jpeg';
 
   constructor(private profileService: ProfileService) { }
 
@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
     this.getUserProfile();
   }
 
-  public getUserProfile(userId: number = 3): void {
+  public getUserProfile(userId: number = 5): void {
     this.profileService.getUserProfile(userId)
       .then(response => {
         this.user = response;
@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
   }
 
   public convertAddressToString(address: Address): string {
-    return `${address.Street}, ${address.City}, ${address.State}, ${address.ZipCode}, ${address.Country}`;
+    return `${address.City}, ${address.State}`;
   }
 
 
