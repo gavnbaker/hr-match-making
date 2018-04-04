@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
     this.getUserProfile();
   }
 
-  public getUserProfile(userId: number = 5): void {
+  public getUserProfile(userId: number = 1002): void {
     this.profileService.getUserProfile(userId)
       .then(response => {
         this.user = response;

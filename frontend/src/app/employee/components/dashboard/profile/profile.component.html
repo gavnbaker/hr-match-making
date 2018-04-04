@@ -1,6 +1,9 @@
-<div class="container">
+<div *ngIf="!user">
+  Loading...
+</div>
+<div class="container" *ngIf="user">
   <div class="row">
-    <div class="col-4">
+    <div class="col-md-4">
       <div class="card">
         <div class="container position-relative px-0">
             <img src="{{profileImg}}" alt="Profile Image" class="card-img-top">
@@ -16,8 +19,12 @@
             <p class="w3-large"><b><i class="fa fa-asterisk fa-fw mr-1 w3-text-teal"></i>Skills</b></p>
             <div *ngFor="let skill of user.UserSkills">
               <p>{{skill.Skill.Name}}</p>
-              <div class="progress">
-                <div class="progress-bar w3-teal" role="progressbar" [style]="skill.Skill.YearsExperience * 10"
+              <div class="progress" [ngStyle]="{'border-radius':'16px'}">
+                <div class="progress-bar w3-teal" role="progressbar"
+                [ngStyle]="{
+                  'width': (skill.Skill.YearsExperience * 10) + '%',
+                  'border-radius': '16px'
+                }"
                   aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{skill.Skill.YearsExperience * 10}}%</div>
               </div>
             </div>
