@@ -18,23 +18,34 @@
 
             <p class="w3-large"><b><i class="fa fa-asterisk fa-fw mr-1 w3-text-teal"></i>Skills</b></p>
             <div *ngFor="let skill of user.UserSkills">
-              <p>{{skill.Skill.Name}}</p>
-              <div class="progress" [ngStyle]="{'border-radius':'16px'}">
+              <p class="m-1">{{skill.Skill.Name}}</p>
+              <div class="progress">
                 <div class="progress-bar w3-teal" role="progressbar"
-                [ngStyle]="{
-                  'width': (skill.Skill.YearsExperience * 10) + '%',
-                  'border-radius': '16px'
-                }"
+                [ngStyle]="{'width': (skill.Skill.YearsExperience * 10) + '%'}"
                   aria-valuenow="" aria-valuemin="0" aria-valuemax="100">{{skill.Skill.YearsExperience * 10}}%</div>
               </div>
             </div>
-
-
         </div>
       </div>
     </div>
     <div class="col-md-8">
-
+      <div class="card">
+        <h2 class="w3-text-grey p-3"><i class="fa fa-suitcase fa-fw mr-3 w3-xxlarge w3-text-teal"></i>Work Experience</h2>
+        <div class="container" *ngFor="let workExperience of user.JobHistory">
+          <h5 class="w3-opacity"><b>{{workExperience.Job.Title}} / {{workExperience.CompanyName}}</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw mr-3"></i>{{workExperience.StartDate | date}} - {{workExperience.EndDate | date}}</h6>
+          <p>{{workExperience.Job.Description}}</p>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="container position-relative">
+      <div class="buttons m-3 position-absolute"  [ngStyle]="{'right': '0%'}">
+          <button type="submit" class="btn btn-primary btn-lg mr-2">Edit</button>
+          <button type="submit" class="btn btn-danger btn-lg" (click)="goBack()">Back</button>
+      </div>
     </div>
   </div>
 </div>
