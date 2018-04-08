@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { JobPost } from '../models/jobpost';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class JobService {
 private jobUrl = '/api/JobPosts';
 
-  constructor(private http: Http) {}
-
+  constructor(private http: Http, private router: Router) {}
   /**
    * createJob
    */

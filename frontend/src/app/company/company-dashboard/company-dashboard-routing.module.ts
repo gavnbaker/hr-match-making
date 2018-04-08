@@ -9,6 +9,10 @@ const routes: Routes = [
     component: CompanyDashboardComponent,
     children: [
       {
+        path: 'jobpost/:id',
+        component: JobPostComponent
+      },
+      {
         path: 'jobpost',
         component: JobPostComponent
       }

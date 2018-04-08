@@ -6,7 +6,7 @@ import { CompanyService } from '../../../../services/company.service';
 import { JobService } from '../../../../services/job.service';
 import { Router } from '@angular/router';
 import { JobPost } from '../../../../models/jobpost';
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-jobpost',
@@ -14,36 +14,30 @@ import { JobPost } from '../../../../models/jobpost';
   styleUrls: ['./job-post.component.css']
 })
 export class JobPostComponent implements OnInit {
+  public onEditPage: boolean;
+  public onCreatePage: boolean;
+  public jobPostId: number;
+  public jobPost: JobPost;
+
   public jobPostForm: FormGroup;
-  public companies: Company[];
   public skills: JobPostSkills[] = [];
 
   public jobCtrls: AbstractControl;
-  public companyCtrl: AbstractControl;
   public skillsCtrl: AbstractControl;
 
-  constructor(private fb: FormBuilder,
-    private companyService: CompanyService, private jobServive: JobService, private router: Router) {}
+  constructor(private fb: FormBuilder, private companyService: CompanyService,
+    private jobServive: JobService, private router: Router,
+    private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.createForm();
-    this.getCompanies();
+    this.getJobPostPage();
     this.jobCtrls = this.jobPostForm.controls['job'];
-    this.companyCtrl = this.jobPostForm.controls['companyId'];
     this.skillsCtrl = this.jobPostForm.controls['skill'];
-  }
-
-  /**
-   * getCompanies
-   */
-  public getCompanies() {
-    this.companyService.getCompanies()
-      .then(companyList => this.companies = companyList);
   }
 
   private createForm(): void {
     this.jobPostForm = this.fb.group({
-      companyId: ['', Validators.required],
       skill: [''],
       job: this.fb.group({
         title: ['', Validators.required],
@@ -52,22 +46,61 @@ export class JobPostComponent implements OnInit {
     });
   }
 
+  private getJobPostPage() {
+    this.jobPostId = this.getRouteId();
+    if (this.jobPostId) {
+      this.onEditPage = true;
+      this.configureEditPage();
+    } else {
+      this.onCreatePage = true;
+    }
+  }
+
+  private configureEditPage() {
+    if (this.onEditPage) {
+      // set the page data
+      // fetch job post
+      this.jobServive.getJobPost(this.jobPostId)
+        .then(jobpost => {
+          console.log(jobpost);
+          this.jobPost = jobpost;
+
+          // populate skills array
+          this.skills = this.jobPost.JobPostSkills;
+
+          // Set the form values
+          this.jobPostForm.setValue(
+            {
+              skill: '',
+              job: {
+                title: this.jobPost.Job.Title,
+                description: this.jobPost.Job.Description
+              }
+            }
+          );
+        });
+    }
+  }
+
+  public getRouteId(): number {
+    return +this.activatedRoute.snapshot.paramMap.get('id');
+  }
+
   /**
    * createJobPost
    * @author gavin
    * @description create new job post
    */
-  public createJobPost() {
+  public createJobPost(companyId: number = 1) {
     const newJobPost: JobPost = {
       Job: this.jobCtrls.value,
-      CompanyID: this.companyCtrl.value,
+      CompanyID: companyId,
       JobPostSkills: this.skills,
     };
 
     this.jobServive.createJobPost(newJobPost)
       .then(createdJobPost => {
-          console.log(createdJobPost);
-          // this.router.navigate(['/dashboard']);
+          this.router.navigate(['company/dashboard']);
         });
   }
 
