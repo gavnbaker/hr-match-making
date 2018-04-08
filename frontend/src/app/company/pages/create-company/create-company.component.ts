@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CompanyService } from '../../../services/company.service';
-import { Company } from '../../../models/company';
 import { Router } from '@angular/router';
+import { Company } from '../../../models/company';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-create-company',
+  templateUrl: './create-company.component.html',
+  styleUrls: ['./create-company.component.css']
 })
-export class ProfileComponent implements OnInit {
-  states: string[] = ['New Jersey', 'New York', 'California', 'Florida'];
-  isSubmitted = false;
+export class CreateCompanyComponent implements OnInit {
+
+  public states: string[] = ['New Jersey', 'New York', 'California', 'Florida'];
+  public isSubmitted = false;
 
   // Form stuff
   public companyForm: FormGroup;
@@ -29,7 +30,7 @@ export class ProfileComponent implements OnInit {
       description: ['', Validators.required],
       industry: ['', Validators.required],
       email: ['', Validators.email],
-      phone: [''],
+      phone: ['', Validators.compose([Validators.required, Validators.pattern(/(^\d{3}-\d{3}-\d{4}$)/)])],
       address: this.fb.group(
         {
           street: [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
@@ -37,7 +38,7 @@ export class ProfileComponent implements OnInit {
           zipcode: [null,
             Validators.compose([Validators.required, Validators.maxLength(10), Validators.pattern(/(^\d{5}$)|(^\d{5}-\d{4}$)/)])],
           city: [null, Validators.compose([Validators.required, Validators.maxLength(25)])],
-          state: ['New Jersey', Validators.required]
+          state: ['Choose...', Validators.required]
         }
       )
     });
@@ -47,7 +48,6 @@ export class ProfileComponent implements OnInit {
    * createCompany
    */
   public createCompany(): void {
-    // 1st create company object
     this.isSubmitted = true;
 
     if (this.isSubmitted) {
@@ -102,4 +102,5 @@ export class ProfileComponent implements OnInit {
   }
 
   public get diagnostic() { return JSON.stringify(this.companyForm.value); }
+
 }

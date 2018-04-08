@@ -1,27 +1,25 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { ProfileComponent } from './components/profile/profile.component';
-import { DashboardComponent } from '../dashboard/dashboard.component';
-import { JobPostComponent } from './components/jobpost/jobpost.component';
+import { CreateCompanyComponent } from './pages/create-company/create-company.component';
 
 const routes: Routes = [
   {
     path: 'company',
     children: [
       {
-        path: 'jobpost',
-        component: JobPostComponent
+        path: 'create',
+        component: CreateCompanyComponent
+      },
+      {
+        path: 'dashboard',
+        loadChildren: './company-dashboard/company-dashboard.module#CompanyDashboardModule'
       },
       {
         path: '',
-        component: ProfileComponent
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
       }
     ]
-  },
-  {
-    path: 'dashboard',
-    component: DashboardComponent
   }
 ];
 

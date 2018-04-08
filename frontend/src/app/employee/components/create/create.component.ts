@@ -63,7 +63,6 @@ export class CreateComponent implements OnInit {
     const userProfile: User = this.createUser();
     this.profileService.save(userProfile)
       .then(user => {
-        console.log(user);
         this.router.navigate(['/employee/dashboard']);
       });
   }

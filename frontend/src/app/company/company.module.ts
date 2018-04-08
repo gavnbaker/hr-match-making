@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { CompanyRoutingModule } from './company-routing.module';
-import { ProfileComponent } from './components/profile/profile.component';
+import { CreateCompanyComponent } from './pages/create-company/create-company.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyService } from '../services/company.service';
-import { JobPostComponent } from './components/jobpost/jobpost.component';
-import { JobService } from '../services/job.service';
 
 @NgModule({
   imports: [
@@ -14,7 +12,7 @@ import { JobService } from '../services/job.service';
     CompanyRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [ProfileComponent, JobPostComponent],
-  providers: [CompanyService, JobService]
+  declarations: [CreateCompanyComponent],
+  providers: [CompanyService]
 })
 export class CompanyModule { }

@@ -3,7 +3,6 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { User } from '../models/user';
-import { Employee } from '../data/models/employee';
 import { BackendUrlService } from './backend-url.service';
 
 @Injectable()

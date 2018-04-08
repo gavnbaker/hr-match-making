@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../../services/profile.service';
 import { User } from '../../../../models/user';
-import { Address } from '../../../../data/models/address';
 import { Location } from '@angular/common';
+import { Address } from '../../../../models/address';
 
 @Component({
   selector: 'app-profile',

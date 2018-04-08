@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { CompanyService } from '../../../services/company.service';
-import { Company } from '../../../models/company';
-import { JobService } from '../../../services/job.service';
-import { JobPost } from '../../../models/jobpost';
+import { Company } from '../../../../models/company';
+import { JobPostSkills } from '../../../../models/skill';
+import { CompanyService } from '../../../../services/company.service';
+import { JobService } from '../../../../services/job.service';
 import { Router } from '@angular/router';
-import { JobPostSkills } from '../../../models/skill';
+import { JobPost } from '../../../../models/jobpost';
 
 
 @Component({
   selector: 'app-jobpost',
-  templateUrl: './jobpost.component.html',
-  styleUrls: ['./jobpost.component.css']
+  templateUrl: './job-post.component.html',
+  styleUrls: ['./job-post.component.css']
 })
 export class JobPostComponent implements OnInit {
   public jobPostForm: FormGroup;

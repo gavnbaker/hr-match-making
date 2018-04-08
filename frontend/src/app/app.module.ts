@@ -12,11 +12,9 @@ import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
 
-import { DashboardModule } from './dashboard/dashboard.module';
-import { CompanyModule } from './company/company.module';
 import { EmployeeModule } from './employee/employee.module';
+import { CompanyModule } from './company/company.module';
 
 import { TitleService } from './services/title.service';
 import { ProfileService } from './services/profile.service';
@@ -32,15 +30,13 @@ import { JobApplicationService } from './services/job-application.service';
     RegisterComponent,
     NavBarComponent,
     HomeComponent,
-    ProfileComponent,
     PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    CompanyModule,
     EmployeeModule,
-    DashboardModule,
+    CompanyModule,
     AppRoutingModule,
     HttpModule
   ],
