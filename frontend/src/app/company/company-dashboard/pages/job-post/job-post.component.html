@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Create New Job Post</h1>
     <hr>
-    <form [formGroup]="jobPostForm" (ngSubmit)="createJobPost()" novalidate>
+    <form [formGroup]="jobPostForm" (ngSubmit)="createOrEditJobPost()" novalidate>
       <div formGroupName="job">
           <div class="form-row">
               <div class="form-group col-md-6">
@@ -55,7 +55,8 @@
       </div>
       <br>
 
-      <button type="submit" class="btn btn-success" [disabled]="jobPostForm.invalid">Save Job Post</button>
+      <button type="submit" class="btn btn-success" [disabled]="jobPostForm.invalid" *ngIf="onCreatePage">Save</button>
+      <button type="submit" class="btn btn-primary" [disabled]="jobPostForm.invalid" *ngIf="onEditPage">Update</button>
 
     </form>
     <pre>{{diagnostic}}</pre>

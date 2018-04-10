@@ -18,6 +18,7 @@ export class JobPostComponent implements OnInit {
   public onCreatePage: boolean;
   public jobPostId: number;
   public jobPost: JobPost;
+  public validJobPost: Boolean;
 
   public jobPostForm: FormGroup;
   public skills: JobPostSkills[] = [];
@@ -49,7 +50,6 @@ export class JobPostComponent implements OnInit {
   private getJobPostPage() {
     this.jobPostId = this.getRouteId();
     if (this.jobPostId) {
-      this.onEditPage = true;
       this.configureEditPage();
     } else {
       this.onCreatePage = true;
@@ -57,12 +57,12 @@ export class JobPostComponent implements OnInit {
   }
 
   private configureEditPage() {
-    if (this.onEditPage) {
-      // set the page data
-      // fetch job post
+    if (this.jobPostId) {
       this.jobServive.getJobPost(this.jobPostId)
         .then(jobpost => {
+          this.onEditPage = true;
           console.log(jobpost);
+          this.validJobPost = Boolean(jobpost);
           this.jobPost = jobpost;
 
           // populate skills array
@@ -78,7 +78,11 @@ export class JobPostComponent implements OnInit {
               }
             }
           );
-        });
+        })
+        .catch(error => {
+          this.router.navigate(['company/dashboard/jobpost']);
+          console.log('Error in job post id');
+        }); // Redirect to new job post page if job post does not exit
     }
   }
 
@@ -102,6 +106,28 @@ export class JobPostComponent implements OnInit {
       .then(createdJobPost => {
           this.router.navigate(['company/dashboard']);
         });
+  }
+
+  public createOrEditJobPost(companyId: number = 1) {
+    if (this.onCreatePage) {
+      this.createJobPost(companyId);
+    } else if (this.onEditPage) {
+      this.updateJobPost(companyId);
+    }
+  }
+
+  public updateJobPost(companyId: number = 1) {
+    const updateJobPost: JobPost = {
+      JobPostID: this.jobPostId,
+      Job: this.jobCtrls.value,
+      CompanyID: companyId,
+      JobPostSkills: this.skills
+    };
+
+    this.jobServive.updateJobPost(updateJobPost)
+      .then(response => {
+        console.log(response);
+      });
   }
 
   /* Form Methods */
