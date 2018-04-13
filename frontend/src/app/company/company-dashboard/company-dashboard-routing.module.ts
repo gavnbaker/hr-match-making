@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CompanyDashboardComponent } from './company-dashboard.component';
 import { JobPostComponent } from './pages/job-post/job-post.component';
+import { ListJobpostComponent } from './pages/list-jobpost/list-jobpost.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'jobpost',
-        component: JobPostComponent
+        component: ListJobpostComponent
       }
     ]
   }

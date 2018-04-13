@@ -7,6 +7,7 @@ import { JobService } from '../../../../services/job.service';
 import { Router } from '@angular/router';
 import { JobPost } from '../../../../models/jobpost';
 import { ActivatedRoute } from '@angular/router';
+import { Job } from '../../../../models/job';
 
 @Component({
   selector: 'app-jobpost',
@@ -117,9 +118,14 @@ export class JobPostComponent implements OnInit {
   }
 
   public updateJobPost(companyId: number = 1) {
+    const job: Job = this.jobCtrls.value;
     const updateJobPost: JobPost = {
       JobPostID: this.jobPostId,
-      Job: this.jobCtrls.value,
+      Job: {
+        JobId: this.jobPost.JobID,
+        Description: job.Description,
+        Title: job.Title
+      },
       CompanyID: companyId,
       JobPostSkills: this.skills
     };
