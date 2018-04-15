@@ -105,6 +105,7 @@ export class JobPostComponent implements OnInit {
 
     this.jobServive.createJobPost(newJobPost)
       .then(createdJobPost => {
+          console.log(createdJobPost);
           this.router.navigate(['company/dashboard']);
         });
   }
@@ -118,17 +119,21 @@ export class JobPostComponent implements OnInit {
   }
 
   public updateJobPost(companyId: number = 1) {
-    const job: Job = this.jobCtrls.value;
+    const job = this.jobCtrls.value;
+    console.log(job);
+
     const updateJobPost: JobPost = {
+      CompanyID: companyId,
+      JobPostSkills: this.skills,
       JobPostID: this.jobPostId,
+      JobID: this.jobPost.JobID,
       Job: {
         JobId: this.jobPost.JobID,
-        Description: job.Description,
-        Title: job.Title
+        Description: job.description,
+        Title: job.title
       },
-      CompanyID: companyId,
-      JobPostSkills: this.skills
     };
+    console.log(updateJobPost);
 
     this.jobServive.updateJobPost(updateJobPost)
       .then(response => {

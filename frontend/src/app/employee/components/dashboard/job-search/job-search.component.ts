@@ -13,13 +13,14 @@ import { Router } from '@angular/router';
 export class JobSearchComponent implements OnInit {
   public jobPosts: JobPost[] = [];
 
+  // TODO Fix employee dashboard page
   public constructor(private jobService: JobService,
     private bookmarkSvc: BookmarkService, private jobAppsSvc: JobApplicationService) {
-    this.jobService.getAllJobPosts()
-      .then(jobPosts => {
-        this.jobPosts = jobPosts;
-        console.log('Job Posts ', jobPosts);
-      });
+    // this.jobService.getAllJobPosts()
+    //   .then(jobPosts => {
+    //     this.jobPosts = jobPosts;
+    //     console.log('Job Posts ', jobPosts);
+    //   });
    }
 
   public ngOnInit() {}

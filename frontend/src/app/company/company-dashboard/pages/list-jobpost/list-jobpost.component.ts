@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JobPost } from '../../../../models/jobpost';
+import { JobService } from '../../../../services/job.service';
 
 @Component({
   selector: 'app-list-jobpost',
@@ -7,11 +8,20 @@ import { JobPost } from '../../../../models/jobpost';
   styleUrls: ['./list-jobpost.component.css']
 })
 export class ListJobpostComponent implements OnInit {
-  public jobPost: JobPost[];
+  public jobPosts: JobPost[];
 
-  constructor() { }
+  constructor(private jobService: JobService) { }
 
   ngOnInit() {
+    this.getCompanyJobPosts();
+  }
+
+  private getCompanyJobPosts(companyId: number = 1) {
+    this.jobService.getAllJobPosts(companyId)
+      .then(jobposts => {
+        this.jobPosts = jobposts;
+        console.log(this.jobPosts);
+      });
   }
 
 }

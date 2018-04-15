@@ -14,6 +14,10 @@ const routes: Routes = [
         component: JobPostComponent
       },
       {
+        path: 'create-jobpost',
+        component: ListJobpostComponent
+      },
+      {
         path: 'jobpost',
         component: ListJobpostComponent
       }

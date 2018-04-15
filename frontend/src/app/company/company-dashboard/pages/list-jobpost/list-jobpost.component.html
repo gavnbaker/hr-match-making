@@ -1,12 +1,25 @@
-<table class="table-hover">
-  <thead>
+<table class="table table-bordered table-hover" *ngIf="jobPosts">
+  <thead class="table-primary">
     <tr>
-      <th>Job Post Id</th>
+      <th>Id</th>
       <th>Title</th>
-      <th></th>
+      <th>Description</th>
+      <th>Company</th>
+      <th>Action</th>
     </tr>
   </thead>
-  <tr>
-    <td></td>
-  </tr>
+  <tbody>
+    <tr *ngFor="let jobpost of jobPosts">
+      <td>{{jobpost.Job.JobID}}</td>
+      <td>{{jobpost.Job.Title}}</td>
+      <td>{{jobpost.Job.Description}}</td>
+      <td>{{jobpost.Company.Name}}</td>
+      <td><button type="submit" class="btn w3-teal">View</button></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+    </tr>
+  </tfoot>
 </table>
+

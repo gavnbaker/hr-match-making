@@ -23,8 +23,9 @@ private jobUrl = '/api/JobPosts';
    * @returns promise with all the job posts in the database
    * @name getAllJobPosts
    */
-  public getAllJobPosts(): Promise<JobPost[]> {
-    return this.http.get(this.jobUrl)
+  public getAllJobPosts(companyId: number): Promise<JobPost[]> {
+    const url = `api/company/${companyId}/jobposts`;
+    return this.http.get(url)
       .toPromise()
       .then(response => response.json() as JobPost[])
       .catch(this.handleError);

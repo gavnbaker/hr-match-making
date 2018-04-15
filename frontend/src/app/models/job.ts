@@ -1,5 +1,5 @@
 export interface Job {
-  readonly JobId?: number;
+  readonly JobID?: number;
   readonly Title: string;
   readonly Description: string;
 }
