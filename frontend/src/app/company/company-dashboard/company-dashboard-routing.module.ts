@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { CompanyDashboardComponent } from './company-dashboard.component';
 import { JobPostComponent } from './pages/job-post/job-post.component';
 import { ListJobpostComponent } from './pages/list-jobpost/list-jobpost.component';
+import { ViewJobpostComponent } from './pages/view-jobpost/view-jobpost.component';
 
 const routes: Routes = [
   {
@@ -15,7 +17,11 @@ const routes: Routes = [
       },
       {
         path: 'create-jobpost',
-        component: ListJobpostComponent
+        component: JobPostComponent
+      },
+      {
+        path: 'view-jobpost/:id',
+        component: ViewJobpostComponent
       },
       {
         path: 'jobpost',

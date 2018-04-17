@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { JobService } from '../../services/job.service';
 import { CompanyService } from '../../services/company.service';
 import { ListJobpostComponent } from './pages/list-jobpost/list-jobpost.component';
+import { ViewJobpostComponent } from './pages/view-jobpost/view-jobpost.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { ListJobpostComponent } from './pages/list-jobpost/list-jobpost.componen
     CompanyDashboardRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [CompanyDashboardComponent, JobPostComponent, ListJobpostComponent],
+  declarations: [CompanyDashboardComponent, JobPostComponent, ListJobpostComponent, ViewJobpostComponent],
   providers: [JobService, CompanyService]
 })
 export class CompanyDashboardModule { }

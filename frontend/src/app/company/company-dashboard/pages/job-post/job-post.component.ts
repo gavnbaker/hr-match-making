@@ -128,7 +128,7 @@ export class JobPostComponent implements OnInit {
       JobPostID: this.jobPostId,
       JobID: this.jobPost.JobID,
       Job: {
-        JobId: this.jobPost.JobID,
+        JobID: this.jobPost.JobID,
         Description: job.description,
         Title: job.title
       },
