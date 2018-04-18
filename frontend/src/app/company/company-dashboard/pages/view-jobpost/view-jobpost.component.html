@@ -1,7 +1,20 @@
 <div class="container">
-  <div class="card col-lg-9">
+  <div class="card col-lg-9" *ngIf="jobpost">
     <div class="card-body">
-      <h2 class="card-title">View Job Post</h2>
+      <h2 class="card-title w3-text-red">{{jobpost.Job.Title}}</h2>
+      <h6 class="w3-text-gray">{{jobpost.Company.Name}}, {{jobpost.Company.Address.City}}, {{jobpost.Company.Address.State}}</h6>
+      <hr>
+      <h5 class="card-title w3-text-red">Job Description</h5>
+      <p>{{jobpost.Job.Description}}</p>
+      <hr>
+      <h5 class="w3-text-red">*Skills</h5>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item w3-small" *ngFor="let skill of jobpost.JobPostSkills">
+          {{skill.Skill.Name}}
+        </li>
+      </ul>
+      <hr>
+      <!-- Need to provide update, delete and edit buttons -->
     </div>
   </div>
 </div>
