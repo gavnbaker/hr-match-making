@@ -47,6 +47,13 @@ private jobUrl = '/api/JobPosts';
       .catch(this.handleError);
   }
 
+  public deleteJobPost(jobpostId: number) {
+    const url = `${this.jobUrl}/${jobpostId}`;
+    return this.http.delete(url)
+      .toPromise()
+      .then(response => response);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

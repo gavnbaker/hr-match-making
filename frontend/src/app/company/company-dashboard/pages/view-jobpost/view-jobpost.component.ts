@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JobService } from '../../../../services/job.service';
 import { JobPost } from '../../../../models/jobpost';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-jobpost',
@@ -11,8 +12,10 @@ import { JobPost } from '../../../../models/jobpost';
 export class ViewJobpostComponent implements OnInit {
   public jobpostId: number;
   public jobpost: JobPost;
+  public errors;
 
-  constructor(private activatedRoute: ActivatedRoute, private jobService: JobService) { }
+  constructor(private activatedRoute: ActivatedRoute, private jobService: JobService,
+    private location: Location, private router: Router) { }
 
   ngOnInit() {
     this.jobpostId = this.getRouteId();
@@ -30,7 +33,23 @@ export class ViewJobpostComponent implements OnInit {
       .then(response => {
         this.jobpost = response;
         console.log(this.jobpost);
-      });
+      })
+      .catch(error => this.errors = error);
   }
 
+  public deleteJobpost(jobpostId: number) {
+    if (confirm('Please confirm deletion of Job Post')) {
+      this.jobService.deleteJobPost(jobpostId)
+      .then(response => {
+        console.log(response);
+        this.router.navigate(['company/dashboard/jobpost']);
+      });
+    } else {
+      return;
+    }
+  }
+
+  public goBack() {
+    this.location.back();
+  }
 }

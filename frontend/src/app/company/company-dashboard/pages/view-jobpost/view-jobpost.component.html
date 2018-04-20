@@ -1,3 +1,9 @@
+<div class="container" *ngIf="!jobpost && !errors">
+  Loading...
+</div>
+<div class="container text-danger" *ngIf="errors">
+    {{errors}}
+</div>
 <div class="container">
   <div class="card col-lg-9" *ngIf="jobpost">
     <div class="card-body">
@@ -14,7 +20,12 @@
         </li>
       </ul>
       <hr>
-      <!-- Need to provide update, delete and edit buttons -->
+      <div class="float-right">
+          <a class="btn btn-primary" routerLink="/company/dashboard/jobpost/{{jobpost.JobPostID}}">Update</a>
+          <button class="btn btn-danger" (click)="deleteJobpost(jobpost.JobPostID)">Delete</button>
+          <button class="btn btn-default" (click)="goBack()">Back</button>
+      </div>
     </div>
   </div>
 </div>
+

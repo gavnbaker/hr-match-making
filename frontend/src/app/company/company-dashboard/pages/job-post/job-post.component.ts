@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { JobPost } from '../../../../models/jobpost';
 import { ActivatedRoute } from '@angular/router';
 import { Job } from '../../../../models/job';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-jobpost',
@@ -29,7 +30,7 @@ export class JobPostComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private companyService: CompanyService,
     private jobServive: JobService, private router: Router,
-    private activatedRoute: ActivatedRoute) {}
+    private activatedRoute: ActivatedRoute, private location: Location) {}
 
   ngOnInit() {
     this.createForm();
@@ -163,6 +164,10 @@ export class JobPostComponent implements OnInit {
 
   public get skillsArray(): string {
     return JSON.stringify(this.skills);
+  }
+
+  public goBack() {
+    this.location.back();
   }
 
   public get diagnostic() { return JSON.stringify(this.jobPostForm.value); }
