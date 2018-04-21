@@ -47,6 +47,14 @@ export class JobApplicationService {
       .catch(this.handleError);
   }
 
+  public getApplicantsToJobpost(companyId: number, jobpostId: number): Promise<any> {
+    const url = `api/company/${companyId}/usersapplied/${jobpostId}`;
+    return this.httpService.get(url)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

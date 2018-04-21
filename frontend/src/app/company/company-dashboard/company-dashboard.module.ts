@@ -9,6 +9,9 @@ import { JobService } from '../../services/job.service';
 import { CompanyService } from '../../services/company.service';
 import { ListJobpostComponent } from './pages/list-jobpost/list-jobpost.component';
 import { ViewJobpostComponent } from './pages/view-jobpost/view-jobpost.component';
+import { ApplicantsComponent } from './pages/applicants/applicants.component';
+import { ApplicationsComponent } from './pages/applications/applications.component';
+import { JobApplicationService } from '../../services/job-application.service';
 
 @NgModule({
   imports: [
@@ -16,7 +19,9 @@ import { ViewJobpostComponent } from './pages/view-jobpost/view-jobpost.componen
     CompanyDashboardRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [CompanyDashboardComponent, JobPostComponent, ListJobpostComponent, ViewJobpostComponent],
-  providers: [JobService, CompanyService]
+  declarations: [CompanyDashboardComponent, JobPostComponent,
+    ListJobpostComponent, ViewJobpostComponent, ApplicantsComponent,
+    ApplicationsComponent, ],
+  providers: [JobService, CompanyService, JobApplicationService, ]
 })
 export class CompanyDashboardModule { }

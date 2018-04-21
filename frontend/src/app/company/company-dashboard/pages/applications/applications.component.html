@@ -1,0 +1,29 @@
+<div class="container" *ngIf="jobPosts && isEmpty()">
+  <h3>No Job Posts</h3>
+</div>
+
+<table class="table table-bordered table-hover" *ngIf="jobPosts">
+  <thead class="table-primary">
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Company</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let jobpost of jobPosts">
+      <td>{{jobpost.JobPostID}}</td>
+      <td>{{jobpost.Job.Title}}</td>
+      <td>{{jobpost.Job.Description}}</td>
+      <td>{{jobpost.Company.Name}}</td>
+      <td><a type="submit" class="btn btn-default w3-teal" routerLink="/company/dashboard/applicants/{{jobpost.JobPostID}}">View Applicants</a></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+    </tr>
+  </tfoot>
+</table>
+

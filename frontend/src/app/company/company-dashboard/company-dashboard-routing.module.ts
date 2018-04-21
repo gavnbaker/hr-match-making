@@ -5,6 +5,8 @@ import { CompanyDashboardComponent } from './company-dashboard.component';
 import { JobPostComponent } from './pages/job-post/job-post.component';
 import { ListJobpostComponent } from './pages/list-jobpost/list-jobpost.component';
 import { ViewJobpostComponent } from './pages/view-jobpost/view-jobpost.component';
+import { ApplicantsComponent } from './pages/applicants/applicants.component';
+import { ApplicationsComponent } from './pages/applications/applications.component';
 
 const routes: Routes = [
   {
@@ -26,7 +28,15 @@ const routes: Routes = [
       {
         path: 'jobpost',
         component: ListJobpostComponent
-      }
+      },
+      {
+        path: 'applications',
+        component: ApplicationsComponent
+      },
+      {
+        path: 'applicants/:id',
+        component: ApplicantsComponent
+      },
     ]
   }
 ];
