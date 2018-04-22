@@ -1,0 +1,9 @@
+<app-user-profile [userId]="userId"></app-user-profile>
+<div class="container position-relative">
+  <br>
+  <div class="position-absolute m-3" [ngStyle]="{'right': '0%'}">
+    <button type="button" class="btn btn-success">Approve</button>
+    <button type="button" class="btn btn-danger">Reject</button>
+    <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { ListJobpostComponent } from './pages/list-jobpost/list-jobpost.componen
 import { ViewJobpostComponent } from './pages/view-jobpost/view-jobpost.component';
 import { ApplicantsComponent } from './pages/applicants/applicants.component';
 import { ApplicationsComponent } from './pages/applications/applications.component';
+import { ApplicantComponent } from './applicant/applicant.component';
 
 const routes: Routes = [
   {
@@ -34,8 +35,12 @@ const routes: Routes = [
         component: ApplicationsComponent
       },
       {
-        path: 'applicants/:id',
+        path: 'applicants/:jobpostId',
         component: ApplicantsComponent
+      },
+      {
+        path: 'applicant/:userId',
+        component: ApplicantComponent
       },
     ]
   }

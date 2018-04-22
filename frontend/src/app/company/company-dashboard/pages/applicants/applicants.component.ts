@@ -27,7 +27,7 @@ export class ApplicantsComponent implements OnInit {
   }
 
   private getRouteId(): number {
-    return +this.activatedRoute.snapshot.paramMap.get('id');
+    return +this.activatedRoute.snapshot.paramMap.get('jobpostId');
   }
 
   private getApplicants(companyId: number, jobpostId: number) {

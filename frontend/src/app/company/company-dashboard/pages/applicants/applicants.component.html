@@ -1,7 +1,6 @@
-<div class="container" *ngIf="applicants && isEmpty()">
+<div *ngIf="applicants && isEmpty()">
     <h3>No Applicants</h3>
-    <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
-  </div>
+</div>
 
   <table class="table table-bordered table-hover" *ngIf="applicants && !isEmpty()">
     <thead class="table-primary">
@@ -20,8 +19,7 @@
         <td>{{applicant.User.FirstName}} {{applicant.User.LastName}}</td>
         <td>{{applicant.Status}}</td>
         <td><button type="button" class="btn btn-default w3-teal"
-          routerLink="/company/dashboard/applicants/{{applicant.UserID}}">View Applicants</button>
-          <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
+          routerLink="/company/dashboard/applicant/{{applicant.UserID}}">View Applicant</button>
         </td>
       </tr>
     </tbody>
@@ -30,5 +28,4 @@
       </tr>
     </tfoot>
   </table>
-
-
+  <button type="button" class="btn btn-default" (click)="goBack()">Back</button>

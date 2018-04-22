@@ -4,6 +4,7 @@ import { WorkExperience } from './work-experience';
 import { Education } from './education';
 
 export interface User {
+  readonly ID?: number;
   readonly FirstName: string;
   readonly LastName: string;
   readonly Name?: string;
