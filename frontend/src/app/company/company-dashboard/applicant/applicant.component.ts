@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { JobApplicationService } from '../../../services/job-application.service';
 
 @Component({
   selector: 'app-applicant',
@@ -10,7 +11,7 @@ import { Location } from '@angular/common';
 export class ApplicantComponent implements OnInit {
   public userId: number;
 
-  constructor(private activatedRoute: ActivatedRoute, private location: Location) { }
+  constructor(private activatedRoute: ActivatedRoute, private location: Location, jobApplicationService: JobApplicationService) { }
 
   ngOnInit() {
     this.userId = this.getRouteId('userId');
@@ -22,6 +23,14 @@ export class ApplicantComponent implements OnInit {
 
   public goBack() {
     this.location.back();
+  }
+
+  public approve() {
+    // Get jobpostId from url
+  }
+
+  public reject() {
+
   }
 
 }
