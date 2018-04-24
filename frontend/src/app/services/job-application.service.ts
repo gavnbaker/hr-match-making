@@ -47,6 +47,14 @@ export class JobApplicationService {
       .catch(this.handleError);
   }
 
+  public updateJobpost(jobpost: JobPost){
+    const url = `${this.jobAppsUrl}/${jobpost.JobPostID}`;
+    return this.httpService.put(url, jobpost)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
   public getApplicantsToJobpost(companyId: number, jobpostId: number): Promise<any> {
     const url = `api/company/${companyId}/usersapplied/${jobpostId}`;
     return this.httpService.get(url)

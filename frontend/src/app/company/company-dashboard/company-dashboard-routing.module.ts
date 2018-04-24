@@ -39,7 +39,7 @@ const routes: Routes = [
         component: ApplicantsComponent
       },
       {
-        path: 'applicant/:userId',
+        path: 'applications/:applicationId/applicant/:userId',
         component: ApplicantComponent
       },
     ]
