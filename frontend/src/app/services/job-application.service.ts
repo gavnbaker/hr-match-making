@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { JobPost } from '../models/jobpost';
+import { ApplicationDto } from '../models/dto/applicationDto';
 
 @Injectable()
 export class JobApplicationService {
@@ -16,6 +17,14 @@ export class JobApplicationService {
         JobPostID: jobpostId,
         Status: 0,
       })
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  public getJobApplicationById(applicationId: number): Promise<any> {
+    const url = `${this.jobAppsUrl}/${applicationId}`;
+    return this.httpService.get(url)
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);
@@ -47,9 +56,9 @@ export class JobApplicationService {
       .catch(this.handleError);
   }
 
-  public updateJobpost(jobpost: JobPost){
-    const url = `${this.jobAppsUrl}/${jobpost.JobPostID}`;
-    return this.httpService.put(url, jobpost)
+  public updateJobApplication(application: ApplicationDto): Promise<any> {
+    const url = `${this.jobAppsUrl}/${application.JobApplicationID}`;
+    return this.httpService.put(url, application)
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);

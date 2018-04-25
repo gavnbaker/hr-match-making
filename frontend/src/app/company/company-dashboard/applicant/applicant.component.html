@@ -1,9 +1,9 @@
 <app-user-profile [userId]="userId"></app-user-profile>
 <div class="container position-relative">
   <br>
-  <div class="position-absolute m-3" [ngStyle]="{'right': '0%'}">
-    <button type="button" class="btn btn-success">Approve</button>
-    <button type="button" class="btn btn-danger">Reject</button>
+  <div class="position-absolute m-3" [ngStyle]="{'right': '0%'}" *ngIf="application">
+    <button type="button" class="btn btn-success" *ngIf="isPendingApplicationStatus(application.Status)" (click)="approve(application)">Approve</button>
+    <button type="button" class="btn btn-danger" *ngIf="isPendingApplicationStatus(application.Status)" (click)="reject(application)">Reject</button>
     <button type="button" class="btn btn-default" (click)="goBack()">Back</button>
   </div>
 </div>
