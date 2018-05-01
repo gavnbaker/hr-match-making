@@ -1,18 +1,18 @@
 export interface Skill {
-  readonly Name: string;
-  readonly YearsExperience?: number;
+  Name: string;
+  YearsExperience?: number;
 }
 
 export interface UserSkills {
-  readonly ID?: number;
-  readonly SkillID?: number;
-  readonly UserID?: number;
-  readonly Skill: Skill;
+  ID?: number;
+  SkillID?: number;
+  UserID?: number;
+  Skill: Skill;
 }
 
 export interface JobPostSkills {
-  readonly JobPostSkillsID?: number;
-  readonly JobPostID?: number;
-  readonly SkillID?: number;
-  readonly Skill: Skill;
+  JobPostSkillsID?: number;
+  JobPostID?: number;
+  SkillID?: number;
+  Skill: Skill;
 }

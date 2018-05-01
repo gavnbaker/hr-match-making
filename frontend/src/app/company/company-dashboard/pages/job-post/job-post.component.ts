@@ -120,23 +120,17 @@ export class JobPostComponent implements OnInit {
   }
 
   public updateJobPost(companyId: number = 1) {
-    const job = this.jobCtrls.value;
+    const updatedJobpost: JobPost = Object.assign({}, this.jobPost);
+    const job: Job = this.jobCtrls.value;
     console.log(job);
 
-    const updateJobPost: JobPost = {
-      CompanyID: companyId,
-      JobPostSkills: this.skills,
-      JobPostID: this.jobPostId,
-      JobID: this.jobPost.JobID,
-      Job: {
-        JobID: this.jobPost.JobID,
-        Description: job.description,
-        Title: job.title
-      },
-    };
-    console.log(updateJobPost);
+    updatedJobpost.Job.Description = job.Description;
+    updatedJobpost.Job.Title = job.Title;
+    updatedJobpost.JobPostSkills = this.skills;
 
-    this.jobServive.updateJobPost(updateJobPost)
+    console.log(updatedJobpost);
+
+    this.jobServive.updateJobPost(updatedJobpost)
       .then(response => {
         console.log(response);
       });
