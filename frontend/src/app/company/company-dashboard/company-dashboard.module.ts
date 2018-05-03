@@ -14,6 +14,7 @@ import { ApplicationsComponent } from './pages/applications/applications.compone
 import { JobApplicationService } from '../../services/job-application.service';
 import { SharedModule } from '../../shared/shared.module';
 import { ApplicantComponent } from './applicant/applicant.component';
+import { EmployeeSearchComponent } from './pages/employee-search/employee-search.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { ApplicantComponent } from './applicant/applicant.component';
   declarations: [CompanyDashboardComponent, JobPostComponent,
     ListJobpostComponent, ViewJobpostComponent, ApplicantsComponent,
     ApplicationsComponent,
-    ApplicantComponent, ],
+    ApplicantComponent,
+    EmployeeSearchComponent, ],
   providers: [JobService, CompanyService, JobApplicationService, ]
 })
 export class CompanyDashboardModule { }

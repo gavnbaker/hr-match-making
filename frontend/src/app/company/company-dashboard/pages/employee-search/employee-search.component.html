@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="form-group col-md-6">
+    <label for="search">Search Applicants</label>
+    <input [formControl]="searchControl" class="form-control"
+      id="applicantSearch" placeholder="Search..." (keyup.enter)="search(searchControl.value)">
+  </div>
+</div>
