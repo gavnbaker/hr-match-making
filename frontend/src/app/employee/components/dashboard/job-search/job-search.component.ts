@@ -13,14 +13,18 @@ import { Router } from '@angular/router';
 export class JobSearchComponent implements OnInit {
   public jobPosts: JobPost[] = [];
 
+  // Test
+  public companyId = 1;
+  public userId = 3;
+
   // TODO Fix employee dashboard page
   public constructor(private jobService: JobService,
     private bookmarkSvc: BookmarkService, private jobAppsSvc: JobApplicationService) {
-    // this.jobService.getAllJobPosts()
-    //   .then(jobPosts => {
-    //     this.jobPosts = jobPosts;
-    //     console.log('Job Posts ', jobPosts);
-    //   });
+     this.jobService.getAllJobPosts(this.companyId)
+       .then(jobPosts => {
+         this.jobPosts = jobPosts;
+         console.log('Job Posts ', jobPosts);
+       });
    }
 
   public ngOnInit() {}
@@ -32,8 +36,8 @@ export class JobSearchComponent implements OnInit {
       });
   }
 
-  public applyToJob(jobPostId: number) {
-    this.jobAppsSvc.createJobApplication(jobPostId)
+  public applyToJob(jobPostId: number, userId: number) {
+    this.jobAppsSvc.createJobApplication(jobPostId, userId)
       .then(response => {
         console.log(response);
       });

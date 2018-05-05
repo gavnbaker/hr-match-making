@@ -15,13 +15,29 @@ export class ApplicantComponent implements OnInit {
   public applicationId: number;
   public application: ApplicationDto;
 
+  public viewAllJobpostsStatusPage = false;
+  public viewSingleJobpostStatus = false;
+
   constructor(private activatedRoute: ActivatedRoute, private location: Location,
     private jobApplicationService: JobApplicationService, private router: Router) { }
 
   ngOnInit() {
     this.userId = this.getRouteId('userId');
     this.applicationId = this.getRouteId('applicationId');
-    this.getApplication(this.applicationId);
+
+    if (this.applicationId) {
+      this.viewSingleJobpostStatus = true;
+      this.getApplication(this.applicationId);
+    } else {
+      this.viewAllJobpostsStatusPage = true;
+      // get all of the jobpost that the user applied from this company
+      this.getApplicantCompanyApplications(this.userId);
+    }
+  }
+
+  public getApplicantCompanyApplications(userId: number, companyId: number = 1) {
+    this.jobApplicationService.getApplicantCompanyApplications(companyId, userId)
+      .then(response => console.log(response));
   }
 
   private getRouteId(name: string): number {
@@ -33,6 +49,10 @@ export class ApplicantComponent implements OnInit {
   }
 
   public getApplication(applicationId: number) {
+    if (!this.viewSingleJobpostStatus) {
+      return;
+    }
+
     this.jobApplicationService.getJobApplicationById(applicationId)
       .then(response => {
         this.application = response;

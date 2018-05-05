@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { JobApplicationService } from '../../../../services/job-application.service';
 import { User } from '../../../../models/user';
+import { Address } from '../../../../models/address';
 
 @Component({
   selector: 'app-employee-search',
@@ -11,6 +12,8 @@ import { User } from '../../../../models/user';
 export class EmployeeSearchComponent implements OnInit {
   public searchControl: FormControl = new FormControl('');
   public applicants: User[];
+
+  public profileImg = '../../../../../assets/avatar_hat.jpeg';
 
   constructor(private jobApplicationService: JobApplicationService) { }
 
@@ -35,6 +38,10 @@ export class EmployeeSearchComponent implements OnInit {
         this.applicants = response;
         console.log(this.applicants);
       });
+  }
+
+  public convertAddressToString(address: Address): string {
+    return `${address.City}, ${address.State}`;
   }
 
 }

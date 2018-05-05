@@ -32,7 +32,7 @@
   </div>
 
   <button *ngIf="!isBookmarked" type="button" class="card-link btn float-left w3-teal" (click)="bookmarkJob(jobPost.JobPostID)">Bookmark</button>
-  <button *ngIf="!isApplied" type="button" class="card-link btn float-left w3-teal" (click)="applyToJob(jobPost.JobPostID)">Apply</button>
+  <button *ngIf="!isApplied" type="button" class="card-link btn float-left w3-teal" (click)="applyToJob(jobPost.JobPostID, userId)">Apply</button>
   <button *ngIf="isBookmarked" type="button" class="card-link btn float-left w3-teal" (click)="unBookmarkJob(this.bookmarkId)">Remove Bookmark</button>
   <button *ngIf="isApplied" type="button" class="card-link btn float-left w3-teal" (click)="cancelJobApplication(this.applicationId)">Cancel Application</button>
 

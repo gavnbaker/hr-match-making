@@ -1,7 +1,20 @@
 <div class="container">
-  <div class="form-group col-md-6">
-    <label for="search">Search Applicants</label>
-    <input [formControl]="searchControl" class="form-control"
-      id="applicantSearch" placeholder="Search..." (keyup.enter)="search(searchControl.value)">
+  <div class="row">
+      <div class="form-group col-md-6">
+          <label for="search">Search Applicants</label>
+          <input [formControl]="searchControl" class="form-control"
+            id="applicantSearch" placeholder="Search..." (keyup.enter)="search(searchControl.value)">
+        </div>
+  </div>
+  <div class="row">
+    <div class="card col-md-3 mx-3" *ngFor="let applicant of applicants">
+        <img class="card-img-top" src="{{profileImg}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{applicant.FirstName}} {{applicant.LastName}}</h5>
+          <p class="card-text">{{applicant.Phone}}</p>
+          <p class="card-text">{{convertAddressToString(applicant.Address)}}</p>
+          <a href="#" class="btn btn-primary" routerLink="applicant/{{applicant.ID}}">View Applicant</a>
+        </div>
+    </div>
   </div>
 </div>

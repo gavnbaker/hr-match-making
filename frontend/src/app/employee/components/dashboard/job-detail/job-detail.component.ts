@@ -86,8 +86,8 @@ export class JobDetailComponent implements OnInit {
       });
   }
 
-  public applyToJob(jobPostId: number) {
-    this.jobAppsService.createJobApplication(jobPostId)
+  public applyToJob(jobPostId: number, userId: number) {
+    this.jobAppsService.createJobApplication(jobPostId, userId)
       .then(response => {
         this.checkIfUserAppliedToJob(jobPostId, this.userId);
       });

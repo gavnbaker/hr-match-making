@@ -44,6 +44,10 @@ const routes: Routes = [
         component: ApplicantComponent
       },
       {
+        path: 'applicant/:userId',
+        component: ApplicantComponent
+      },
+      {
         path: '',
         component: EmployeeSearchComponent
       },

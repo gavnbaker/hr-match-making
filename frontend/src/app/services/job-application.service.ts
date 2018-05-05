@@ -10,10 +10,10 @@ export class JobApplicationService {
 
   public constructor(private httpService: Http) {}
 
-  public createJobApplication(jobpostId: number) {
+  public createJobApplication(jobpostId: number, userId: number) {
     return this.httpService.post(this.jobAppsUrl,
       {
-        UserID: 3,
+        UserID: userId,
         JobPostID: jobpostId,
         Status: 0,
       })
@@ -82,6 +82,14 @@ export class JobApplicationService {
 
   public getAllApplicants(companyId: number): Promise<any> {
     const url = `api/jobapplications/company/${companyId}/applicants`;
+    return this.httpService.get(url)
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError);
+  }
+
+  public getApplicantCompanyApplications(companyId: number, userId: number): Promise<any> {
+    const url = `api/jobapplications/company/${companyId}/applicant/${userId}`;
     return this.httpService.get(url)
       .toPromise()
       .then(response => response.json())
