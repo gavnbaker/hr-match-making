@@ -1,4 +1,5 @@
 export enum TableType {
   Bookmarks,
-  Applications
+  Applications,
+  CompanyApplications
 }

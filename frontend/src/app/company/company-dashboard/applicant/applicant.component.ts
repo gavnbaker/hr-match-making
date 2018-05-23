@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { JobApplicationService } from '../../../services/job-application.service';
 import { ApplicationDto } from '../../../models/dto/applicationDto';
 import { Status } from '../../../enums/status';
+import { TableType } from '../../../enums/TableType';
+
 
 @Component({
   selector: 'app-applicant',
@@ -14,6 +16,8 @@ export class ApplicantComponent implements OnInit {
   public userId: number;
   public applicationId: number;
   public application: ApplicationDto;
+  public applications: ApplicationDto[];
+  public tableType = TableType.CompanyApplications;
 
   public viewAllJobpostsStatusPage = false;
   public viewSingleJobpostStatus = false;
@@ -35,9 +39,13 @@ export class ApplicantComponent implements OnInit {
     }
   }
 
+  // Get all the jobs that that user applied to at this company
   public getApplicantCompanyApplications(userId: number, companyId: number = 1) {
     this.jobApplicationService.getApplicantCompanyApplications(companyId, userId)
-      .then(response => console.log(response));
+      .then(response => {
+        this.applications = response;
+        console.log('Applications:', this.applications);
+      });
   }
 
   private getRouteId(name: string): number {

@@ -1,0 +1,32 @@
+<div class="container">
+    <div *ngIf="!data">Loading...</div>
+    <table class="table table-bordered table-hover" *ngIf="data">
+      <thead class="thead-dark">
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Company</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let value of data">
+          <td>{{value.JobPost.Job.Title}}</td>
+          <td>{{value.JobPost.Job.Description}}</td>
+          <td>{{value.JobPost.Company.Name}}</td>
+          <td>{{value.Status}}</td>
+          <td *ngIf="isCompanyApplicationsTable">
+            <button type="button" class="btn btn-default w3-teal" (click)="approve(value)">Approve</button>
+            <button type="button" class="btn btn-default w3-teal" (click)="reject(value)">Reject</button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+        </tr>
+      </tfoot>
+    </table>
+</div>
+
+
