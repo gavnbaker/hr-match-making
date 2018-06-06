@@ -15,8 +15,8 @@
           <td>{{value.JobPost.Job.Title}}</td>
           <td>{{value.JobPost.Job.Description}}</td>
           <td>{{value.JobPost.Company.Name}}</td>
-          <td>{{value.Status}}</td>
-          <td *ngIf="isCompanyApplicationsTable">
+          <td>{{convertStatusEnums(value.Status)}}</td>
+          <td *ngIf="isCompanyApplicationsTable && isPendingStatus(value.Status)">
             <button type="button" class="btn btn-default w3-teal" (click)="approve(value)">Approve</button>
             <button type="button" class="btn btn-default w3-teal" (click)="reject(value)">Reject</button>
           </td>

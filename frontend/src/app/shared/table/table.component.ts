@@ -49,6 +49,7 @@ export class TableComponent implements OnInit {
   }
 
   public approve(applicationDto: ApplicationDto) {
+    console.log(applicationDto);
     const updatedApplication: ApplicationUpdateDto =  {
       ApplicationDto: applicationDto,
       newStatus: Status.Accepted
@@ -64,6 +65,14 @@ export class TableComponent implements OnInit {
     };
 
     this.application.emit(updatedApplication);
+  }
+
+  public convertStatusEnums(status: number): string {
+    return Status[status];
+  }
+
+  public isPendingStatus(status: number): boolean {
+    return (Status.Pending === status) ? true : false;
   }
 
 }

@@ -1,6 +1,6 @@
 <app-user-profile [userId]="userId"></app-user-profile>
 <br>
-<app-applications-table [data]="applications" [type]="tableType" *ngIf="viewAllJobpostsStatusPage"></app-applications-table>
+<app-applications-table [data]="applications" [type]="tableType" *ngIf="viewAllJobpostsStatusPage" (application)="processApplication($event)"></app-applications-table>
 <div class="container position-relative">
   <br>
   <div class="position-absolute m-3" [ngStyle]="{'right': '0%'}" *ngIf="application">

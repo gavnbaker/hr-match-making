@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { JobApplicationService } from '../../../services/job-application.service';
-import { ApplicationDto } from '../../../models/dto/applicationDto';
+import { ApplicationDto, ApplicationUpdateDto } from '../../../models/dto/applicationDto';
 import { Status } from '../../../enums/status';
 import { TableType } from '../../../enums/TableType';
 
@@ -97,4 +97,19 @@ export class ApplicantComponent implements OnInit {
     return this.application.Status === Status.Pending;
   }
 
+  public processApplication(application: ApplicationUpdateDto) {
+    console.log('Inside process application');
+    console.log(application.ApplicationDto);
+    switch (application.newStatus) {
+      case Status.Accepted: {
+        this.approve(application.ApplicationDto);
+        break;
+      }
+      case Status.Rejected: {
+        this.reject(application.ApplicationDto);
+        break;
+      }
+    }
+    this.getApplicantCompanyApplications(this.userId);
+  }
 }
