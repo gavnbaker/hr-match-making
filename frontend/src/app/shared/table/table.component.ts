@@ -50,8 +50,9 @@ export class TableComponent implements OnInit {
 
   public approve(applicationDto: ApplicationDto) {
     console.log(applicationDto);
+    const updatedApp: ApplicationDto = Object.assign({}, applicationDto);
     const updatedApplication: ApplicationUpdateDto =  {
-      ApplicationDto: applicationDto,
+      ApplicationDto: updatedApp,
       newStatus: Status.Accepted
     };
 
@@ -59,6 +60,7 @@ export class TableComponent implements OnInit {
   }
 
   public reject(applicationDto: ApplicationDto) {
+    console.log(applicationDto);
     const updatedApplication: ApplicationUpdateDto =  {
       ApplicationDto: applicationDto,
       newStatus: Status.Rejected

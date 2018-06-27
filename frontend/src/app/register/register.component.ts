@@ -13,9 +13,9 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
-  public passwordMatch: boolean = true;
-  public userExists: boolean = false;
-  public userExistsError: string = '';
+  public passwordMatch = true;
+  public userExists = false;
+  public userExistsError = '';
 
   public constructor(private fb: FormBuilder,
     private titleService: TitleService,
@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
         passwords: this.fb.group(
           {
             password: ['', Validators.compose([Validators.required, Validators.minLength(1)])],
-            repeatpwd: ['', Validators.compose([Validators.required, Validators.minLength(1)])]
+            confirmpwd: ['', Validators.compose([Validators.required, Validators.minLength(1)])]
           }
         )
       }
@@ -46,9 +46,9 @@ export class RegisterComponent implements OnInit {
 
   public onSubmit(): void {
     const password = this.passwords.get('password').value;
-    const repeatpwd = this.passwords.get('repeatpwd').value;
+    const confirmpwd = this.passwords.get('repeatpwd').value;
 
-    if(password !== repeatpwd) {
+    if ( password !== confirmpwd) {
       this.passwordMatch = false;
       return;
     }
