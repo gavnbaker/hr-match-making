@@ -25,10 +25,11 @@
       <div class="form-group">
         <label for="repeatpwd">Confirm Password</label>
         <input type="password" class="form-control" formControlName="confirmpwd" placeholder="confirm password">
-        <div class="alert alert-danger" *ngIf="!passwordMatch">Passwords do not match.</div>
-        <div class="alert alert-danger" *ngIf="userExists">{{userExistsError}}</div>
       </div>
     </div>
+
+    <div class="alert alert-danger" *ngIf="!passwordMatch">Passwords do not match.</div>
+    <div class="alert alert-danger" *ngIf="error">{{errorMsg}}</div>
 
     <button type="submit" class="btn btn-success btn-block" [disabled]="registerForm.invalid">Register</button>
   </form>

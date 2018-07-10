@@ -14,8 +14,8 @@ import { AuthService } from '../services/auth.service';
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public passwordMatch = true;
-  public userExists = false;
-  public userExistsError = '';
+  public error = false;
+  public errorMsg = '';
 
   public constructor(private fb: FormBuilder,
     private titleService: TitleService,
@@ -31,8 +31,6 @@ export class RegisterComponent implements OnInit {
   public createForm(): void {
     this.registerForm = this.fb.group(
       {
-        name: ['', Validators.required],
-        username: ['', Validators.required],
         email: ['', Validators.compose([Validators.required, Validators.email])],
         passwords: this.fb.group(
           {
@@ -46,36 +44,35 @@ export class RegisterComponent implements OnInit {
 
   public onSubmit(): void {
     const password = this.passwords.get('password').value;
-    const confirmpwd = this.passwords.get('repeatpwd').value;
+    const confirmpwd = this.passwords.get('confirmpwd').value;
 
-    if ( password !== confirmpwd) {
+    if ( password !== confirmpwd ) {
       this.passwordMatch = false;
       return;
     }
 
     this.passwordMatch = true;
-    const name = this.name.value.trim();
-    const username = this.username.value.trim();
     const email =  this.email.value.trim();
 
     const user: RegisterUser = {
-      name,
-      username,
-      email,
-      password
+      Email : email,
+      Password : password,
+      ConfirmPassword: confirmpwd
     };
 
     console.log(user);
 
     this.authService.register(user)
         .then((data) => {
-          console.log(data);
-          if(data.success) {
-            this.router.navigate(['/profile']);
-          } else {
-            this.userExists = true;
-            this.userExistsError = data.msg;
+          if (data.ok) {
+            this.error = false;
+            console.log(data.json());
+            this.router.navigate(['/login']);
           }
+        }).catch(errors => {
+          console.log(errors.json());
+          this.error = true;
+          this.errorMsg = JSON.stringify(errors.json());
         });
   }
 

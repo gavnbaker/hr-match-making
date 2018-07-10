@@ -11,7 +11,7 @@ export class AuthService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
   private loginUrl = '/api/login';
-  private registerUrl = '/api/register';
+  private registerUrl = 'api/account/register';
 
   constructor(private backendUrl: BackendUrlService, private http: Http) { }
 
@@ -20,15 +20,12 @@ export class AuthService {
     return Promise.reject(error.message || error);
   }
 
-  public register(user: RegisterUser): Promise<any> {
-    const url = this.backendUrl.url +  this.registerUrl;
+  public register(user: RegisterUser) {
     return this.http
-      .post(url, user, {headers: this.headers})
+      .post(this.registerUrl, user, { headers: this.headers })
       .toPromise()
-      .then(res => {
-        const token = res.json().token;
-        this.saveToken(token);
-        return res.json();
+      .then(response => {
+        return response;
       })
       .catch(this.handleError);
   }
@@ -63,7 +60,7 @@ export class AuthService {
     const token = this.getToken();
     let payload;
 
-    if(token) {
+    if (token) {
       payload = token.split('.')[1];
       payload = atob(payload);
       payload = JSON.parse(payload);
@@ -75,7 +72,7 @@ export class AuthService {
   }
 
   public loggedInUser(): any {
-    if(this.isLoggedIn()) {
+    if (this.isLoggedIn()) {
       const token = this.getToken();
 
       let payload = token.split('.')[1];
