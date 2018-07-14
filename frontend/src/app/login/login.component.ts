@@ -14,9 +14,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
-  public success: boolean = true;
-  public error: string = '';
-
+  public success = true;
+  public error: string;
 
   constructor(private fb: FormBuilder, private titleService: TitleService,
     private authService: AuthService, private router: Router) {
@@ -42,18 +41,18 @@ export class LoginComponent implements OnInit {
     };
 
     this.authService.login(loginObj)
-      .then(data => {
-        this.success = data.success;
-        console.log(data);
+      .then(token => {
 
-        if(!this.success) {
-          this.error = data.msg;
+        if (!token) {
+          this.error = JSON.stringify(token);
           return;
         }
 
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/employee/dashboard']);
+      }).catch(error => {
+        this.success = false;
+        this.error = JSON.stringify(error);
       });
-
   }
 
   ngOnInit(): void {

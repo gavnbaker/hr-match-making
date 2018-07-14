@@ -1,4 +1,5 @@
 export interface LoginUser {
-  readonly username: string;
-  readonly password: string;
+  username: any;
+  password: any;
+  grant_type?: any;
 }

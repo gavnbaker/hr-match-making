@@ -25,6 +25,7 @@
       </div>
     </div>
     <button type="submit" class="btn btn-success btn-block text-center" [disabled]="loginForm.invalid">Submit</button>
+    <br>
     <div *ngIf="!success" class="alert alert-danger">{{error}}</div>
   </form>
   <!-- <p>Form value: {{ loginForm.value | json }}</p>

@@ -4,25 +4,28 @@ import 'rxjs/add/operator/toPromise';
 
 import { RegisterUser } from '../models/register-user';
 import { LoginUser } from '../models/login-user';
-import { BackendUrlService } from './backend-url.service';
 
 @Injectable()
 export class AuthService {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
-  private loginUrl = '/api/login';
-  private registerUrl = 'api/account/register';
+  private tokenHeaders = new Headers(
+    {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    }
+  );
 
-  constructor(private backendUrl: BackendUrlService, private http: Http) { }
+  private registerUrl = 'api/account/register';
+  constructor(private http: Http) { }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+    return Promise.reject(error.json() || error);
   }
 
   public register(user: RegisterUser) {
     return this.http
-      .post(this.registerUrl, user, { headers: this.headers })
+      .post(this.registerUrl, user)
       .toPromise()
       .then(response => {
         return response;
@@ -31,57 +34,68 @@ export class AuthService {
   }
 
   public login(user: LoginUser): Promise<any> {
-    const url = this.backendUrl.url + this.loginUrl;
+    const url = '/token';
+    const grant_type = 'password';
+    const loginData = `username=${user.username}&password=${user.password}&grant_type=${grant_type}`;
+
     return this.http
-    .post(url, user, {headers: this.headers})
-    .toPromise()
-    .then(res => {
-      const token = res.json().token;
-      this.saveToken(token);
-      console.log(token);
-      return res.json();
-    })
-    .catch(this.handleError);
+      .post(url, loginData, { headers: this.tokenHeaders })
+      .toPromise()
+      .then(res => {
+        const token: Token = res.json();
+        this.saveToken(JSON.stringify(token));
+        return token;
+      })
+      .catch(this.handleError);
   }
 
-  public saveToken(token: any): any {
+  public saveToken(token: any): void {
     localStorage.setItem('hr-token', token);
   }
 
-  public getToken(): any {
+  public getToken(): string {
     return localStorage.getItem('hr-token');
   }
 
-  public logout(): any {
+  public logout(): void {
     localStorage.removeItem('hr-token');
   }
 
   public isLoggedIn(): boolean {
-    const token = this.getToken();
-    let payload;
+    const token: Token = JSON.parse(this.getToken());
 
-    if (token) {
-      payload = token.split('.')[1];
-      payload = atob(payload);
-      payload = JSON.parse(payload);
+    if ( token ) {
+      const expireTimeInMillSecs: number = token.expires_in / 1000;
+      const now: number = Date.now();
+      const currentTimePlusExpire: Date = new Date(expireTimeInMillSecs + now);
 
-      return payload.exp > (Date.now() / 1000);
+      const scheduledExpireDateString = token['.expires'];
+      const scheduledExpireDateinMilliSecs: number = Date.parse(scheduledExpireDateString);
+      const scheduledExpireDate: Date = new Date(scheduledExpireDateinMilliSecs);
+
+      if (currentTimePlusExpire.getTime() < scheduledExpireDate.getTime()) {
+        return true;
+      } else {
+        this.logout();
+        return false;
+      }
+
     } else {
       return false;
     }
   }
 
-  public loggedInUser(): any {
+  public loggedInUser(): string {
     if (this.isLoggedIn()) {
-      const token = this.getToken();
-
-      let payload = token.split('.')[1];
-      payload = atob(payload);
-      payload = JSON.parse(payload);
-
-      return {
-        username: payload.username
-      };
+      const token: Token = JSON.parse(this.getToken());
+      return token.userName;
     }
   }
+}
+
+export interface Token {
+  access_token: string;
+  token_type: string;
+  expires_in: number;
+  userName: string;
 }
