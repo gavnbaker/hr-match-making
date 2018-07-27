@@ -6,6 +6,7 @@ import { LoginUser } from '../models/login-user';
 
 import { TitleService } from '../services/title.service';
 import { AuthService } from '../services/auth.service';
+import { ProfileService } from '../services/profile.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   public error: string;
 
   constructor(private fb: FormBuilder, private titleService: TitleService,
-    private authService: AuthService, private router: Router) {
+    private authService: AuthService, private router: Router, private profileService: ProfileService) {
     this.createForm();
   }
 
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit {
           this.error = JSON.stringify(token);
           return;
         }
-
+        this.profileService.getUserByUsername();
         this.router.navigate(['/employee/dashboard']);
       }).catch(error => {
         this.success = false;

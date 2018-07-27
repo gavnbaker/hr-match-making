@@ -4,6 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { User } from '../models/user';
 import { BackendUrlService } from './backend-url.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class ProfileService {
@@ -12,7 +13,7 @@ export class ProfileService {
   private registerUrl = '/register';
   private userUrl = '/api/users';
 
-  constructor(private backendUrl: BackendUrlService, private http: Http) { }
+  constructor(private backendUrl: BackendUrlService, private http: Http, private authServie: AuthService) { }
 
   public save(user: User): Promise<User> {
     return this.http.post(this.userUrl, user)
@@ -54,6 +55,16 @@ export class ProfileService {
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().applications)
+      .catch(this.handleError);
+  }
+
+  public getUserByUsername(): Promise<any> {
+    const username: string = this.authServie.getLoggedInUser();
+    const url = `api/users/username/${username}`;
+    return this.http.get(url).toPromise()
+      .then(response => {
+        console.log(response.json());
+      })
       .catch(this.handleError);
   }
 

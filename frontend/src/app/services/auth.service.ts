@@ -4,6 +4,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { RegisterUser } from '../models/register-user';
 import { LoginUser } from '../models/login-user';
+import { ProfileService } from './profile.service';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +15,7 @@ export class AuthService {
       'Accept': 'application/json'
     }
   );
+  private tokenName = 'hr-match';
 
   private registerUrl = 'api/account/register';
   constructor(private http: Http) { }
@@ -43,26 +45,30 @@ export class AuthService {
       .toPromise()
       .then(res => {
         const token: Token = res.json();
-        this.saveToken(JSON.stringify(token));
+        this.saveToken(this.tokenName, token);
         return token;
       })
       .catch(this.handleError);
   }
 
-  public saveToken(token: any): void {
-    localStorage.setItem('hr-token', token);
+  public saveToken(name: string, token: any): void {
+    localStorage.setItem(name, JSON.stringify(token));
   }
 
-  public getToken(): string {
-    return localStorage.getItem('hr-token');
+  public getToken(name: string): any {
+    return JSON.parse(localStorage.getItem(name));
   }
 
   public logout(): void {
-    localStorage.removeItem('hr-token');
+    localStorage.removeItem(this.tokenName);
   }
 
   public isLoggedIn(): boolean {
-    const token: Token = JSON.parse(this.getToken());
+    return (this.tokenNotExpired()) ? true : false;
+  }
+
+  private tokenNotExpired(): boolean {
+    const token: Token = this.getToken(this.tokenName);
 
     if ( token ) {
       const expireTimeInMillSecs: number = token.expires_in / 1000;
@@ -71,23 +77,20 @@ export class AuthService {
 
       const scheduledExpireDateString = token['.expires'];
       const scheduledExpireDateinMilliSecs: number = Date.parse(scheduledExpireDateString);
-      const scheduledExpireDate: Date = new Date(scheduledExpireDateinMilliSecs);
+      const scheduledExpireTime: Date = new Date(scheduledExpireDateinMilliSecs);
 
-      if (currentTimePlusExpire.getTime() < scheduledExpireDate.getTime()) {
+      if (currentTimePlusExpire.getTime() < scheduledExpireTime.getTime()) {
         return true;
       } else {
         this.logout();
         return false;
       }
-
-    } else {
-      return false;
     }
   }
 
-  public loggedInUser(): string {
+  public getLoggedInUser(): string {
     if (this.isLoggedIn()) {
-      const token: Token = JSON.parse(this.getToken());
+      const token: Token = this.getToken(this.tokenName);
       return token.userName;
     }
   }
