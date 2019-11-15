@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { JobPost } from '../models/jobpost';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class BookmarkService {
   private bookmarkUrl = 'api/bookmarks';
 
-  public constructor(private httpSvc: Http) {}
+  public constructor(private httpSvc: HttpClient) {}
 
   public bookmarkJob(jobPostId: number): Promise<any> {
     // Use default user id 1 to match user to bookmark
@@ -18,7 +18,7 @@ export class BookmarkService {
 
     return this.httpSvc.post(this.bookmarkUrl, bookmark)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -26,7 +26,7 @@ export class BookmarkService {
     const deleteUrl: string = this.bookmarkUrl.concat(`/${bookmarkId}`);
     return this.httpSvc.delete(deleteUrl)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -34,7 +34,7 @@ export class BookmarkService {
     const url = `api/users/${userId}/bookmarks`;
     return this.httpSvc.get(url)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -42,9 +42,7 @@ export class BookmarkService {
     const url = `api/users/${userId}/bookmark/${jobPostId}`;
     return this.httpSvc.get(url)
       .toPromise()
-      .then(response => {
-        return response.json();
-        })
+      .then(response => response)
       .catch(this.handleError);
   }
 

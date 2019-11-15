@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { JobPost } from '../models/jobpost';
 import { ApplicationDto } from '../models/dto/applicationDto';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class JobApplicationService {
   private jobAppsUrl = 'api/jobapplications';
 
-  public constructor(private httpService: Http) {}
+  public constructor(private httpService: HttpClient) {}
 
   public createJobApplication(jobpostId: number, userId: number) {
     return this.httpService.post(this.jobAppsUrl,
@@ -18,7 +17,7 @@ export class JobApplicationService {
         Status: 0,
       })
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -26,7 +25,7 @@ export class JobApplicationService {
     const url = `${this.jobAppsUrl}/${applicationId}`;
     return this.httpService.get(url)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -34,7 +33,7 @@ export class JobApplicationService {
     const url = `api/users/${userId}/jobsapplied`;
     return this.httpService.get(url)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -43,7 +42,7 @@ export class JobApplicationService {
     return this.httpService.get(url)
       .toPromise()
       .then(response => {
-        return response.json();
+        return response;
       })
       .catch(this.handleError);
   }
@@ -52,7 +51,7 @@ export class JobApplicationService {
     const url = `${this.jobAppsUrl}/${applicationId}`;
     return this.httpService.delete(url)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -60,7 +59,7 @@ export class JobApplicationService {
     const url = `${this.jobAppsUrl}/${application.JobApplicationID}`;
     return this.httpService.put(url, application)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -68,7 +67,7 @@ export class JobApplicationService {
     const url = `api/company/${companyId}/usersapplied/${jobpostId}`;
     return this.httpService.get(url)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -76,7 +75,7 @@ export class JobApplicationService {
     const url = `api/jobapplications/company/${companyId}/applicants/${name}`;
     return this.httpService.get(url)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -84,7 +83,7 @@ export class JobApplicationService {
     const url = `api/jobapplications/company/${companyId}/applicants`;
     return this.httpService.get(url)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -92,7 +91,7 @@ export class JobApplicationService {
     const url = `api/jobapplications/company/${companyId}/applicant/${userId}`;
     return this.httpService.get(url)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 

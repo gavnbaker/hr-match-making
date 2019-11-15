@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { JobPost } from '../models/jobpost';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class JobService {
 private jobUrl = '/api/JobPosts';
 
-  constructor(private http: Http, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
   /**
    * createJob
    */
   public createJobPost(jobPost: JobPost): Promise<JobPost> {
     return this.http.post(this.jobUrl, jobPost)
       .toPromise()
-      .then(response => response.json() as JobPost)
+      .then(response => response as JobPost)
       .catch(this.handleError);
   }
 
@@ -27,7 +27,7 @@ private jobUrl = '/api/JobPosts';
     const url = `api/company/${companyId}/jobposts`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json() as JobPost[])
+      .then(response => response as JobPost[])
       .catch(this.handleError);
   }
 
@@ -35,7 +35,7 @@ private jobUrl = '/api/JobPosts';
     const url = `${this.jobUrl}/${id}`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -43,7 +43,7 @@ private jobUrl = '/api/JobPosts';
     const url = `${this.jobUrl}/${jobPost.JobPostID}`;
     return this.http.put(url, jobPost)
       .toPromise()
-      .then(response => response.json())
+      .then(response => response)
       .catch(this.handleError);
   }
 

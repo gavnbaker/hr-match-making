@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { User } from '../models/user';
 import { BackendUrlService } from './backend-url.service';
 import { AuthService } from './auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ProfileService {
@@ -13,12 +13,12 @@ export class ProfileService {
   private registerUrl = '/register';
   private userUrl = '/api/users';
 
-  constructor(private backendUrl: BackendUrlService, private http: Http, private authServie: AuthService) { }
+  constructor(private backendUrl: BackendUrlService, private http: HttpClient, private authServie: AuthService) { }
 
   public save(user: User): Promise<User> {
     return this.http.post(this.userUrl, user)
     .toPromise()
-    .then(response => response.json() as User)
+    .then(response => response as User)
     .catch(this.handleError);
   }
 
@@ -27,7 +27,7 @@ export class ProfileService {
     const url: string = this.userUrl + `/${id}`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json() as User)
+      .then(response => response as User)
       .catch(this.handleError);
   }
 
@@ -36,7 +36,7 @@ export class ProfileService {
     const url = 'url';
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json().jobs)
+      .then((response: any) => response.jobs)
       .catch(this.handleError);
   }
 
@@ -45,7 +45,7 @@ export class ProfileService {
     const url = 'url';
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json().bookmarkedJobs)
+      .then((response: any) => response.bookmarkedJobs)
       .catch(this.handleError);
   }
 
@@ -54,7 +54,7 @@ export class ProfileService {
     const url = 'url';
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json().applications)
+      .then((response: any) => response.applications)
       .catch(this.handleError);
   }
 
@@ -63,7 +63,7 @@ export class ProfileService {
     const url = `api/users/username/${username}`;
     return this.http.get(url).toPromise()
       .then(response => {
-        console.log(response.json());
+        console.log(response);
       })
       .catch(this.handleError);
   }

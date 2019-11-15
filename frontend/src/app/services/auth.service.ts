@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { RegisterUser } from '../models/register-user';
 import { LoginUser } from '../models/login-user';
 import { ProfileService } from './profile.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
 
-  private tokenHeaders = new Headers(
+  private tokenHeaders = new HttpHeaders(
     {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
@@ -18,7 +18,7 @@ export class AuthService {
   private tokenName = 'hr-match';
 
   private registerUrl = 'api/account/register';
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
@@ -29,9 +29,7 @@ export class AuthService {
     return this.http
       .post(this.registerUrl, user)
       .toPromise()
-      .then(response => {
-        return response;
-      })
+      .then(response => response)
       .catch(this.handleError);
   }
 
@@ -44,7 +42,7 @@ export class AuthService {
       .post(url, loginData, { headers: this.tokenHeaders })
       .toPromise()
       .then(res => {
-        const token: Token = res.json();
+        const token: Token = res as Token;
         this.saveToken(this.tokenName, token);
         return token;
       })

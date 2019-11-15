@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Company } from '../models/company';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class CompanyService {
   private companyUrl = '/api/Companies';
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   /**
    * getCompanies
@@ -15,7 +15,7 @@ export class CompanyService {
   public getCompanies(): Promise<Company[]> {
     return this.http.get(this.companyUrl)
       .toPromise()
-      .then(response => response.json() as Company[])
+      .then(response => response as Company[])
       .catch(this.handleError);
   }
 
@@ -25,7 +25,7 @@ export class CompanyService {
   public createCompany(company: Company): Promise<Company> {
     return this.http.post(this.companyUrl, company)
       .toPromise()
-      .then(response => response.json() as Company)
+      .then(response => response as Company)
       .catch(this.handleError);
   }
 

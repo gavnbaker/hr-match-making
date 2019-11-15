@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -38,7 +38,7 @@ import { JobApplicationService } from './services/job-application.service';
     EmployeeModule,
     CompanyModule,
     AppRoutingModule,
-    HttpModule
+    HttpClientModule
   ],
   providers: [TitleService, ProfileService, BackendUrlService, AuthService, AuthGuard, JobApplicationService],
   bootstrap: [AppComponent]
