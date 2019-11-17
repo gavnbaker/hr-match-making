@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
+
 import { ApplicationDto } from '../models/dto/applicationDto';
 import { HttpClient } from '@angular/common/http';
 

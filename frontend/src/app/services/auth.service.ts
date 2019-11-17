@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
+
 
 import { RegisterUser } from '../models/register-user';
 import { LoginUser } from '../models/login-user';

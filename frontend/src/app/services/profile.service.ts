@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
+
 
 import { User } from '../models/user';
 import { BackendUrlService } from './backend-url.service';

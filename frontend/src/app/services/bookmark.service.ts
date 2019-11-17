@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
+
 import { JobPost } from '../models/jobpost';
 import { HttpClient } from '@angular/common/http';
 
