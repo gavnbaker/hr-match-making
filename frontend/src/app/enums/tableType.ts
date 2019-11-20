@@ -1,5 +1,5 @@
 export enum TableType {
-  Bookmarks,
-  Applications,
-  CompanyApplications
+  Bookmarks = 0,
+  Applications = 1,
+  CompanyApplications = 2
 }
