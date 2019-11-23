@@ -3,7 +3,6 @@ import { JobService } from '../../../../services/job.service';
 import { JobPost } from '../../../../models/jobpost';
 import { BookmarkService } from '../../../../services/bookmark.service';
 import { JobApplicationService } from '../../../../services/job-application.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-job-search',
@@ -30,17 +29,11 @@ export class JobSearchComponent implements OnInit {
   public ngOnInit() {}
 
   public bookmarkJob(jobPostId: number) {
-    this.bookmarkSvc.bookmarkJob(jobPostId)
-      .then(response => {
-        console.log(response);
-      });
+    this.bookmarkSvc.bookmarkJob(jobPostId);
   }
 
   public applyToJob(jobPostId: number, userId: number) {
-    this.jobAppsSvc.createJobApplication(jobPostId, userId)
-      .then(response => {
-        console.log(response);
-      });
+    this.jobAppsSvc.createJobApplication(jobPostId, userId);
   }
 
 }

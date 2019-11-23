@@ -72,18 +72,11 @@ export class JobDetailComponent implements OnInit {
   }
 
   public unBookmarkJob(bookmarkId: number): void {
-    this.bookmarkService.unbookmarkJob(bookmarkId)
-      .then(response => {
-        console.log(response);
-        this.checkIfJobIsBookmarked(this.jobPost.JobPostID, this.userId);
-      });
+    this.bookmarkService.unbookmarkJob(bookmarkId);
   }
 
   public bookmarkJob(jobPostId: number) {
-    this.bookmarkService.bookmarkJob(jobPostId)
-      .then(response => {
-        this.checkIfJobIsBookmarked(jobPostId, this.userId);
-      });
+    this.bookmarkService.bookmarkJob(jobPostId);
   }
 
   public applyToJob(jobPostId: number, userId: number) {
