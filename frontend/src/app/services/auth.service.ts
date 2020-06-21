@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 
 import { RegisterUser } from '../models/register-user';
 import { LoginUser } from '../models/login-user';
-import { ProfileService } from './profile.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
